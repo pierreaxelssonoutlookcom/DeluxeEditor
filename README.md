@@ -1,3 +1,3 @@
 # DeluxeEditor
-Deluxe Editor  - Advanced Text Editor
-todo: use variation MVC whith long state
+Deluxe Editor  - Advanced Text Editor7
+<li>todo: use variation MVC whith long runng state</li>
