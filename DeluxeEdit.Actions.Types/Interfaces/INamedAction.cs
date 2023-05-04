@@ -1,7 +1,8 @@
 ﻿using System;
+
 using System.Collections.Generic;
 
-namespace DeluxeEdit.Shared.Interfaces
+namespace DeluxeEdit.Actions.Types.Interfaces
 {
     public interface INamedAction
     {

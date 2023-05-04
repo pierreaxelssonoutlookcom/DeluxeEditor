@@ -1,9 +1,9 @@
-﻿using DeluxeEdit.Shared.Interfaces;
+﻿using DeluxeEdit.Actions.Types.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeluxeEdit.Actions
+namespace DeluxeEdit.Actions.Types
 {
     public class NamedActionBase : INamedAction
     {
