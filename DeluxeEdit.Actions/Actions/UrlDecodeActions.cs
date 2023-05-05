@@ -1,4 +1,5 @@
 ﻿using DeluxeEdit.Actions.Types;
+using DeluxeEdit.Actions.Types.Interfaces;
 using DeluxeEdit.Shared;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,18 @@ using System.Text;
 
 namespace DeluxeEdit.Actions.Actions
 {
-    public class UrlDecodeAction : NamedActionBase
+    public class UrlDecodeAction : INamedAction
     {
-        private StreamReader reader;
+               public string Name { get; set; }
+        public string Titel { get; set; }
+        public List<Char> ShortCutCommand { get; set; }
+        public string Parameter { get; set; }
+        public string Result { get; set; }
 
-        public bool AsReaOnly { get; set; }
+        public Func<string, string> Action { get; set; }
+
+ 
+
 
         public string Perform(string parameter)
         {

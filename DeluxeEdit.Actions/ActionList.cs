@@ -15,7 +15,7 @@ namespace DeluxeEdit.Shared
         {
             var result = new List<INamedAction>()
            {
-               new FileOpenAction{ HotKeys=new List<char> {SystemConstants.ControlKey,'o'  }   }
+               new FileOpenAction{ ShortCutCommand=new List<char> {SystemConstants.ControlKey,'o'  }   }
 
            };
             return result;

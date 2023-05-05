@@ -1,4 +1,5 @@
 ﻿using DeluxeEdit.Actions.Types;
+using DeluxeEdit.Actions.Types.Interfaces;
 using DeluxeEdit.Shared;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace DeluxeEdit.Actions.Actions
 {
-    public class FileOpenAction : NamedActionBase
+    public class FileOpenAction :  INamedAction
     {
         private StreamReader reader;
 
@@ -19,11 +20,12 @@ namespace DeluxeEdit.Actions.Actions
             if (reader != null) result = reader.BaseStream.CanRead;
             return result;
         }
+
         public bool AsReaOnly { get; set; }
         public Encoding OpenEncoding { get; set; }
         public string Name { get; set; }
         public string Titel { get; set; }
-        public List<char> HotKeys { get; set; }
+        public List<Char> ShortCutCommand { get; set; }
         public int SortOrdder { get; set; }
         public string Parameter { get; set; }
         public string Result { get; set; }

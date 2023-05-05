@@ -9,7 +9,6 @@ namespace DeluxeEdit.Actions.Types.Interfaces
         string Name  { get; set; }
         string Titel { get; set; }  
         List<Char> ShortCutCommand { get; set; }
-        int SortOrdder { get; set; }
         string Parameter { get; set; }
         string Result { get; set; } 
 
