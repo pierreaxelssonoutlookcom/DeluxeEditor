@@ -1,33 +1,34 @@
-﻿using DeluxeEdit.Interface;
-using System;
+﻿using DeluxeEdit.Model.Interface;
+using DeluxeEdit.Model;
 using System.Reflection;
 
 namespace DeluxeEdit.Plugins
 {
     public class PluginManager
     {
-        private static Assembly loadedAsm;
+        private static Assembly? loadedAsm=null;
 
-        public static void ShowPluginManager()
+
+        public void ShowPluginManager()
         {
         }
-        public  void LoadPlugins(PluginSource source)
+        public void LoadPlugins(PluginSource source)
         {
             //done:could be multiple plugisn in the same, FILE
             loadedAsm = Assembly.LoadFile(source.Path);
             foreach (var item in source.Items)
             {
                 var newItem = loadedAsm.CreateInstance(item.ClassName) as INamedActionPlugin;
-                source.Items.Add(newItem);
+                if (newItem != null)  source.Items.Add(newItem);
             }
         }
-        public static void LoadPlugins()
+        public void LoadPlugins()
         {
         }
-        public static void AddPlugin()
+        public  void AddPlugin()
         {
         }
-        public static void RemovePlugin()
+        public void RemovePlugin()
         {
         }
 

@@ -1,4 +1,5 @@
-﻿using DeluxeEdit.Interface;
+﻿using DeluxeEdit.Model.Interface;
+using DeluxeEdit.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -13,21 +14,22 @@ namespace DeluxeEdit.DefaultActions.Actions
     {
         public string Name { get; set; } = "UrlEncode";
         public string Titel { get; set; } = "Url Declode";
-        public List<Char> ShortCutCommand { get; set; }
-        public string Parameter { get; set; }
-        public string Result { get; set; }
+        public string Result { get; set; } = "";
 
-        public Func<string, string> Action { get; set; }
+        public ActionParameter Parameter { get; set; }
+
+        public PresentationOptions PresentationOptions { get; set; }
 
         public UrlEncodeAction()
         {
-
+            PresentationOptions = new PresentationOptions();
+            Parameter=new ActionParameter();
         }
 
-        public string Perform(string parameter)
+        public string Perform(ActionParameter parameter)
         {
-            var result = WebUtility.UrlEncode(parameter);
-            return result;
+            Result = WebUtility.UrlEncode(parameter.Parameter);
+            return Result;
         }
     }
 
