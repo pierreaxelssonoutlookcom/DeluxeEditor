@@ -8,10 +8,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace DeluxeEdit.DefaultActions.Actions
+namespace DeluxeEdit.DefaultPlugins
 {
-    public class FileOpenAction :  INamedAction
-    {
+    public class FileOpenPlugin :  INamedActionPlugin
+   {
+        public char[] MyKeyCommand { get; set; } = new char[] { SystemConstants.ControlKey, 'o' };
         private StreamReader? reader;
         public bool CanReadMore()
         {
@@ -29,8 +30,11 @@ namespace DeluxeEdit.DefaultActions.Actions
         public string Result { get; set; } = "";
             
         public PresentationOptions PresentationOptions { get; set; }
+        public string Path { get; set; }
+        public string ClassName { get; set; }
 
-        public FileOpenAction()
+
+        public FileOpenPlugin()
         {
             OpenEncoding = Encoding.UTF8;
             PresentationOptions = new PresentationOptions();

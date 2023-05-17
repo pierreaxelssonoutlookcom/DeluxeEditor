@@ -8,10 +8,12 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace DeluxeEdit.DefaultActions.Actions
+namespace DeluxeEdit.DefaultPlugins
 {
-    public class UrlDecodeAction : INamedAction
+    public class UrlDecodePlugin : INamedActionPlugin
     {
+        public char[] MyKeyCommand { get; set; }
+
         public string Name { get; set; } ="UrlDeclode";
         public string Titel { get; set; } =  "Url Declode";
         public PresentationOptions PresentationOptions { get; set; }
@@ -19,10 +21,14 @@ namespace DeluxeEdit.DefaultActions.Actions
 
         public string Result { get; set; } = "";
 
-        public UrlDecodeAction()
+
+        public string Path { get; set; }
+        public string ClassName { get; set; }
+
+        public UrlDecodePlugin()
         {
             Parameter = new ActionParameter();
-            PresentationOptions= new PresentationOptions();
+            PresentationOptions= new PresentationOptions(); 
         }
         public string Perform(ActionParameter parameter)
         {   
@@ -30,6 +36,9 @@ namespace DeluxeEdit.DefaultActions.Actions
             Result = WebUtility.UrlDecode(parameter.Parameter);
             return Result;
         }
+
+
+
 
     }
 
