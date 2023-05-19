@@ -12,6 +12,8 @@ namespace DeluxeEdit.DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
+        public bool Enabled { get; set; }
+
         public char[] MyKeyCommand { get; set; } = new char[0];
 
         public string Name { get; set; } = "UrlEncode";

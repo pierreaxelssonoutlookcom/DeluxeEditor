@@ -25,17 +25,6 @@ namespace DeluxeEdit.Shared
             ;
         }
 
-        public List<PluginSource> GetAllSources()
-        {
-             var sources = new List<PluginSource>();
-            var item = new PluginSource
-            {
-                Path = "\"C:\\gitroot\\personal\\DeluxeEdit\\DeluxeEdit.DefaultPlugins\\bin\\Debug\\netstandard2.1\\DeluxeEdit.DefaultActions.dll\""
-            };
-
-            return sources;
-
-        }
             public  List<PluginSource> GetAllDefaultPlugins()
             {
                 var sources= GetAllSources()

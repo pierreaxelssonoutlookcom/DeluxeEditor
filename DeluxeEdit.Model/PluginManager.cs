@@ -14,12 +14,12 @@ namespace DeluxeEdit.Model
         public void ShowPluginManager()
         {
         }
-        public void LoadPlugins(PluginSource source)
+        public void LoadPlugins(string path)
         {
             //done:could be multiple plugisn in the same, FILE
-            loadedAsm = Assembly.LoadFile(source.Path);
+            loadedAsm = Assembly.LoadFile(path);
             
-
+                                    
             foreach (var t in loadedAsm.GetTypes())
             {
         

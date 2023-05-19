@@ -12,6 +12,8 @@ namespace DeluxeEdit.DefaultPlugins
 {
     public class FileOpenPlugin :  INamedActionPlugin
    {
+        public bool Enabled { get; set; }
+
         public char[] MyKeyCommand { get; set; } = new char[] { SystemConstants.ControlKey, 'o' };
         private StreamReader? reader;
         public bool CanReadMore()

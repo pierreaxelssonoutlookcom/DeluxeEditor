@@ -10,7 +10,8 @@ namespace DeluxeEdit.Model.Interface
        char[] MyKeyCommand { get; set; }
         PresentationOptions PresentationOptions { get; set; }
 
-        
+
+        bool    Enabled  { get; set; }
 
         string Name  {  get; set; }
         string Titel { get; set; }
