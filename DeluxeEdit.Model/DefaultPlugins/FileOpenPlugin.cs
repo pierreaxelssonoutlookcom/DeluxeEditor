@@ -1,5 +1,6 @@
 ﻿using DeluxeEdit.Model;
 using DeluxeEdit.Model.Interface;
+using DeluxeEdit.Model.Interface;
 using DeluxeEdit.Shared;
 using System;
 using System.Collections.Generic;

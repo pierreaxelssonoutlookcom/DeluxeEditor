@@ -8,13 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl>
         <TabItem Header="TabItem">
-            <Grid Background="#FFE5E5E5">
                 <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" Text="TextBox" />
-            </Grid>
         </TabItem>
         <TabItem Header="TabItem">
             <Grid Background="#FFE5E5E5"/>
         </TabItem>
     </TabControl>
 
-</UserControl>
+    </UserControl>

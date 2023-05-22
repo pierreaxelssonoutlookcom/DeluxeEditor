@@ -6,6 +6,6 @@ namespace DeluxeEdit.Model
 {
     public class ActionParameter
     {
-        public string Parameter { get; set; } = "";
+        public string? Parameter { get; set; } = "";
     }
 }

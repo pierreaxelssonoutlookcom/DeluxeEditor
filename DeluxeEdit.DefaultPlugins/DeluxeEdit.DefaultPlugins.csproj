@@ -1,13 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+	  <TargetFramework>net7.0-windows</TargetFramework>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Hex.xaml" />
+    <None Remove="MainEdit.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Hex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DeluxeEdit.Model\DeluxeEdit.Model.csproj" />
     <ProjectReference Include="..\DeluxeEdit.Shared\DeluxeEdit.Shared.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Hex.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MainEdit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
  
 </Project>
