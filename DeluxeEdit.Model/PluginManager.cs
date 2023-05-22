@@ -2,6 +2,7 @@
 using DeluxeEdit.Model;
 using System.Reflection;
 using System;
+using System.Collections.Generic;
 
 namespace DeluxeEdit.Model
 {
@@ -14,11 +15,11 @@ namespace DeluxeEdit.Model
         public void ShowPluginManager()
         {
         }
-        public void LoadPlugins(string path)
+        public List<INamedActionPlugin> LoadPlugins(string path)
         {
             //done:could be multiple plugisn in the same, FILE
             loadedAsm = Assembly.LoadFile(path);
-            
+            var result = new List<INamedActionPlugin>();
                                     
             foreach (var t in loadedAsm.GetTypes())
             {
@@ -27,8 +28,10 @@ namespace DeluxeEdit.Model
                 var newItemCasted=newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
 
                 if (newItemCasted != null)
-                    source.Items.Add(newItemCasted);
-            }         }
+                    result.Add(newItemCasted);
+            }
+            return result;
+        }
     public void LoadPlugins()
     {
     }

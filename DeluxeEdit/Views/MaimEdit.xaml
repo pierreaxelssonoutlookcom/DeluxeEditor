@@ -6,17 +6,15 @@
              xmlns:local="clr-namespace:DeluxeEdit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel
-        <TabControl>
-            <TabItem Header="TabItem">
-          ¨
-            <TextBox  x:Name="EditBox"/>
-
+    <TabControl>
+        <TabItem Header="TabItem">
+            <Grid Background="#FFE5E5E5">
+                <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" Text="TextBox" />
+            </Grid>
         </TabItem>
-            <TabItem Header="TabItem">
-    
-            </TabItem>
-        </TabControl>
+        <TabItem Header="TabItem">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+    </TabControl>
 
-    </StackPanel>
 </UserControl>

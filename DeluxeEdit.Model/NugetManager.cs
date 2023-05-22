@@ -17,7 +17,7 @@ namespace DeluxeEdit.Model
 
         public IEnumerable<PluginSourceItem> GetAll(string search)
         {
-         var p=new Process   
+            throw new NotImplementedException();
         }
 
 
