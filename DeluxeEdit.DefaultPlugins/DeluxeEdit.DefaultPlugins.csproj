@@ -8,6 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
+	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
+	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
+	  <Compile Include="GuiActions\MainEdit.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	<ProjectReference Include="..\DeluxeEdit.Model\DeluxeEdit.Model.csproj" />
 	<ProjectReference Include="..\DeluxeEdit.Shared\DeluxeEdit.Shared.csproj" />
 		<ProjectReference Include="..\Shared\Shared.csproj" />

@@ -3,7 +3,7 @@ using DeluxeEdit.Model.Interface;
 using DeluxeEdit.Model.Interface;
 using DeluxeEdit.Shared;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic;,
 using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
@@ -11,9 +11,11 @@ using System.Text;
 
 namespace DeluxeEdit.DefaultPlugins
 {
-    public class FileOpenPlugin :  INamedActionPlugin
-   {
+    public class FileOpenPlugin : INamedActinPlugin
+    {
         public string HasGuiPartClassName { get; set; } = "MainEdit";
+        public Func<string, string> GuiAction(string name) => (s => MainEditlGiGui..);
+
 
         public bool Enabled { get; set; }
 
