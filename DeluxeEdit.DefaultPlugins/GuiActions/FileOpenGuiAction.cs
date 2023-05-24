@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeluxeEdit.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace DeluxeEdit.DefaultPlugins.GuiActions
 {
-    public static class MainEditGiGui
+    public  class FileOpenGuiAction
     {
-        public static string GuiAction(string data); 
+        public string GuiAction(ActionParameter parameter)
+
         {
             return "";
         }

@@ -1,9 +1,9 @@
-﻿using DeluxeEdit.Model;
-using DeluxeEdit.Model.Interface;
+﻿using DeluxeEdit.DefaultPlugins.GuiActions;
+using DeluxeEdit.Model;
 using DeluxeEdit.Model.Interface;
 using DeluxeEdit.Shared;
 using System;
-using System.Collections.Generic;,
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
@@ -11,10 +11,12 @@ using System.Text;
 
 namespace DeluxeEdit.DefaultPlugins
 {
-    public class FileOpenPlugin : INamedActinPlugin
+    public class FileOpenPlugin : INamedActionPlugin
     {
-        public string HasGuiPartClassName { get; set; } = "MainEdit";
-        public Func<string, string> GuiAction(string name) => (s => MainEditlGiGui..);
+        //here we hookup the gui action
+        public Func<ActionParameter, string>? GuiAction() => (p) => new FileOpenGuiAction().GuiAction(p);
+
+
 
 
         public bool Enabled { get; set; }
@@ -55,12 +57,15 @@ namespace DeluxeEdit.DefaultPlugins
         }
         public string ReadPortion(ActionParameter parameter)
         {
+            string? result;
+
+            if (!File.Exists(parameter.Parameter)) throw new FileNotFoundException(parameter.Parameter);
             reader = reader ?? new StreamReader(new FileStream(parameter.Parameter, FileMode.Open));
 
             var buffy = new char[SystemConstants.FileBufferSize];
             reader.ReadBlock(buffy);
-            var result = buffy.ToString();
-            return result;
+            result= reader.ToString();
+            return result ?? "";
         }
 
     }

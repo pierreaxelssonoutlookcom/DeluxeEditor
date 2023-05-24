@@ -11,7 +11,7 @@
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
-	  <Compile Include="GuiActions\MainEdit.cs" />
+	  <Compile Include="GuiActions\FileOpenGuiAction.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

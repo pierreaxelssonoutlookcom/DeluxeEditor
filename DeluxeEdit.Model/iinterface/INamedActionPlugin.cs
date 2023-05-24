@@ -7,13 +7,12 @@ namespace DeluxeEdit.Model.Interface
     public interface INamedActionPlugin : INamedAction
     {
 
-        string HasGuiPartClassName { get; set; }
-        Func<string, string> GuiAction(string name);
+        Func<ActionParameter, string>? GuiAction();
         string Path { get; set; } 
         string ClassName { get; set; }
 
         
         }
 
-    
+   
 }

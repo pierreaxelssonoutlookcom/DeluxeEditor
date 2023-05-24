@@ -12,7 +12,7 @@ namespace DeluxeEdit.DefaultPlugins
 {
     public class UrlDecodePlugin : INamedActionPlugin
     {
-        public string HasGuiPartClassName { get; set; }
+        public Func<ActionParameter, string>? GuiAction() => null;
 
         public bool Enabled { get; set; }
         public char[] MyKeyCommand { get; set; } = new char[0];
