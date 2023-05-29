@@ -14,26 +14,28 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
         private MainEdit mainEdit;
 
         // Declare the event
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public MainEditViewModel()
         {
             mainEdit = new MainEdit();
             
         }
 
-
-  //      OnPropertyChange();
+        //      OnPropertyChange();
 
         // Create the OnPropertyChanged method to raise the event
         // The calling member's name will be used as the parameter.
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-    
+
         public void Show()
-        { 
-            
+        {
+            OnPropertyChanged();
         }
+        protected void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            if (mainEdit != null && mainEdit.MainEditBox != null && mainEdit.MainEditBox.Text != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(mainEdit.MainEditBox.Text));
+            }
+        }   
     }
 }
