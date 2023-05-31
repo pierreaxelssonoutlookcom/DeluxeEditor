@@ -25,6 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	<ProjectReference Include="..\DeluxeEdit.Format\DeluxeEdit.Format.csproj" />
 	<ProjectReference Include="..\DeluxeEdit.Model\DeluxeEdit.Model.csproj" />
 	<ProjectReference Include="..\DeluxeEdit.Shared\DeluxeEdit.Shared.csproj" />
 	</ItemGroup>

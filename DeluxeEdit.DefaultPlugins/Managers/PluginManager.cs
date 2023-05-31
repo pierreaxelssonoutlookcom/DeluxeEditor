@@ -5,19 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DeluxeEdit.Model
+namespace DeluxeEdit.DefaultPlugins.Managers
 {
     //todo:will now instead u se nuget as plugins
     public class PluginManager
     {
         private string myPluginPath;
-        private string futurePluginPath;
-
         public PluginManager()
         {
+            myPluginPath = "";
+            Assembly? entry =Assembly.GetEntryAssembly();
             //note: path is temporary 
-            myPluginPath = $"{new DirectoryInfo(Assembly.GetEntryAssembly().Location).FullName}\\bin";
-    
+            if (entry!= null)
+                myPluginPath = $"{new DirectoryInfo(entry.Location).FullName}\\bin";
+ 
         }
         private static Assembly? loadedAsm=null;
       
