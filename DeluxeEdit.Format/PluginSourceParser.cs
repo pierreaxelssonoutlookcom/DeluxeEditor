@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DeluxeEdit.Format
 {
-    public class PluginSourceItemParser
+    public class PluginSourceParser
     {
-        public PluginSourceItemParser()
+        public PluginSourceParser()
         {
             
         }

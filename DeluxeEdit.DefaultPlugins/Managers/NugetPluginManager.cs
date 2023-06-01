@@ -32,9 +32,9 @@ namespace DeluxeEdit.DefaultPlugins.Managers
         }
 
 
-        public IEnumerable<PluginSourceItem> LocalList(string search)
+        public IEnumerable<PluginSourceItem> LocalList()
         {
-            var parser = new PluginSourceItemParser();
+            var parser = new PluginSourceParser();
 
             var result = Directory.GetFiles(pluginPath, "*.dll")
                 .Select(p => parser.ParseFileName(p)).ToList();
