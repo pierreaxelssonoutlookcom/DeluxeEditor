@@ -7,7 +7,8 @@ namespace DeluxeEdit.DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
-        public Type Control { get; set; } = typeof(string);
+        public object? Control { get; set; }
+        public Type? ControlType { get; set; } = null;
         public string GuiAction(INamedActionPlugin instance) { return ""; }
 
         public bool Enabled { get; set; }

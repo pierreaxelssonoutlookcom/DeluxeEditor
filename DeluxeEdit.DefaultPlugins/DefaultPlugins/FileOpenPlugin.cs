@@ -11,7 +11,8 @@ namespace DeluxeEdit.DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
     {
-        public Type Control { get; set; } = typeof(FileOpenPlugin);
+         public object? Control { get; set; }
+        public Type? ControlType{ get; set; }=typeof(MainEdit);
         public string GuiAction(INamedActionPlugin instance)
         {
             var x = new FileOpenGuiAction();

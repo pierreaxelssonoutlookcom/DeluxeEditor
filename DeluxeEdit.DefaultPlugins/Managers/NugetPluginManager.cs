@@ -44,30 +44,36 @@ namespace DeluxeEdit.DefaultPlugins.Managers
             return result;
 
         }
+        private INamedActionPlugin CreateObjects(Type t)
+        {
+            var newItem = Activator.CreateInstance(t);
+            var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
+            if (newItemCasted == null) throw new NullReferenceException();
+            
+                if (newItemCasted.ControlType != null)
+                    newItemCasted.Control = Activator.CreateInstance(newItemCasted.ControlType);
+
+            
+            return newItemCasted;
+        }
+  
         public List<INamedActionPlugin> LoadPluginFile(string path)
         {
+            var result = new List<INamedActionPlugin>();
             if (loadedAsms!=null && !loadedAsms.ContainsKey(path))
             {
-               var asm= Assembly.LoadFrom(path);
-                
-                loadedAsms[path]=Assembly.LoadFile(path);
+                 loadedAsms[path]=Assembly.LoadFile(path);
             }
-
+            if (loadedAsms==null) throw new NullReferenceException();
             //done:could be multiple plugisAssemblyn in the same, FILE
              
-            var result = new List<INamedActionPlugin>();
-            if (loadedAsms != null)
-            {
-                foreach (var t in loadedAsms[path].GetTypes())
-                {
-
-                    var newItem = Activator.CreateInstance(t);
-                    var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
-
-                    if (newItemCasted != null)
-                        result.Add(newItemCasted);
-                }
-            }
+ 
+           foreach (var t in loadedAsms[path].GetTypes())
+           {
+                var newItemCasted = CreateObjects(t);
+                result.Add(newItemCasted);
+           }
+            
             return result;
         }
 
