@@ -19,7 +19,7 @@ namespace DeluxeEdit.DefaultPlugins.Managers
 
         public NugetPluginManager() 
         {
-          pluginPath = $"{Environment.SpecialFolder.ApplicationData}\\DeluxeEdit\\plugins";
+          pluginPath = $"{Environment.SpecialFolder.Programs}\\DeluxeEdit\\plugins";
           loadedAsms = new Dictionary<string, Assembly>();
         }
 
