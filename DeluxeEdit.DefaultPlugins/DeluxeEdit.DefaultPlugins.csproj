@@ -20,18 +20,17 @@
 	  <Compile Include="GuiActions\Plugins.xaml.cs" />
 	  <Compile Include="Managers\NugetPluginManager.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
-	  <Compile Include="Views\Plugins.xaml.cs" />
+	  <Compile Include="ViewModel\PluginView%27Model.cs" />
+	  <Compile Include="Views\PluginsView.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	<ProjectReference Include="..\DeluxeEdit.Format\DeluxeEdit.Format.csproj" />
+	<ProjectReference Include="..\DeluxeEdit.Extensions\DeluxeEdit.Extensions.csproj" />
 	<ProjectReference Include="..\DeluxeEdit.Model\DeluxeEdit.Model.csproj" />
 	<ProjectReference Include="..\DeluxeEdit.Shared\DeluxeEdit.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<Content Include="Views\MainEdit.xaml.cs">
-			<DependentUpon>Views\MainEdit.xaml</DependentUpon>
-		</Content>
+		<Content Include="Views\MainEditView.xaml.cs" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.Win32" Version="2.0.1" />

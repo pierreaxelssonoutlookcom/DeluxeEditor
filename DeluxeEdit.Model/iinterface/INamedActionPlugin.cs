@@ -4,6 +4,9 @@ using System.Collections.Generic;
 namespace DeluxeEdit.Model.Interface
 {
 
+    
+    
+    
     public interface INamedActionPlugin  : INamedAction
     {
         object? Control { get; set; }

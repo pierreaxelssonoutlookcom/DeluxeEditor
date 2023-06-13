@@ -1,4 +1,4 @@
-﻿using DeluxeEdit.Format;
+﻿using DeluxeEdit.Extensions;
 using DeluxeEdit.Model;
 using DeluxeEdit.Model.Interface;
 using System;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Windows.Controls;
 
 namespace DeluxeEdit.DefaultPlugins.Managers
-{
+{   
     public class NugetPluginManager
     { 
         private string pluginPath;
@@ -19,31 +19,24 @@ namespace DeluxeEdit.DefaultPlugins.Managers
 
         public NugetPluginManager() 
         {
-          pluginPath = $"{Environment.SpecialFolder.ApplicationData}\\DeluxeEdit\\plugins";
-            loadedAsms = new Dictionary<string, Assembly>();
+          pluginPath = $"{Environment.SpecialFolder.Programs}\\DeluxeEdit\\plugins";
+          loadedAsms = new Dictionary<string, Assembly>();
         }
 
-
-
-
-        public IEnumerable<PluginSourceItem> RemoteList()
+        public List<PluginSourceItem> RemoteList()
         {
             throw new NotImplementedException();
         }
 
-
-        public IEnumerable<PluginSourceItem> LocalList()
+        public List<PluginSourceItem> LocalList()
         {
             var parser = new PluginSourceParser();
 
             var result = Directory.GetFiles(pluginPath, "*.dll")
-                .Select(p => parser.ParseFileName(p)).ToList();
-            
- 
-
+                 .Select(p => parser.ParseFileName(p)).ToList();
             return result;
+           }
 
-        }
         private INamedActionPlugin CreateObjects(Type t)
         {
             var newItem = Activator.CreateInstance(t);
