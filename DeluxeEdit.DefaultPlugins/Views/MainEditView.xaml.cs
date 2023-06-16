@@ -1,4 +1,5 @@
-﻿using DeluxeEdit.DefaultPlugins.ViewModel;
+﻿using DeluxeEdit.DefaultPlugins.Managers;
+using DeluxeEdit.DefaultPlugins.ViewModel;
 using DeluxeEdit.Model;
 using DeluxeEdit.Model.Interface;
 using System.Windows.Controls;
@@ -12,20 +13,23 @@ namespace DeluxeEdit.DefaultPlugins.Views
     public partial class MainEdit : UserControl
     {
         private MainEditViewModel editViewModel;
+        private PluginManager manager;
 
         public MainEdit()
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
 
-            MainEditBox.Text = editViewModel.Text; 
-
+            manager = new PluginManager();
 
         }
 
-        public void UpdateBeforeLoad(INamedActionPlugin plugin, ActionParameter parameter)
+        public void UpdateBeforeLoad(ActionParameter parameter)
         {
-            new FileOpenPlugin();
+            var plugin= manager.InvokePlugin<FileOpenPlugin>();
+
+            editViewModel.Text=plugin.Perform(parameter);
+            MainEditBox.Text = editViewModel.Text;
         }
         public void UpdateBeforeSave(INamedActionPlugin plugin, ActionParameter parameter)
         {

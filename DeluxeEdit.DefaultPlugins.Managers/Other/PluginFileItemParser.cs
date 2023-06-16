@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DeluxeEdit.DefaultPlugins.Managers.Other
 {
-    public class PluginSourceParser
+    public class PluginFileItemParser
     {
-        public PluginSourceParser()
+        public PluginFileItemParser()
         {
 
         }

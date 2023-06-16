@@ -19,7 +19,6 @@ namespace DeluxeEdit.DefaultPlugins.Managers
         public PluginManager() 
         {
           pluginPath = $"{Environment.SpecialFolder.Programs}\\DeluxeEdit\\plugins";
-          loadedAsms = new Dictionary<string, Assembly>();
           pluginFiles=Directory.GetFiles(pluginPath, "*.dll").ToList();
           pluginFiles.Select(p =>  LoadPluginFile(p));
         }
@@ -52,7 +51,7 @@ namespace DeluxeEdit.DefaultPlugins.Managers
 
         public List<PluginFileItem> LocalList()
         {
-            var parser = new PluginSourceParser();
+            var parser = new PluginFileItemParser();
 
             var result = Directory.GetFiles(pluginPath, "*.dll")
                  .Select(p => parser.ParseFileName(p)).ToList();
@@ -74,12 +73,16 @@ namespace DeluxeEdit.DefaultPlugins.Managers
   
         public List<INamedActionPlugin> LoadPluginFile(string path)
         {
+            if (loadedAsms == null) loadedAsms = new Dictionary<string, Assembly>();
+
+
             var result = new List<INamedActionPlugin>();
             if (loadedAsms!=null && !loadedAsms.ContainsKey(path))
             {
                  loadedAsms[path]=Assembly.LoadFile(path);
             }
-            if (loadedAsms==null) throw new NullReferenceException();
+
+            if (loadedAsms == null) throw new NullReferenceException();
             //done:could be multiple plugisAssemblyn in the same, FILE
            foreach (var t in loadedAsms[path].GetTypes())
            {
