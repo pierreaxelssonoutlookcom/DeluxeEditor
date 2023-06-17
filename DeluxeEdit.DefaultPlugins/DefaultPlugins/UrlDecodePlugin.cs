@@ -19,7 +19,7 @@ namespace DeluxeEdit.DefaultPlugins
         public string GuiAction(INamedActionPlugin instance) { return ""; }
         public bool Enabled { get; set; }
         public char[] MyKeyCommand { get; set; } = new char[0];
-        public string Name { get; set; } ="UrlDeclode";
+        public string Id { get; set; } ="UrlDeclode";
         public string Titel { get; set; } =  "Url Declode";
         public PresentationOptions PresentationOptions { get; set; }
         public ActionParameter Parameter { get; set; }

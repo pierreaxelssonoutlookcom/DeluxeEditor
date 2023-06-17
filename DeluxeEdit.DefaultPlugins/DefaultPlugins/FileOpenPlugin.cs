@@ -37,7 +37,7 @@ namespace DeluxeEdit.DefaultPlugins
 
         public bool AsReaOnly { get; set; }
         public Encoding OpenEncoding { get; set; }
-        public string Name { get; set; } = "";
+        public string Id { get; set; } = "";
         public string Titel { get; set; } = "";
         public int SortOrdder { get; set; }
         public ActionParameter Parameter { get; set; } 

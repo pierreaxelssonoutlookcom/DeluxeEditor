@@ -15,7 +15,7 @@ namespace DeluxeEdit.DefaultPlugins
 
         public char[] MyKeyCommand { get; set; } = new char[0];
 
-        public string Name { get; set; } = "UrlEncode";
+        public string Id { get; set; } = "UrlEncode";
         public string Titel { get; set; } = "Url Eeclode";
         public string Result { get; set; } = "";
 
