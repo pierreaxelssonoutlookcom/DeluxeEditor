@@ -8,28 +8,27 @@ using DeluxeEdit.Model;
 
 namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
 {
-    public class UrlEncodeTests
+    public class UrlDecoderTests
     {
         [Fact]
-        public void UrlEncodeTest()
+        public void UrlDecodeTest()
         {
-            var plugin = new UrlEncodePlugin();
-            var expected = "Hej+p%c3%a5+dig";
+            var plugin = new UrlDecodePlugin();
+            var expected = "Hej på dig";
             var actual = plugin.Perform(
-                new ActionParameter("Hej på dig"));
+                new ActionParameter("Hej+p%c3%a5+dig"));
             Assert.Equal(expected, actual);
         }
-
         [Fact]
-        public void UrlEncodeTestSimple()
+        public void UrlDecodeTestSimple()
         {
-            var plugin = new UrlEncodePlugin();
+            var plugin = new UrlDecodePlugin();
             var expected = "Ninja";
             var actual = plugin.Perform(
                 new ActionParameter("Ninja"));
             Assert.Equal(expected, actual);
         }
 
+
     }
 }
-    

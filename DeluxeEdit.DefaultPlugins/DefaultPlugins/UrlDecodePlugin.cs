@@ -1,12 +1,9 @@
-﻿using DeluxeEdit.Model;
-using DeluxeEdit.Model.Interface;
+﻿using DeluxeEdit.Model.Interface;
+using DeluxeEdit.Model;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics;
-using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace DeluxeEdit.DefaultPlugins
 {
@@ -38,7 +35,8 @@ namespace DeluxeEdit.DefaultPlugins
         public string Perform(ActionParameter parameter)
         {   
          
-            Result = WebUtility.UrlDecode(parameter.Parameter);
+
+            Result = HttpUtility.UrlDecode(  parameter.Parameter,  Encoding.UTF8);
             return Result;
         }
 
