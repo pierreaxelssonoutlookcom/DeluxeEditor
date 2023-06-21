@@ -11,5 +11,9 @@ namespace DeluxeEdit.Model
         {
             Parameter = "";
         }
+        public ActionParameter(string value)
+        {
+            Parameter = value;
+        }
     }
 }
