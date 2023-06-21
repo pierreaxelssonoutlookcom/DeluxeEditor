@@ -11,7 +11,8 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
     public class FileOpenPluginTests
      {
         public static string TempDir = "C:/temp";
-        public static string TestFile= TempDir+"/testfile.txt";
+        public static string TestFile = TempDir + "/testfile.txt";
+        public static string TestFile2 = TempDir + "/testfile2.txt";
 
         [Fact]
         public void FileOpenPluginTest()
@@ -29,12 +30,12 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         public void FileOpenPluginTestSimple()
         {
             var expected = "ninjaåäö";
-            if (File.Exists(TestFile)) File.Delete(TestFile);
-            File.WriteAllText(TestFile, "ninjaåäö");
+            if (File.Exists(TestFile2)) File.Delete(TestFile2);
+            File.WriteAllText(TestFile2, "ninjaåäö");
             var plugin = new FileOpenPlugin();
             plugin.OpenEncoding = null;
             var actual = plugin.Perform(
-                new ActionParameter(TestFile));
+                new ActionParameter(TestFile2));
             Assert.Equal(expected, actual);
         }
 
