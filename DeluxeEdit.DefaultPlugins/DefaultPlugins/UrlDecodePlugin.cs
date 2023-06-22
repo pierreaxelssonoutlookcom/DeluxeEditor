@@ -19,25 +19,18 @@ namespace DeluxeEdit.DefaultPlugins
         public string Id { get; set; } ="UrlDeclode";
         public string Titel { get; set; } =  "Url Declode";
         public PresentationOptions PresentationOptions { get; set; }
-        public ActionParameter Parameter { get; set; }
-
-        public string Result { get; set; } = "";
-
 
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
 
         public UrlDecodePlugin()
         {
-            Parameter = new ActionParameter();
             PresentationOptions= new PresentationOptions(); 
         }
         public string Perform(ActionParameter parameter)
         {   
-         
-
-            Result = HttpUtility.UrlDecode(  parameter.Parameter,  Encoding.UTF8);
-            return Result;
+            var result = HttpUtility.UrlDecode(  parameter.Parameter,  Encoding.UTF8);
+            return result;
         }
 
 

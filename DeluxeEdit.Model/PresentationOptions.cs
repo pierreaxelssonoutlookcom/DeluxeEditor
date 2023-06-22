@@ -9,7 +9,7 @@ namespace DeluxeEdit.Model
         public int? SortOrder { get; set; }
         public PresentationOptions()
         {
-            ;
+   
         }
     }
 }

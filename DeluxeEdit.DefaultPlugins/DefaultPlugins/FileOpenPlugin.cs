@@ -40,10 +40,8 @@ namespace DeluxeEdit.DefaultPlugins
         public Encoding? OpenEncoding { get; set; }
         public string Id { get; set; } = "";
         public string Titel { get; set; } = "";
-        public int SortOrdder { get; set; }
-        public ActionParameter Parameter { get; set; } 
-        public string Result { get; set; } = "";
-            
+        public int SortOrder { get; set; }
+    
         public PresentationOptions PresentationOptions { get; set; }
         public string Path { get; set; } = "";
  
@@ -53,7 +51,6 @@ namespace DeluxeEdit.DefaultPlugins
         {
           //  OpenEncoding = Encoding.UTF8;
             PresentationOptions = new PresentationOptions();
-           Parameter = new ActionParameter();
         }
 
         public string Perform(ActionParameter parameter)

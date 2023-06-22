@@ -18,9 +18,6 @@ namespace DeluxeEdit.Model.Interface
         string Id { get; set; }
         string Titel { get; set; }
 
-        ActionParameter Parameter { get; set; }
-        string Result { get; set; }
-
         string Perform(ActionParameter parameter);
 
         object? Control { get; set; }

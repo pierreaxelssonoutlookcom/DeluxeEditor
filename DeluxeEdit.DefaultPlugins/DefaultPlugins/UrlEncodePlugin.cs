@@ -19,9 +19,7 @@ namespace DeluxeEdit.DefaultPlugins
 
         public string Id { get; set; } = "UrlEncode";
         public string Titel { get; set; } = "Url Eeclode";
-        public string Result { get; set; } = "";
-
-        public ActionParameter Parameter { get; set; }
+     
 
         public PresentationOptions PresentationOptions { get; set; }
         public string Path { get; set; } = "";
@@ -30,13 +28,12 @@ namespace DeluxeEdit.DefaultPlugins
         public UrlEncodePlugin()
         {
             PresentationOptions = new PresentationOptions();
-            Parameter=new ActionParameter();
         }
 
         public string Perform(ActionParameter parameter)
         {
-            Result = HttpUtility.UrlEncode( parameter.Parameter, Encoding.UTF8);
-            return Result;
+            var result = HttpUtility.UrlEncode( parameter.Parameter, Encoding.UTF8);
+            return result;
         }
     }
 
