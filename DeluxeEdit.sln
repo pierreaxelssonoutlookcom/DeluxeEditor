@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeluxeEdit.Extensions", "De
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeluxeEdit.DefaultPlugins.Managers", "DeluxeEdit.DefaultPlugins.Managers\DeluxeEdit.DefaultPlugins.Managers.csproj", "{974DE3E3-B469-460D-A8CF-632CF67F69F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeluxeEdit.DefaultPlugins.Tests", "DeluxeEdit.DefaultPlugins.Tests\DeluxeEdit.DefaultPlugins.Tests.csproj", "{6A2B4BAF-2C08-4101-BF36-540BA9F7A9D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeluxeEdit.DefaultPlugins.Tests", "DeluxeEdit.DefaultPlugins.Tests\DeluxeEdit.DefaultPlugins.Tests.csproj", "{6A2B4BAF-2C08-4101-BF36-540BA9F7A9D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeluxeEdit.CustomFileApiFile", "DeluxeEdit.CustomFileApiFile\DeluxeEdit.CustomFileApiFile.csproj", "{B8AA58BA-6C99-4530-81A6-4D5C22D110B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6A2B4BAF-2C08-4101-BF36-540BA9F7A9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A2B4BAF-2C08-4101-BF36-540BA9F7A9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A2B4BAF-2C08-4101-BF36-540BA9F7A9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8AA58BA-6C99-4530-81A6-4D5C22D110B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8AA58BA-6C99-4530-81A6-4D5C22D110B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8AA58BA-6C99-4530-81A6-4D5C22D110B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8AA58BA-6C99-4530-81A6-4D5C22D110B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
