@@ -23,7 +23,7 @@ namespace DeluxeEdit.DefaultPlugins.Managers
           pluginFiles.Select(p =>  LoadPluginFile(p));
         }
 
-         public INamedActionPlugin InvokePlugin(Type pluginType)
+         public static INamedActionPlugin InvokePlugin(Type pluginType)
         {
             object? newItem = Activator.CreateInstance(pluginType);
 

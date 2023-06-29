@@ -18,14 +18,14 @@ namespace DeluxeEdit.DefaultPlugins
         public char[] MyKeyCommand { get; set; } = new char[0];
         public string Id { get; set; } ="UrlDeclode";
         public string Titel { get; set; } =  "Url Declode";
-        public PresentationOptions PresentationOptions { get; set; }
+        public ConfigurationOptions Configuration { get; set; }
 
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
 
         public UrlDecodePlugin()
         {
-            PresentationOptions= new PresentationOptions(); 
+            Configuration= new ConfigurationOptions(); 
         }
         public string Perform(ActionParameter parameter)
         {   

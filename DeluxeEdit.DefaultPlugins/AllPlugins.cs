@@ -2,11 +2,6 @@
 using DeluxeEdit.Model.Interface;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeluxeEdit.DefaultPlugins
 {
@@ -30,9 +25,17 @@ namespace DeluxeEdit.DefaultPlugins
             }
             if (myType == null) throw new NullReferenceException();
 
-            var man = new PluginManager();
-            var result=man.InvokePlugin(myType);
+            var result= PluginManager.InvokePlugin(myType);
             return result;
         }
+        public static List<INamedActionPlugin> List()
+        {
+            var result = new List<INamedActionPlugin>();
+            result.Add(PluginManager.InvokePlugin(typeof(FileOpenPlugin)));
+            result.Add(PluginManager.InvokePlugin(typeof(UrlEncodePlugin)));
+            result.Add(PluginManager.InvokePlugin(typeof(UrlDecodePlugin)));
+            return result;
+        }
+
     }
 }

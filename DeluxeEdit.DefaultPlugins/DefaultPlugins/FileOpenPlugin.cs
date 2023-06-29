@@ -47,7 +47,7 @@ namespace DeluxeEdit.DefaultPlugins
 
         private List<string> resultBuffer;
 
-        public PresentationOptions PresentationOptions { get; set; }
+        public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";
  
 
@@ -56,7 +56,8 @@ namespace DeluxeEdit.DefaultPlugins
         {
             resultBuffer = new List<string>();
           //  OpenEncoding = Encoding.UTF8;
-            PresentationOptions = new PresentationOptions();
+            Configuration = new ConfigurationOptions();
+            Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.O }; 
         }
 
         public string Perform(ActionParameter parameter)
@@ -78,10 +79,7 @@ namespace DeluxeEdit.DefaultPlugins
             if (reader == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-
-
                 var stream = mmf.CreateViewStream();
-
                 reader = OpenEncoding == null ? reader = new StreamReader(stream, true) : new StreamReader(stream, OpenEncoding);
             }
             

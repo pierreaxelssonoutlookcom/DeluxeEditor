@@ -21,13 +21,13 @@ namespace DeluxeEdit.DefaultPlugins
         public string Titel { get; set; } = "Url Eeclode";
      
 
-        public PresentationOptions PresentationOptions { get; set; }
+        public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
 
         public UrlEncodePlugin()
         {
-            PresentationOptions = new PresentationOptions();
+            Configuration = new ConfigurationOptions();
         }
 
         public string Perform(ActionParameter parameter)

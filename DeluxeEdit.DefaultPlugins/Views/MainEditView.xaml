@@ -11,7 +11,7 @@
             <TextBox x:Name="MainEditBox" TextWrapping="NoWrap"   />
         </TabItem>
         <TabItem Header="TabItem">
-            <Grid Background="#FFE5E5E5"/>
+            <Grid Background="#FFE5E5E5" Keyboard.KeyDown="Grid_KeyDown"    />
         </TabItem>
     </TabControl>
 

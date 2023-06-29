@@ -4,7 +4,6 @@ using DeluxeEdit.Model;
 using DeluxeEdit.Model.Interface;
 using System.Windows.Controls;
 using DeluxeEdit.Extensions;
-using System;
 
 namespace DeluxeEdit.DefaultPlugins.Views
 {
@@ -14,33 +13,19 @@ namespace DeluxeEdit.DefaultPlugins.Views
     public partial class MainEdit : UserControl
     {
         private MainEditViewModel editViewModel;
-        private PluginManager manager;
 
+        
         public MainEdit()
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
-
-            manager = new PluginManager();
-            UpdateLoad();
+            
         }
 
-        public void UpdateLoad()
+
+        private void Grid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var plugin = AllPlugins.InvokePlugin(PluginId.FileOpen);
-            string? path=plugin.GuiAction(plugin);
-            //if user cancelled path is empty 
-            if (path.HasContent() && !String.IsNullOrEmpty(path))
-            { 
-                editViewModel.Text=plugin.Perform( new ActionParameter(path) );
-                MainEditBox.Text = editViewModel.Text;
-            }
+            MainEditBox.Text=editViewModel.KeyDown(e);
         }
-        public void UpdateBeforeSave(INamedActionPlugin plugin, ActionParameter parameter)
-        {
-
-
-        }
-
     }
 }

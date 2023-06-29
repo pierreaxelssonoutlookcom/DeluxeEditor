@@ -9,8 +9,7 @@ namespace DeluxeEdit.Model.Interface
     
     public interface INamedActionPlugin
     {
-        char[] MyKeyCommand { get; set; }
-        PresentationOptions PresentationOptions { get; set; }
+        ConfigurationOptions Configuration { get; set; }
 
 
         bool Enabled { get; set; }

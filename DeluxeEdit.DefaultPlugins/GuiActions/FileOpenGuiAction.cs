@@ -1,5 +1,4 @@
 ﻿using DeluxeEdit.Model;
-using MvvmDialogs;
 //using Microsoft.Win32;
 using DeluxeEdit.Model.Interface;
 using DeluxeEdit.DefaultPlugins.ViewModel;
@@ -11,7 +10,7 @@ namespace DeluxeEdit.DefaultPlugins.GuiActions
         
         public string? GuiAction(INamedActionPlugin parameter)
         {
-            var service = new DialogService();
+//            var service = new DialogService();
 
             //ModalDialogTabContentViewModel();
  //           service.ShowCustomDialog( );
