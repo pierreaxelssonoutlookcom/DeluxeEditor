@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Controls\OpenFileDialogEncoding.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

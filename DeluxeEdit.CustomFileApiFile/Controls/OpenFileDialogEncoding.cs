@@ -32,7 +32,7 @@ using DeluxeEdit.CustomFileApiFile.OS;
 
 namespace DeluxeEdit.CustomFileApiFile.Controls
 {
-    public partial class OpenFileDialogEx : UserControl
+    public partial class OpenFileDialogEncoding: OpenFileDialogEx
     {
         #region Delegates
         public delegate void PathChangedHandler(OpenFileDialogEx sender, string filePath);
@@ -554,4 +554,29 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         #endregion
     }
 
+    #region Enums
+    public enum AddonWindowLocation
+    {
+        None    = 0,
+        Right   = 1,
+        Bottom  = 2
+    }
+
+    public enum ControlsID
+    {
+        ButtonOpen	    = 0x1,
+        ButtonCancel	= 0x2,
+        ButtonHelp	    = 0x40E,
+        GroupFolder     = 0x440,
+        LabelFileType   = 0x441,
+        LabelFileName   = 0x442,
+        LabelLookIn     = 0x443,
+        DefaultView     = 0x461,
+        LeftToolBar     = 0x4A0,
+        ComboFileName   = 0x47c,
+        ComboFileType   = 0x470,
+        ComboFolder     = 0x471,
+        CheckBoxReadOnly= 0x410
+    }
+    #endregion
 }
