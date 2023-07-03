@@ -6,8 +6,8 @@ namespace Deluxe.CustomFileApiFile
    {
        public string? ShowFileOpenDialog()
         {
-            var d = new OpenFileDialogEx();
-            
+            var diag = new OpenFileDialogEncoding();
+            diag.ShowDialog();
             return  null;
         }
 

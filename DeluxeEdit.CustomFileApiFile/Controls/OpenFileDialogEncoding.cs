@@ -32,7 +32,7 @@ using DeluxeEdit.CustomFileApiFile.OS;
 
 namespace DeluxeEdit.CustomFileApiFile.Controls
 {
-    public partial class OpenFileDialogEncoding: OpenFileDialogEx
+    public partial class OpenFileDialogEncoding : OpenFileDialogEx
     {
         #region Delegates
         public delegate void PathChangedHandler(OpenFileDialogEx sender, string filePath);
@@ -41,25 +41,25 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         #region Events
         public event PathChangedHandler FileNameChanged;
         public event PathChangedHandler FolderNameChanged;
-        public event EventHandler       ClosingDialog;
+        public event EventHandler ClosingDialog;
         #endregion
 
         #region Constants Declaration
-		private const SetWindowPosFlags UFLAGSHIDE = 
+        private const SetWindowPosFlags UFLAGSHIDE =
             SetWindowPosFlags.SWP_NOACTIVATE |
-			SetWindowPosFlags.SWP_NOOWNERZORDER |
-			SetWindowPosFlags.SWP_NOMOVE |
-            SetWindowPosFlags.SWP_NOSIZE | 
+            SetWindowPosFlags.SWP_NOOWNERZORDER |
+            SetWindowPosFlags.SWP_NOMOVE |
+            SetWindowPosFlags.SWP_NOSIZE |
             SetWindowPosFlags.SWP_HIDEWINDOW;
         #endregion
 
         #region Variables Declaration
-        private AddonWindowLocation mStartLocation  = AddonWindowLocation.Right;
-        private FolderViewMode      mDefaultViewMode= FolderViewMode.Default;
+        private AddonWindowLocation mStartLocation = AddonWindowLocation.Right;
+        private FolderViewMode mDefaultViewMode = FolderViewMode.Default;
         #endregion
 
         #region Constructors
-        public OpenFileDialogEx()
+        public OpenFileDialogEncoding()
         {
             InitializeComponent();
             //SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -69,21 +69,21 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         #region Properties
         public OpenFileDialog OpenDialog
         {
-            get {return dlgOpen;}
+            get { return dlgOpen; }
         }
 
         [DefaultValue(AddonWindowLocation.Right)]
         public AddonWindowLocation StartLocation
         {
-            get {return mStartLocation;}
-            set {mStartLocation = value;}
+            get { return mStartLocation; }
+            set { mStartLocation = value; }
         }
 
         [DefaultValue(FolderViewMode.Default)]
         public FolderViewMode DefaultViewMode
         {
-            get {return mDefaultViewMode;}
-            set {mDefaultViewMode = value;}
+            get { return mDefaultViewMode; }
+            set { mDefaultViewMode = value; }
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
             }
             // Sometimes if you open a animated .gif on the preview and the Form is closed, .Net class throw an exception
             // Lets ignore this exception and keep closing the form.
-            catch(Exception){}
+            catch (Exception) { }
             form.Close();
             return returnDialogResult;
         }
@@ -136,72 +136,72 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         private class OpenDialogNative : NativeWindow, IDisposable
         {
             #region Constants Declaration
-		    private const SetWindowPosFlags UFLAGSSIZE = 
+            private const SetWindowPosFlags UFLAGSSIZE =
                 SetWindowPosFlags.SWP_NOACTIVATE |
-			    SetWindowPosFlags.SWP_NOOWNERZORDER |
-			    SetWindowPosFlags.SWP_NOMOVE;
-		    private const SetWindowPosFlags UFLAGSSIZEEX = 
+                SetWindowPosFlags.SWP_NOOWNERZORDER |
+                SetWindowPosFlags.SWP_NOMOVE;
+            private const SetWindowPosFlags UFLAGSSIZEEX =
                 SetWindowPosFlags.SWP_NOACTIVATE |
-			    SetWindowPosFlags.SWP_NOOWNERZORDER |
-			    SetWindowPosFlags.SWP_NOMOVE |
+                SetWindowPosFlags.SWP_NOOWNERZORDER |
+                SetWindowPosFlags.SWP_NOMOVE |
                 SetWindowPosFlags.SWP_ASYNCWINDOWPOS |
                 SetWindowPosFlags.SWP_DEFERERASE;
-		    private const SetWindowPosFlags UFLAGSMOVE = 
+            private const SetWindowPosFlags UFLAGSMOVE =
                 SetWindowPosFlags.SWP_NOACTIVATE |
-			    SetWindowPosFlags.SWP_NOOWNERZORDER |
-			    SetWindowPosFlags.SWP_NOSIZE;
-		    private const SetWindowPosFlags UFLAGSHIDE = 
+                SetWindowPosFlags.SWP_NOOWNERZORDER |
+                SetWindowPosFlags.SWP_NOSIZE;
+            private const SetWindowPosFlags UFLAGSHIDE =
                 SetWindowPosFlags.SWP_NOACTIVATE |
-			    SetWindowPosFlags.SWP_NOOWNERZORDER |
-			    SetWindowPosFlags.SWP_NOMOVE |
-                SetWindowPosFlags.SWP_NOSIZE | 
+                SetWindowPosFlags.SWP_NOOWNERZORDER |
+                SetWindowPosFlags.SWP_NOMOVE |
+                SetWindowPosFlags.SWP_NOSIZE |
                 SetWindowPosFlags.SWP_HIDEWINDOW;
-		    private const SetWindowPosFlags UFLAGSZORDER = 
+            private const SetWindowPosFlags UFLAGSZORDER =
                 SetWindowPosFlags.SWP_NOACTIVATE |
-			    SetWindowPosFlags.SWP_NOMOVE |
-                SetWindowPosFlags.SWP_NOSIZE; 
+                SetWindowPosFlags.SWP_NOMOVE |
+                SetWindowPosFlags.SWP_NOSIZE;
             #endregion
 
             #region Variables Declaration
-            private Size                mOriginalSize;
-            private IntPtr              mOpenDialogHandle;
-            private IntPtr              mListViewPtr;
-            private WINDOWINFO          mListViewInfo;
-            private BaseDialogNative    mBaseDialogNative;
-            private IntPtr              mComboFolders;
-            private WINDOWINFO          mComboFoldersInfo;
-            private IntPtr              mGroupButtons;
-            private WINDOWINFO          mGroupButtonsInfo;
-            private IntPtr              mComboFileName;
-            private WINDOWINFO          mComboFileNameInfo;
-            private IntPtr              mComboExtensions;
-            private WINDOWINFO          mComboExtensionsInfo;
-            private IntPtr              mOpenButton;
-            private WINDOWINFO          mOpenButtonInfo;
-            private IntPtr              mCancelButton;
-            private WINDOWINFO          mCancelButtonInfo;
-            private IntPtr              mHelpButton;
-            private WINDOWINFO          mHelpButtonInfo;
-            private OpenFileDialogEx    mSourceControl;
-            private IntPtr              mToolBarFolders;
-            private WINDOWINFO          mToolBarFoldersInfo;
-            private IntPtr              mLabelFileName;
-            private WINDOWINFO          mLabelFileNameInfo;
-            private IntPtr              mLabelFileType;
-            private WINDOWINFO          mLabelFileTypeInfo;
-            private IntPtr              mChkReadOnly;
-            private WINDOWINFO          mChkReadOnlyInfo;
-            private bool                mIsClosing              = false;
-            private bool                mInitializated          = false;
-            private RECT                mOpenDialogWindowRect   = new RECT();
-            private RECT                mOpenDialogClientRect   = new RECT();
+            private Size mOriginalSize;
+            private IntPtr mOpenDialogHandle;
+            private IntPtr mListViewPtr;
+            private WINDOWINFO mListViewInfo;
+            private BaseDialogNative mBaseDialogNative;
+            private IntPtr mComboFolders;
+            private WINDOWINFO mComboFoldersInfo;
+            private IntPtr mGroupButtons;
+            private WINDOWINFO mGroupButtonsInfo;
+            private IntPtr mComboFileName;
+            private WINDOWINFO mComboFileNameInfo;
+            private IntPtr mComboExtensions;
+            private WINDOWINFO mComboExtensionsInfo;
+            private IntPtr mOpenButton;
+            private WINDOWINFO mOpenButtonInfo;
+            private IntPtr mCancelButton;
+            private WINDOWINFO mCancelButtonInfo;
+            private IntPtr mHelpButton;
+            private WINDOWINFO mHelpButtonInfo;
+            private OpenFileDialogEx mSourceControl;
+            private IntPtr mToolBarFolders;
+            private WINDOWINFO mToolBarFoldersInfo;
+            private IntPtr mLabelFileName;
+            private WINDOWINFO mLabelFileNameInfo;
+            private IntPtr mLabelFileType;
+            private WINDOWINFO mLabelFileTypeInfo;
+            private IntPtr mChkReadOnly;
+            private WINDOWINFO mChkReadOnlyInfo;
+            private bool mIsClosing = false;
+            private bool mInitializated = false;
+            private RECT mOpenDialogWindowRect = new RECT();
+            private RECT mOpenDialogClientRect = new RECT();
             #endregion
 
             #region Constructors
             public OpenDialogNative(IntPtr handle, OpenFileDialogEx sourceControl)
             {
-                mOpenDialogHandle   = handle;
-                mSourceControl      = sourceControl;
+                mOpenDialogHandle = handle;
+                mSourceControl = sourceControl;
                 AssignHandle(mOpenDialogHandle);
             }
             #endregion
@@ -226,7 +226,7 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
                 ReleaseHandle();
                 if (mBaseDialogNative != null)
                 {
-                    mBaseDialogNative.FileNameChanged   -= new BaseDialogNative.PathChangedHandler(BaseDialogNative_FileNameChanged);
+                    mBaseDialogNative.FileNameChanged -= new BaseDialogNative.PathChangedHandler(BaseDialogNative_FileNameChanged);
                     mBaseDialogNative.FolderNameChanged -= new BaseDialogNative.PathChangedHandler(BaseDialogNative_FolderNameChanged);
                     mBaseDialogNative.Dispose();
                 }
@@ -239,7 +239,7 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
                 Win32.EnumChildWindows(mOpenDialogHandle, new Win32.EnumWindowsCallBack(OpenFileDialogEnumWindowCallBack), 0);
             }
 
-            private bool OpenFileDialogEnumWindowCallBack(IntPtr hwnd, int lParam) 
+            private bool OpenFileDialogEnumWindowCallBack(IntPtr hwnd, int lParam)
             {
                 StringBuilder className = new StringBuilder(256);
                 Win32.GetClassName(hwnd, className, className.Capacity);
@@ -251,65 +251,65 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
                 if (className.ToString().StartsWith("#32770"))
                 {
                     mBaseDialogNative = new BaseDialogNative(hwnd);
-                    mBaseDialogNative.FileNameChanged   += new BaseDialogNative.PathChangedHandler(BaseDialogNative_FileNameChanged);
+                    mBaseDialogNative.FileNameChanged += new BaseDialogNative.PathChangedHandler(BaseDialogNative_FileNameChanged);
                     mBaseDialogNative.FolderNameChanged += new BaseDialogNative.PathChangedHandler(BaseDialogNative_FolderNameChanged);
                     return true;
                 }
 
-                switch((ControlsID) controlID)
+                switch ((ControlsID)controlID)
                 {
                     case ControlsID.DefaultView:
                         mListViewPtr = hwnd;
                         Win32.GetWindowInfo(hwnd, out mListViewInfo);
                         if (mSourceControl.DefaultViewMode != FolderViewMode.Default)
-                            Win32.SendMessage(mListViewPtr, (int) Msg.WM_COMMAND, (int) mSourceControl.DefaultViewMode, 0);
+                            Win32.SendMessage(mListViewPtr, (int)Msg.WM_COMMAND, (int)mSourceControl.DefaultViewMode, 0);
                         break;
                     case ControlsID.ComboFolder:
-                        mComboFolders       = hwnd;
-                        mComboFoldersInfo   = windowInfo;
+                        mComboFolders = hwnd;
+                        mComboFoldersInfo = windowInfo;
                         break;
                     case ControlsID.ComboFileType:
-                        mComboExtensions       = hwnd;
-                        mComboExtensionsInfo   = windowInfo;
+                        mComboExtensions = hwnd;
+                        mComboExtensionsInfo = windowInfo;
                         break;
                     case ControlsID.ComboFileName:
                         if (className.ToString().ToLower() == "comboboxex32")
                         {
-                            mComboFileName          = hwnd;
-                            mComboFileNameInfo      = windowInfo;
+                            mComboFileName = hwnd;
+                            mComboFileNameInfo = windowInfo;
                         }
                         break;
                     case ControlsID.GroupFolder:
-                        mGroupButtons       = hwnd;
-                        mGroupButtonsInfo   = windowInfo;
+                        mGroupButtons = hwnd;
+                        mGroupButtonsInfo = windowInfo;
                         break;
                     case ControlsID.LeftToolBar:
-                        mToolBarFolders     = hwnd;
+                        mToolBarFolders = hwnd;
                         mToolBarFoldersInfo = windowInfo;
                         break;
                     case ControlsID.ButtonOpen:
-                        mOpenButton         = hwnd;
-                        mOpenButtonInfo     = windowInfo;
+                        mOpenButton = hwnd;
+                        mOpenButtonInfo = windowInfo;
                         break;
                     case ControlsID.ButtonCancel:
-                        mCancelButton       = hwnd;
-                        mCancelButtonInfo   = windowInfo;
+                        mCancelButton = hwnd;
+                        mCancelButtonInfo = windowInfo;
                         break;
                     case ControlsID.ButtonHelp:
-                        mHelpButton         = hwnd;
-                        mHelpButtonInfo     = windowInfo;
+                        mHelpButton = hwnd;
+                        mHelpButtonInfo = windowInfo;
                         break;
                     case ControlsID.CheckBoxReadOnly:
-                        mChkReadOnly        = hwnd;
-                        mChkReadOnlyInfo    = windowInfo;
+                        mChkReadOnly = hwnd;
+                        mChkReadOnlyInfo = windowInfo;
                         break;
                     case ControlsID.LabelFileName:
-                        mLabelFileName      = hwnd;
-                        mLabelFileNameInfo  = windowInfo;
+                        mLabelFileName = hwnd;
+                        mLabelFileNameInfo = windowInfo;
                         break;
                     case ControlsID.LabelFileType:
-                        mLabelFileType      = hwnd;
-                        mLabelFileTypeInfo  = windowInfo;
+                        mLabelFileType = hwnd;
+                        mLabelFileTypeInfo = windowInfo;
                         break;
                 }
 
@@ -327,15 +327,15 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
                 // Lets borrow the Handles from the open dialog control
                 PopulateWindowsHandlers();
 
-                switch(mSourceControl.StartLocation)
+                switch (mSourceControl.StartLocation)
                 {
                     case AddonWindowLocation.Right:
                         // Now we transfer the control to the open dialog
-                        mSourceControl.Location = new Point((int) (mOpenDialogClientRect.Width - mSourceControl.Width), 0);
+                        mSourceControl.Location = new Point((int)(mOpenDialogClientRect.Width - mSourceControl.Width), 0);
                         break;
                     case AddonWindowLocation.Bottom:
                         // Now we transfer the control to the open dialog
-                        mSourceControl.Location = new Point(0, (int) (mOpenDialogClientRect.Height - mSourceControl.Height));
+                        mSourceControl.Location = new Point(0, (int)(mOpenDialogClientRect.Height - mSourceControl.Height));
                         break;
                     case AddonWindowLocation.None:
                         // We don't have to do too much in this case, just the default thing
@@ -346,7 +346,7 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
                 Win32.SetParent(mSourceControl.Handle, mOpenDialogHandle);
 
                 // Send the control to the back
-                Win32.SetWindowPos(mSourceControl.Handle, (IntPtr) ZOrderPos.HWND_BOTTOM, 0, 0, 0, 0, UFLAGSZORDER);
+                Win32.SetWindowPos(mSourceControl.Handle, (IntPtr)ZOrderPos.HWND_BOTTOM, 0, 0, 0, 0, UFLAGSZORDER);
             }
             #endregion
 
@@ -354,46 +354,46 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
             protected override void WndProc(ref Message m)
             {
                 //Console.WriteLine(m.ToString());
-                switch(m.Msg)
+                switch (m.Msg)
                 {
-                    case (int) Msg.WM_SHOWWINDOW:
+                    case (int)Msg.WM_SHOWWINDOW:
                         mInitializated = true;
                         InitControls();
                         break;
-                    case (int) Msg.WM_SIZING:
+                    case (int)Msg.WM_SIZING:
                         RECT currentSize;
-                        switch(mSourceControl.StartLocation)
+                        switch (mSourceControl.StartLocation)
                         {
                             case AddonWindowLocation.Right:
                                 currentSize = new RECT();
                                 Win32.GetClientRect(mOpenDialogHandle, ref currentSize);
                                 if (currentSize.Height != mSourceControl.Height)
-                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr) ZOrderPos.HWND_BOTTOM, 0, 0, (int) mSourceControl.Width, (int) currentSize.Height, UFLAGSSIZEEX);
+                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr)ZOrderPos.HWND_BOTTOM, 0, 0, (int)mSourceControl.Width, (int)currentSize.Height, UFLAGSSIZEEX);
                                 break;
                             case AddonWindowLocation.Bottom:
                                 currentSize = new RECT();
                                 Win32.GetClientRect(mOpenDialogHandle, ref currentSize);
                                 if (currentSize.Height != mSourceControl.Height)
-                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr) ZOrderPos.HWND_BOTTOM, 0, 0, (int) currentSize.Width, (int) mSourceControl.Height, UFLAGSSIZEEX);
+                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr)ZOrderPos.HWND_BOTTOM, 0, 0, (int)currentSize.Width, (int)mSourceControl.Height, UFLAGSSIZEEX);
                                 break;
                             case AddonWindowLocation.None:
                                 currentSize = new RECT();
                                 Win32.GetClientRect(mOpenDialogHandle, ref currentSize);
                                 if (currentSize.Width != mSourceControl.Width || currentSize.Height != mSourceControl.Height)
-                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr) ZOrderPos.HWND_BOTTOM, 0, 0, (int) currentSize.Width, (int) currentSize.Height, UFLAGSSIZEEX);
+                                    Win32.SetWindowPos(mSourceControl.Handle, (IntPtr)ZOrderPos.HWND_BOTTOM, 0, 0, (int)currentSize.Width, (int)currentSize.Height, UFLAGSSIZEEX);
                                 break;
                         }
                         break;
-                    case (int) Msg.WM_WINDOWPOSCHANGING:
+                    case (int)Msg.WM_WINDOWPOSCHANGING:
                         if (!mIsClosing)
                         {
                             if (!mInitializated)
                             {
                                 // Resize OpenDialog to make fit our extra form
-                                WINDOWPOS pos = (WINDOWPOS) Marshal.PtrToStructure(m.LParam, typeof(WINDOWPOS));
+                                WINDOWPOS pos = (WINDOWPOS)Marshal.PtrToStructure(m.LParam, typeof(WINDOWPOS));
                                 if (mSourceControl.StartLocation == AddonWindowLocation.Right)
                                 {
-                                    if (pos.flags != 0 && ((pos.flags & (int) SWP_Flags.SWP_NOSIZE) != (int) SWP_Flags.SWP_NOSIZE))
+                                    if (pos.flags != 0 && ((pos.flags & (int)SWP_Flags.SWP_NOSIZE) != (int)SWP_Flags.SWP_NOSIZE))
                                     {
                                         mOriginalSize = new Size(pos.cx, pos.cy);
 
@@ -402,13 +402,13 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
 
                                         currentSize = new RECT();
                                         Win32.GetClientRect(mOpenDialogHandle, ref currentSize);
-                                        mSourceControl.Height = (int) currentSize.Height;
+                                        mSourceControl.Height = (int)currentSize.Height;
                                     }
                                 }
 
                                 if (mSourceControl.StartLocation == AddonWindowLocation.Bottom)
                                 {
-                                    if (pos.flags != 0 && ((pos.flags & (int) SWP_Flags.SWP_NOSIZE) != (int) SWP_Flags.SWP_NOSIZE))
+                                    if (pos.flags != 0 && ((pos.flags & (int)SWP_Flags.SWP_NOSIZE) != (int)SWP_Flags.SWP_NOSIZE))
                                     {
                                         mOriginalSize = new Size(pos.cx, pos.cy);
 
@@ -417,25 +417,25 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
 
                                         currentSize = new RECT();
                                         Win32.GetClientRect(mOpenDialogHandle, ref currentSize);
-                                        mSourceControl.Width = (int) currentSize.Width;
+                                        mSourceControl.Width = (int)currentSize.Width;
                                     }
                                 }
                             }
                         }
                         break;
-                    case (int) Msg.WM_IME_NOTIFY:
-                        if (m.WParam == (IntPtr) ImeNotify.IMN_CLOSESTATUSWINDOW)
+                    case (int)Msg.WM_IME_NOTIFY:
+                        if (m.WParam == (IntPtr)ImeNotify.IMN_CLOSESTATUSWINDOW)
                         {
                             mIsClosing = true;
                             mSourceControl.OnClosingDialog();
 
                             Win32.SetWindowPos(mOpenDialogHandle, IntPtr.Zero, 0, 0, 0, 0, UFLAGSHIDE);
                             Win32.GetWindowRect(mOpenDialogHandle, ref mOpenDialogWindowRect);
-                            Win32.SetWindowPos(mOpenDialogHandle, IntPtr.Zero, 
-                                (int) (mOpenDialogWindowRect.left), 
-                                (int) (mOpenDialogWindowRect.top), 
-                                (int) (mOriginalSize.Width), 
-                                (int) (mOriginalSize.Height), 
+                            Win32.SetWindowPos(mOpenDialogHandle, IntPtr.Zero,
+                                (int)(mOpenDialogWindowRect.left),
+                                (int)(mOpenDialogWindowRect.top),
+                                (int)(mOriginalSize.Width),
+                                (int)(mOriginalSize.Height),
                                 UFLAGSSIZE);
                         }
                         break;
@@ -480,19 +480,19 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
             {
                 switch (m.Msg)
                 {
-                    case (int) Msg.WM_NOTIFY:
-                        OFNOTIFY ofNotify = (OFNOTIFY) Marshal.PtrToStructure(m.LParam, typeof(OFNOTIFY));
-                        if (ofNotify.hdr.code == (uint) DialogChangeStatus.CDN_SELCHANGE)
+                    case (int)Msg.WM_NOTIFY:
+                        OFNOTIFY ofNotify = (OFNOTIFY)Marshal.PtrToStructure(m.LParam, typeof(OFNOTIFY));
+                        if (ofNotify.hdr.code == (uint)DialogChangeStatus.CDN_SELCHANGE)
                         {
                             StringBuilder filePath = new StringBuilder(256);
-                            Win32.SendMessage(Win32.GetParent(mHandle), (int) DialogChangeProperties.CDM_GETFILEPATH, (int) 256, filePath);
+                            Win32.SendMessage(Win32.GetParent(mHandle), (int)DialogChangeProperties.CDM_GETFILEPATH, (int)256, filePath);
                             if (FileNameChanged != null)
                                 FileNameChanged(this, filePath.ToString());
                         }
                         else if (ofNotify.hdr.code == (uint)DialogChangeStatus.CDN_FOLDERCHANGE)
                         {
                             StringBuilder folderPath = new StringBuilder(256);
-                            Win32.SendMessage(Win32.GetParent(mHandle), (int) DialogChangeProperties.CDM_GETFOLDERPATH, (int) 256, folderPath);
+                            Win32.SendMessage(Win32.GetParent(mHandle), (int)DialogChangeProperties.CDM_GETFOLDERPATH, (int)256, folderPath);
                             if (FolderNameChanged != null)
                                 FolderNameChanged(this, folderPath.ToString());
                         }
@@ -506,28 +506,28 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         private class DummyForm : Form
         {
             #region Variables Declaration
-            private OpenDialogNative    mNativeDialog       = null;
-            private OpenFileDialogEx    mFileDialogEx       = null;
-            private bool                mWatchForActivate   = false;
-            private IntPtr              mOpenDialogHandle   = IntPtr.Zero;
+            private OpenDialogNative mNativeDialog = null;
+            private OpenFileDialogEx mFileDialogEx = null;
+            private bool mWatchForActivate = false;
+            private IntPtr mOpenDialogHandle = IntPtr.Zero;
             #endregion
 
             #region Constructors
             public DummyForm(OpenFileDialogEx fileDialogEx)
             {
-                mFileDialogEx       = fileDialogEx;
-                this.Text           = "";
-                this.StartPosition  = FormStartPosition.Manual;
-                this.Location       = new Point(-32000, -32000);
-                this.ShowInTaskbar  = false;
+                mFileDialogEx = fileDialogEx;
+                this.Text = "";
+                this.StartPosition = FormStartPosition.Manual;
+                this.Location = new Point(-32000, -32000);
+                this.ShowInTaskbar = false;
             }
             #endregion
 
             #region Properties
             public bool WatchForActivate
             {
-                get {return mWatchForActivate;}
-                set {mWatchForActivate = value;}
+                get { return mWatchForActivate; }
+                set { mWatchForActivate = value; }
             }
             #endregion
 
@@ -541,11 +541,11 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
 
             protected override void WndProc(ref Message m)
             {
-                if (mWatchForActivate && m.Msg == (int) Msg.WM_ACTIVATE)
+                if (mWatchForActivate && m.Msg == (int)Msg.WM_ACTIVATE)
                 {
-                    mWatchForActivate   = false;
-                    mOpenDialogHandle   = m.LParam;
-                    mNativeDialog       = new OpenDialogNative(m.LParam, mFileDialogEx);
+                    mWatchForActivate = false;
+                    mOpenDialogHandle = m.LParam;
+                    mNativeDialog = new OpenDialogNative(m.LParam, mFileDialogEx);
                 }
                 base.WndProc(ref m);
             }
@@ -557,26 +557,26 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
     #region Enums
     public enum AddonWindowLocation
     {
-        None    = 0,
-        Right   = 1,
-        Bottom  = 2
+        None = 0,
+        Right = 1,
+        Bottom = 2
     }
 
     public enum ControlsID
     {
-        ButtonOpen	    = 0x1,
-        ButtonCancel	= 0x2,
-        ButtonHelp	    = 0x40E,
-        GroupFolder     = 0x440,
-        LabelFileType   = 0x441,
-        LabelFileName   = 0x442,
-        LabelLookIn     = 0x443,
-        DefaultView     = 0x461,
-        LeftToolBar     = 0x4A0,
-        ComboFileName   = 0x47c,
-        ComboFileType   = 0x470,
-        ComboFolder     = 0x471,
-        CheckBoxReadOnly= 0x410
+        ButtonOpen = 0x1,
+        ButtonCancel = 0x2,
+        ButtonHelp = 0x40E,
+        GroupFolder = 0x440,
+        LabelFileType = 0x441,
+        LabelFileName = 0x442,
+        LabelLookIn = 0x443,
+        DefaultView = 0x461,
+        LeftToolBar = 0x4A0,
+        ComboFileName = 0x47c,
+        ComboFileType = 0x470,
+        ComboFolder = 0x471,
+        CheckBoxReadOnly = 0x410
     }
     #endregion
 }

@@ -1,6 +1,9 @@
+using System.Text;
+using System.Linq;
+using System;
 namespace DeluxeEdit.CustomFileApiFile.Controls
 {
-    public partial class OpenFileDialogEncoding: OpenFileDialogEx
+    public partial class OpenFileDialogEncoding : OpenFileDialogEx
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +31,29 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
-            this.SuspendLayout();
+            cmbEncoding = new System.Windows.Forms.ComboBox();
             // 
-            // OpenFileDialogEx
+            // cmbEncoding
             // 
-            this.Name = "OpenFileDialogEx";
-            this.Size = new System.Drawing.Size(255, 246);
-            this.ResumeLayout(false);
+            cmbEncoding.FormattingEnabled = true;
+            cmbEncoding.Location = new System.Drawing.Point(-17, -9);
+            cmbEncoding.Name = "cmbEncoding";
+            cmbEncoding.Size = new System.Drawing.Size(182, 33);
+            cmbEncoding.TabIndex = 0;
+            var encodingNames = Encoding.GetEncodings().Select(p => p.Name).ToArray();
+            cmbEncoding.Items.AddRange(encodingNames);
 
+            // 
+            // OpenFileDialogEncoding
+            // 
+            Controls.Add(cmbEncoding);
+            Name = "OpenFileDialogEncoding";
+            ResumeLayout(false);
         }
 
         #endregion
 
         protected System.Windows.Forms.OpenFileDialog dlgOpen;
-
-
+        private System.Windows.Forms.ComboBox cmbEncoding;
     }
 }
