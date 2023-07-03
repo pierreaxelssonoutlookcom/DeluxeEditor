@@ -31,6 +31,9 @@ namespace DeluxeEdit.CustomFileApiFile.Controls
         /// </summary>
         private void InitializeComponent()
         {
+            this.dlgOpen = new System.Windows.Forms.OpenFileDialog();
+
+
             cmbEncoding = new System.Windows.Forms.ComboBox();
             // 
             // cmbEncoding

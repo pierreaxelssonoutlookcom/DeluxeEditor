@@ -19,7 +19,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
-            
+            editViewModel.UpdateLoad();
         }
 
 
