@@ -1,4 +1,6 @@
 //  Copyright (c) 2006, Gustavo Franco
+//  Copyright © Decebal Mihailescu 2007-2010
+
 //  Email:  gustavo_franco@hotmail.com
 //  All rights reserved.
 
@@ -21,12 +23,13 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using FileDialogExtenders;
 
-namespace DeluxeEdit.CustomFileApiFile.OS
+namespace Win32Types
 {
     #region SWP_Flags
     [Flags]
-    public enum SWP_Flags
+    internal enum SWP_Flags
     {
         SWP_NOSIZE			= 0x0001,
         SWP_NOMOVE			= 0x0002,
@@ -43,7 +46,7 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
     #region DialogChangeStatus
-    public enum DialogChangeStatus : long
+    internal enum DialogChangeStatus : uint
     {
         CDN_FIRST           = 0xFFFFFDA7,
         CDN_INITDONE        = (CDN_FIRST - 0x0000),
@@ -53,13 +56,15 @@ namespace DeluxeEdit.CustomFileApiFile.OS
         CDN_HELP            = (CDN_FIRST - 0x0004),
         CDN_FILEOK          = (CDN_FIRST - 0x0005),
         CDN_TYPECHANGE      = (CDN_FIRST - 0x0006),
+        CDN_INCLUDEITEM     = (CDN_FIRST - 0x0007)
     }
     #endregion
 
+
     #region DialogChangeProperties
-    public enum DialogChangeProperties
+    internal enum DialogChangeProperties :uint
     {
-        CDM_FIRST              = (0x400 + 100),
+        CDM_FIRST              = ((uint)Msg.WM_USER + 100),
         CDM_GETSPEC            = (CDM_FIRST + 0x0000),
         CDM_GETFILEPATH        = (CDM_FIRST + 0x0001),
         CDM_GETFOLDERPATH      = (CDM_FIRST + 0x0002),
@@ -69,9 +74,19 @@ namespace DeluxeEdit.CustomFileApiFile.OS
         CDM_SETDEFEXT          = (CDM_FIRST + 0x0006)
     }
     #endregion
-
+    #region ListView
+    
+    internal enum ListViewMsg :uint
+    {
+        LVM_FIRST = 0x1000,
+        LVM_GETHEADER = LVM_FIRST + 31,
+        LVM_SETITEM = LVM_FIRST + 76,
+        LVM_INSERTITEM = LVM_FIRST + 77
+    }
+    #endregion
     #region ImeNotify
-    public enum ImeNotify
+    
+    internal enum ImeNotify
     {
         IMN_CLOSESTATUSWINDOW         = 0x0001,
         IMN_OPENSTATUSWINDOW          = 0x0002,
@@ -90,7 +105,16 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     }
     #endregion
 
+    #region FileDialogType
+    public enum FileDialogType
+    {
+        OpenFileDlg,
+        SaveFileDlg
+    }
+    #endregion
+
     #region FolderViewMode
+
     public enum FolderViewMode
     {
         Default     = 0x7028,
@@ -105,7 +129,8 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
     #region Enum DialogViewProperty
-    public enum DefaultViewType
+    
+    internal enum DefaultViewType
 	{
 		Icons       = 0x7029,
 		List        = 0x702b,
@@ -116,7 +141,8 @@ namespace DeluxeEdit.CustomFileApiFile.OS
 	#endregion
 
     #region ButtonStyle
-    public enum ButtonStyle : long
+    
+    internal enum ButtonStyle : uint
     {
         BS_PUSHBUTTON     = 0x00000000,
         BS_DEFPUSHBUTTON  = 0x00000001,
@@ -150,7 +176,8 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
     #region ZOrderPos
-    public enum ZOrderPos
+    
+    internal enum ZOrderPos
     {
         HWND_TOP        = 0,
         HWND_BOTTOM     = 1,
@@ -160,7 +187,8 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
     #region Static Control Styles
-    public enum StaticControlStyles : long
+    
+    internal enum StaticControlStyles : uint
     {
         SS_LEFT             = 0x00000000,
         SS_CENTER           = 0x00000001,
@@ -198,9 +226,10 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
 	#region Combo Box styles
-
-    public enum ComboBoxStyles : long
+    
+    internal enum ComboBoxStyles : uint
     {
+        None                  = 0,
         CBS_SIMPLE            = 0x0001,
         CBS_DROPDOWN          = 0x0002,
         CBS_DROPDOWNLIST      = 0x0003,
@@ -218,7 +247,9 @@ namespace DeluxeEdit.CustomFileApiFile.OS
     #endregion
 
     #region Window Styles
-    public enum WindowStyles : long
+    
+    [Flags]
+    internal enum WindowStyles : uint
 	{
 		WS_OVERLAPPED       = 0x00000000,
 		WS_POPUP            = 0x80000000,
@@ -251,7 +282,9 @@ namespace DeluxeEdit.CustomFileApiFile.OS
 	#endregion
 
 	#region Window Extended Styles
-    public enum WindowExStyles
+    
+    [Flags]
+	internal enum WindowExtendedStyles
 	{
 		WS_EX_DLGMODALFRAME     = 0x00000001,
 		WS_EX_NOPARENTNOTIFY    = 0x00000004,
@@ -279,17 +312,20 @@ namespace DeluxeEdit.CustomFileApiFile.OS
 	#endregion
 
 	#region ChildFromPointFlags
-	public enum ChildFromPointFlags
+    
+    [Flags]
+    internal enum ChildFromPointFlags
 	{
-		CWP_ALL             = 0x0000,
-		CWP_SKIPINVISIBLE   = 0x0001,
-		CWP_SKIPDISABLED    = 0x0002,
-		CWP_SKIPTRANSPARENT = 0x0004
+		None             = 0x0000,
+        CWP_SKIPINVISIBLE   = 0x0001,
+        CWP_SKIPDISABLED    = 0x0002,
+        CWP_SKIPTRANSPARENT = 0x0004
 	}
 	#endregion
 
 	#region HitTest
-    public enum HitTest
+    
+	internal enum HitTest
 	{
 		HTERROR             = (-2),
 		HTTRANSPARENT       = (-1),
@@ -324,7 +360,8 @@ namespace DeluxeEdit.CustomFileApiFile.OS
 	#endregion
 
 	#region Windows Messages
-    public enum Msg
+    
+	internal enum Msg
 	{
 		WM_NULL                   = 0x0000,
 		WM_CREATE                 = 0x0001,
@@ -537,7 +574,9 @@ namespace DeluxeEdit.CustomFileApiFile.OS
 	#endregion
 
 	#region SetWindowPosFlags
-   public enum SetWindowPosFlags
+    
+    [Flags]
+    internal enum SetWindowPosFlags
 	{
 		SWP_NOSIZE          = 0x0001,
 		SWP_NOMOVE          = 0x0002,
