@@ -133,9 +133,7 @@ namespace CustomControls
                 _pbOriginal.Image = _originalImage;
                 _format = _originalImage.RawFormat;
                 _lblOrigInfo.Text = string.Format("Colors: {0}\nSize: {1} X {2} pixels\nHorizontal Resolution {3}\nVertical resolution: {4}",
-                    MyOpenFileDialogControl.GetColorsCountFromImage(_pbOriginal.Image),_originalImage.Width,
-                    _originalImage.Height,_originalImage.HorizontalResolution, _originalImage.VerticalResolution);
-                Display();
+                Display());
             }
         }
 
