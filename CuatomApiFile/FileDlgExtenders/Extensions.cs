@@ -18,10 +18,8 @@
 //  IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
 //  PURPOSE. IT CAN BE DISTRIBUTED FREE OF CHARGE AS LONG AS THIS HEADER 
 //  REMAINS UNCHANGED.
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using System.ComponentModel;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace CustomFileApiFile.FileDlgExtenders

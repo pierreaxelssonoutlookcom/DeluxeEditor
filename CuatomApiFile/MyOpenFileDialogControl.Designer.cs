@@ -1,5 +1,5 @@
-using CustomFileApiFile.FileDlgExtenders;
 using System.ComponentModel;
+using CustomFileApiFile.FileDlgExtenders;
 namespace CustomFileApiFile
 {
     public partial class MyOpenFileDialogControl

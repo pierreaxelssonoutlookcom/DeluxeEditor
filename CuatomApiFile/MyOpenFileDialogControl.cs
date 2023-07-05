@@ -33,13 +33,12 @@ using CustomFileApiFile.FileDlgExtenders;
 namespace CustomFileApiFile
 {
 
-    public partial class MyOpenFileDialogControl : FileDialogControlBase
+    public partial class MyOpenFileDialogControl : CustomFileApiFile.FileDlgExtenders.FileDialogControlBase
     {
         public MyOpenFileDialogControl()
         {
-
             InitializeComponent();
-            if (cmbEncoding!=null)  cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
+            cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
         }
 
         public string wantedEncoding { get; private set; }

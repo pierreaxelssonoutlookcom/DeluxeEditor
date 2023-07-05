@@ -1,5 +1,4 @@
-using CustomFileApiFile.FileDlgExtenders;
-using System.ComponentModel;
+using CustomFileApiFile;
 namespace CustomFileApiFile
 {
     public partial class MySaveDialogControl
@@ -123,7 +122,7 @@ namespace CustomFileApiFile
             // 
             this._cbxNewViewMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbxNewViewMode.FormattingEnabled = true;
-            this._cbxNewViewMode.Location = new System.Drawing.Point(97, 19);
+            this._cbxNewViewMode.Locati-on = new System.Drawing.Point(97, 19);
             this._cbxNewViewMode.Name = "_cbxNewViewMode";
             this._cbxNewViewMode.Size = new System.Drawing.Size(149, 21);
             this._cbxNewViewMode.TabIndex = 32;
@@ -268,16 +267,18 @@ namespace CustomFileApiFile
             this.Controls.Add(this._groupBox1);
             this.FileDlgCaption = "Save Thumbnail as:";
             this.FileDlgCheckFileExists = false;
-            this.FileDlgDefaultViewMode = FolderViewMode.List;
+            this.FileDlgDefaultViewMode = Win32Types.FolderViewMode.List;
             this.FileDlgFileName = "Change Picture";
             this.FileDlgFilter = resources.GetString("$this.FileDlgFilter");
             this.FileDlgOkCaption = "Create";
-            this.FileDlgType = FileDialogType.SaveFileDlg;
+            this.FileDlgStartLocation = FileDialogExtenders.AddonWindowLocation.Bottom;
+            this.FileDlgType = Win32Types.FileDialogType.SaveFileDlg;
             this.Name = "MySaveDialogControl";
             this.Size = new System.Drawing.Size(548, 446);
             this.Load += new System.EventHandler(this.MySaveDialogControl_Load);
             this.EventClosingDialog += new System.ComponentModel.CancelEventHandler(this.MySaveDialogControl_ClosingDialog);
             this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.MySaveDialogControl_HelpRequested);
+            this.EventFilterChanged += new FileDialogExtenders.FileDialogControlBase.FilterChangedEventHandler(this.MySaveDialogControl_FilterChanged);
             ((System.ComponentModel.ISupportInitialize)(this._pbChanged)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._pbOriginal)).EndInit();
             this._groupBox1.ResumeLayout(false);

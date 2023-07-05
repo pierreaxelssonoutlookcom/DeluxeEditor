@@ -1,6 +1,7 @@
+using System.Windows.Forms;
 namespace CustomFileApiFile.FileDlgExtenders
 {
-    public partial class FileDialogControlBase
+    public partial class FileDialogControlBase: UserControl
     {
         /// <summary>
         /// Required designer variable.

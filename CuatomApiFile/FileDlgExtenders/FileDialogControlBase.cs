@@ -19,23 +19,15 @@
 //  PURPOSE. IT CAN BE DISTRIBUTED FREE OF CHARGE AS LONG AS THIS HEADER 
 //  REMAINS UNCHANGED.
 
-using System;
-using System.IO;
-using System.Text;
-using System.Data;
 using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
 using System.ComponentModel;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Drawing.Drawing2D;
 
 namespace CustomFileApiFile.FileDlgExtenders
 {
     #region Base class
 
-    public partial class FileDialogControlBase : UserControl//, IMessageFilter
+    public partial class FileDialogControlBase : UserControl
     {
         #region Delegates
         public delegate void PathChangedEventHandler(IWin32Window sender, string filePath);
@@ -407,48 +399,6 @@ namespace CustomFileApiFile.FileDlgExtenders
         {
             if (EventFilterChanged != null)
                 EventFilterChanged(sender, index);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            if (DesignMode)
-            {
-                Graphics gr = e.Graphics;
-                {
-                    HatchBrush hb = null;
-                    Pen p = null;
-                    try
-                    {
-                        switch (this.FileDlgStartLocation)
-                        {
-                            case AddonWindowLocation.Right:
-                                hb = new System.Drawing.Drawing2D.HatchBrush(HatchStyle.NarrowHorizontal, Color.Black, Color.Red);
-                                p = new Pen(hb, 5);
-                                gr.DrawLine(p, 0, 0, 0, this.Height);
-                                break;
-                            case AddonWindowLocation.Bottom:
-                                hb = new System.Drawing.Drawing2D.HatchBrush(HatchStyle.NarrowVertical, Color.Black, Color.Red);
-                                p = new Pen(hb, 5);
-                                gr.DrawLine(p, 0, 0, this.Width, 0);
-                                break;
-                            case AddonWindowLocation.BottomRight:
-                            default:
-                                hb = new System.Drawing.Drawing2D.HatchBrush(HatchStyle.Sphere, Color.Black, Color.Red);
-                                p = new Pen(hb, 5);
-                                gr.DrawLine(p, 0, 0, 4, 4);
-                                break;
-                        }
-                    }
-                    finally
-                    {
-                        if (p != null)
-                            p.Dispose();
-                        if (hb != null)
-                            hb.Dispose();
-                    }
-                }
-            }
-            base.OnPaint(e);
         }
 
 

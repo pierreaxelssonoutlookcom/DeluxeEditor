@@ -1,5 +1,4 @@
-﻿using DefaultPlugins.GuiActions;
-using Model;
+﻿using Model;
 using Model.Interface;
 using Shared;
 using System;
@@ -10,7 +9,8 @@ using System.Windows.Controls;
 using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
- 
+using CustomFileApiFile;
+
 namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
@@ -19,8 +19,8 @@ namespace DefaultPlugins
         public Type? ControlType{ get; set; }=typeof(DefaultPlugins.Views.MainEdit);
         public string? GuiAction(INamedActionPlugin instance)
         {
-            var x = new FileOpenGuiAction();
-            var result= x.GuiAction(instance);
+            var dia= new DeluxeFileDialog();
+            var result=dia.ShowFileOpenDialog();
             return result;
         }
 
