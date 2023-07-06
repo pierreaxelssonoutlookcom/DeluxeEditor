@@ -28,14 +28,8 @@ namespace DefaultPlugins
             var result= PluginManager.InvokePlugin(myType);
             return result;
         }
-        public static List<INamedActionPlugin> List()
-        {
-            var result = new List<INamedActionPlugin>();
-            result.Add(PluginManager.InvokePlugin(typeof(FileOpenPlugin)));
-            result.Add(PluginManager.InvokePlugin(typeof(UrlEncodePlugin)));
-            result.Add(PluginManager.InvokePlugin(typeof(UrlDecodePlugin)));
-            return result;
-        }
+        public static List<INamedActionPlugin> Instances { get; } = PluginManager.Instances;
+        
 
     }
 }
