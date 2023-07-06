@@ -21,7 +21,7 @@ namespace DefaultPlugins
         {
             var dia= new DeluxeFileDialog();
             var result=dia.ShowFileOpenDialog();
-            return result;
+            return null;
         }
 
       

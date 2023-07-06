@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomFileApi.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,19 @@ namespace CustomFileApiFile
 {
      public class DeluxeFileDialog
     {
-        public string? ShowFileOpenDialog()
+        public EncodingPath? ShowFileOpenDialog()
         {
+            EncodingPath? result;
             var dialog = new MyOpenFileDialogControl();
-            var dummy = new Form();
-            dialog.ShowDialog(dummy);
+            var dummyForm = new Form();
+            var dialogResult=dialog.ShowDialog(dummyForm);
+
+            if (dialogResult == DialogResult.OK) 
+            {
+                result = new EncodingPath { Path = dialog.MSDialog.FileName };
+                result.Encoding = dialog.WantedEncoding != null ? (Encoding?)(Encoding.GetEncoding(dialog.WantedEncoding)): null; 
+            }
+            
             return null;
 
         }

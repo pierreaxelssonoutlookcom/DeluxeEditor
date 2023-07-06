@@ -42,7 +42,7 @@ namespace CustomFileApiFile
             if (cmbEncoding!=null)  cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
         }
 
-        public string WantedEncoding { get;  set; }
+        public string? WantedEncoding { get;  set; }
 
         protected override void OnPrepareMSDialog()
         {
