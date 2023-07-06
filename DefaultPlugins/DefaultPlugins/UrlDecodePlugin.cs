@@ -9,7 +9,10 @@ namespace DefaultPlugins
 {
     public class UrlDecodePlugin : INamedActionPlugin
     {
+        public ActionParameter Parameter { get; set; }
+
         public object? Control { get; set; }
+
         public Type? ControlType { get; set; } = null;
 
         

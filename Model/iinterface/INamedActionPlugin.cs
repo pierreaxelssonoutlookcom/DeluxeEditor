@@ -17,12 +17,13 @@ namespace Model.Interface
         string Id { get; set; }
         string Titel { get; set; }
 
+        ActionParameter Parameter { get; set; }
         string Perform(ActionParameter parameter);
 
         object? Control { get; set; }
 
         Type?  ControlType { get; set; }
-
+            
         string? GuiAction(INamedActionPlugin instance) ;
         string Path { get; set; } 
   

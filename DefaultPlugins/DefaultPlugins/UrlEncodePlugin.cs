@@ -9,6 +9,8 @@ namespace DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
+        public ActionParameter Parameter { get; set; }
+
         public object? Control { get; set; }
         public Type? ControlType { get; set; } = null;
         public string? GuiAction(INamedActionPlugin instance) { return ""; }

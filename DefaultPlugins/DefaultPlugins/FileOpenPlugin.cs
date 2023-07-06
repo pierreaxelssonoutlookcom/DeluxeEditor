@@ -14,20 +14,25 @@ using CustomFileApiFile;
 namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
-    {
-         public object? Control { get; set; }
+    { 
+        public ActionParameter? Parameter { get; set; }
+
+        public object? Control { get; set; }
         public Type? ControlType{ get; set; }=typeof(DefaultPlugins.Views.MainEdit);
         public string? GuiAction(INamedActionPlugin instance)
         {
-            var dia= new DeluxeFileDialog();
-            var result=dia.ShowFileOpenDialog();
+            string oldDir =@"c:\";
+
+            if (Parameter != null) oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
+            var dialog= new DeluxeFileDialog();
+            var result=dialog.ShowFileOpenDialog();
             return null;
         }
 
       
 
         //todo; we might have to implement setcontext for plugins   
-
+            
         public bool Enabled { get; set; }
 
         public char[] MyKeyCommand { get; set; } = new char[] { SystemConstants.ControlKey, 'o' };
@@ -62,7 +67,9 @@ namespace DefaultPlugins
 
         public string Perform(ActionParameter parameter)
         {
-            contentBuffer.Clear();
+              Parameter=parameter;
+
+        contentBuffer.Clear();
             var result = ReadPortion(parameter);
             if (contentBuffer.Count > SystemConstants.ReadBufferSizeLines) contentBuffer.Clear();
 
