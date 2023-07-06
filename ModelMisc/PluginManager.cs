@@ -11,18 +11,19 @@ namespace ModelMisc
 {
     public class PluginManager
     { 
-        private string pluginPath;
+        private static string pluginPath;
         private static Dictionary<string, Assembly>? loadedAsms;
-        private List<string> pluginFiles;
+        public static List<INamedActionPlugin> Instances= new List<INamedActionPlugin>();
 
-        public PluginManager() 
+        static PluginManager() 
         {
           pluginPath = $"{Environment.GetFolderPath( Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
-          pluginFiles=Directory.GetFiles(pluginPath, "*.dll").ToList();
-          pluginFiles.Select(p =>  LoadPluginFile(p));
+          Directory.GetFiles(pluginPath, "*.dll")
+          .Select(p =>  LoadPluginFile(p));
         }
 
-         public static INamedActionPlugin InvokePlugin(Type pluginType)
+         public static 
+            INamedActionPlugin InvokePlugin(Type pluginType)
         {
             object? newItem = Activator.CreateInstance(pluginType);
 
@@ -42,8 +43,10 @@ namespace ModelMisc
           //  if (newItem == null) throw new NullReferenceException();
           var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
             if (newItemCasted == null) throw new InvalidCastException();
-
+            //now recording all plugin objects
+            Instances.Add(newItemCasted);
             return newItemCasted;
+
         }
         public List<PluginFileItem> RemoteList()
         {
@@ -59,7 +62,7 @@ namespace ModelMisc
             return result;
        }
 
-        private INamedActionPlugin CreateObjects(Type t)
+        private static INamedActionPlugin CreateObjects(Type t)
         {
             var newItem = Activator.CreateInstance(t);
             var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
@@ -72,7 +75,7 @@ namespace ModelMisc
             return newItemCasted;
         }
   
-        public List<INamedActionPlugin> LoadPluginFile(string path)
+        public static List<INamedActionPlugin> LoadPluginFile(string path)
         {
             if (loadedAsms == null) loadedAsms = new Dictionary<string, Assembly>();
 

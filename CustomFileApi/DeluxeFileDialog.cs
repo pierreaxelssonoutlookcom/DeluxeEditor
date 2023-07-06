@@ -13,7 +13,7 @@ namespace CustomFileApiFile
         public EncodingPath? ShowFileOpenDialog()
         {
             EncodingPath? result;
-            var dialog = new MyOpenFileDialogControl(@"c:\");
+            using var dialog = new MyOpenFileDialogControl(@"c:\");
             var dummyForm = new Form();
             var dialogResult=dialog.ShowDialog(dummyForm);
 
