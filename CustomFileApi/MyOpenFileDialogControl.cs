@@ -33,15 +33,16 @@ using CustomFileApiFile.FileDlgExtenders;
 namespace CustomFileApiFile
 {
 
-    public partial class MyOpenFileDialogControl : CustomFileApiFile.FileDlgExtenders.FileDialogControlBase
+    public partial class MyOpenFileDialogControl : FileDialogControlBase
     {
         public MyOpenFileDialogControl()
         {
+
             InitializeComponent();
-            cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
+            if (cmbEncoding!=null)  cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
         }
 
-        public string wantedEncoding { get; private set; }
+        public string WantedEncoding { get;  set; }
 
         protected override void OnPrepareMSDialog()
         {
@@ -56,7 +57,7 @@ namespace CustomFileApiFile
         private void MyOpenFileDialogControl_ClosingDialog(object sender, CancelEventArgs e)
         {
             if (cmbEncoding.SelectedIndex != -1)
-               wantedEncoding= (string)cmbEncoding.SelectedItem;
+               WantedEncoding= (string)cmbEncoding.SelectedItem;
 
             e.Cancel = false;
         }

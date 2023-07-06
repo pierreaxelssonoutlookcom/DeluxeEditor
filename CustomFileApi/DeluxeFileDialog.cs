@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CustomFileApiFile
 {
@@ -11,7 +12,8 @@ namespace CustomFileApiFile
         public string? ShowFileOpenDialog()
         {
             var dialog = new MyOpenFileDialogControl();
-            dialog.ShowDialog();
+            var dummy = new Form();
+            dialog.ShowDialog(dummy);
             return null;
 
         }

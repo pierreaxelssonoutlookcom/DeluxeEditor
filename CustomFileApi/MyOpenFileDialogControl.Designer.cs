@@ -1,5 +1,5 @@
-using System.ComponentModel;
 using CustomFileApiFile.FileDlgExtenders;
+using System.ComponentModel;
 namespace CustomFileApiFile
 {
     public partial class MyOpenFileDialogControl
@@ -125,7 +125,7 @@ namespace CustomFileApiFile
             FileDlgDefaultViewMode = FolderViewMode.Thumbnails;
             FileDlgEnableOkBtn = false;
             FileDlgFileName = "Select Picture";
-            FileDlgFilter = resources.GetString("$this.FileDlgFilter");
+            FileDlgFilter = "";
             FileDlgFilterIndex = 2;
             FileDlgOkCaption = "Select";
             ImeMode = System.Windows.Forms.ImeMode.NoControl;

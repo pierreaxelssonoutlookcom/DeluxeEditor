@@ -13,7 +13,6 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\CustomFileApiFile\CustomFileApiFile.csproj" />
     <ProjectReference Include="..\DefaultPlugins\DefaultPlugins.csproj" />
     <ProjectReference Include="..\Extensions\Extensions.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
