@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelMisc", "ModelMisc\Mode
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomFileApi", "CustomFileApi\CustomFileApi.csproj", "{2EC97316-44D7-4E5D-9064-164E9D528087}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{60EC0C27-B490-4A9E-B94F-53B76B99A4CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD3974E5-B520-48DB-8223-A237FA0C998D} = {60EC0C27-B490-4A9E-B94F-53B76B99A4CF}
+		{FC894CBA-9468-444E-8079-4C12F99BC33F} = {60EC0C27-B490-4A9E-B94F-53B76B99A4CF}
+		{0DD0711A-3C42-444B-8FDD-FC42AFCD0CE2} = {60EC0C27-B490-4A9E-B94F-53B76B99A4CF}
+		{B9507B07-2F5A-4DFE-B85E-F2D6B2ECF71E} = {60EC0C27-B490-4A9E-B94F-53B76B99A4CF}
+		{2EC97316-44D7-4E5D-9064-164E9D528087} = {60EC0C27-B490-4A9E-B94F-53B76B99A4CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCBEF9C5-A446-4A62-B058-1E17441EDCC9}

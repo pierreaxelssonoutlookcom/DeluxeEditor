@@ -35,30 +35,30 @@ namespace CustomFileApiFile
 
     public partial class MyOpenFileDialogControl : FileDialogControlBase
     {
-        public MyOpenFileDialogControl(string? initialDirectory=null)
+        public MyOpenFileDialogControl(string? initialDirectory = null)
         {
-            FileDlgInitialDirectory = initialDirectory.HasContent() ? initialDirectory: "";
+            FileDlgInitialDirectory = initialDirectory.HasContent() ? initialDirectory : "";
             InitializeComponent();
-            if (cmbEncoding!=null)  cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
+            if (cmbEncoding != null) cmbEncoding.Items.AddRange(Encoding.GetEncodings().Select(p => p.Name).ToArray());
         }
 
-        public string? WantedEncoding { get;  set; }
+        public string? WantedEncoding { get; set; }
         protected override void OnPrepareMSDialog()
         {
-            
+
             if (Environment.OSVersion.Version.Major < 6)
                 MSDialog.SetPlaces(new object[] { @"c:\", (int)Places.MyComputer, (int)Places.Favorites, (int)Places.Printers, (int)Places.Fonts, });
             base.OnPrepareMSDialog();
 
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1807:AvoidUnnecessaryStringCreation", MessageId = "filePath")]
-    
+
 
 
         private void MyOpenFileDialogControl_ClosingDialog(object sender, CancelEventArgs e)
         {
             if (cmbEncoding.SelectedIndex != -1)
-               WantedEncoding= (string)cmbEncoding.SelectedItem;
+                WantedEncoding = (string)cmbEncoding.SelectedItem;
 
             e.Cancel = false;
         }
@@ -70,6 +70,9 @@ namespace CustomFileApiFile
             MessageBox.Show("Please add some specific help here");
         }
 
+        private void MyOpenFileDialogControl_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

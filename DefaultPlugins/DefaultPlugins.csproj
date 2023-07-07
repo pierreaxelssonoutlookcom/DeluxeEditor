@@ -15,7 +15,7 @@
 
 	<ItemGroup>
 	  <Compile Include="AllPlugins.cs" />
-	  <Compile Include="AssemblyInfo1cs.cs" />
+	  <Compile Include="Properties\AssemblyInfo.cs" />
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />

@@ -19,7 +19,7 @@ namespace DefaultPlugins.ViewModel
         {
             plugin = AllPlugins.InvokePlugin(PluginId.FileOpen);
         }
-        //done:find way to renember old path before dialog 
+        //done :find way to renember old path before dialog 
         public string UpdateLoad()
         {
             var result=String.Empty;
