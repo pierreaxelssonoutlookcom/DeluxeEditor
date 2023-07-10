@@ -10,11 +10,14 @@ using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using CustomFileApiFile;
+using System.Windows.Markup.Localizer;
 
 namespace DefaultPlugins
 {
     public class FileSavePlugin : INamedActionPlugin
     {
+         public long FileSize { get; set; }
+
         public ActionParameter? Parameter { get; set; }
 
         public object? Control { get; set; }
@@ -57,10 +60,10 @@ namespace DefaultPlugins
             Configuration = new ConfigurationOptions();
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.S };
         }
-
         public string Perform(ActionParameter parameter)
         {
             Parameter = parameter;
+            FileSize = new FileInfo(Path).Length;
 
             WritePortion(parameter);
             if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();
@@ -74,15 +77,20 @@ namespace DefaultPlugins
 
             if (writer == null)
             {
-                using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                var stream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? writer = new StreamWriter(stream) : new StreamWriter(stream, OpenEncoding);
+                using (var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter))
+                {
+                    var stream = mmf.CreateViewStream();
+                    writer = OpenEncoding == null ? writer = new StreamWriter(stream) : new StreamWriter(stream, OpenEncoding);
+
+                }
             }
 
 
             if (!File.Exists(parameter.Parameter)) throw new FileNotFoundException(parameter.Parameter);
 
             writer.WriteLinesMax(ContentBuffer, SystemConstants.ReadPortionBufferSizeLines);
+            writer.Flush();
+            writer.Close();
         }
 
     }

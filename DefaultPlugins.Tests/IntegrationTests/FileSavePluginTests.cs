@@ -11,8 +11,8 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
     public class FileSavePluginTests
     {
         public static string TempDir = "C:/temp";
-        public static string TestFile = TempDir + "/testfile.txt";
-        public static string TestFile2 = TempDir + "/testfile2.txt";
+        public static string TestFile = TempDir + "/testsave.txt";
+        public static string TestFile2 = TempDir + "/testsave.txt";
 
         [Fact]
         public void FileSavePluginTest()
@@ -26,6 +26,8 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             plugin.OpenEncoding=Encoding.UTF8;
              plugin.Perform(
                 new ActionParameter(TestFile));
+            
+            
             var actual=File.ReadAllText(TestFile, Encoding.UTF8);
             Assert.Equal(expected, actual);
         }
