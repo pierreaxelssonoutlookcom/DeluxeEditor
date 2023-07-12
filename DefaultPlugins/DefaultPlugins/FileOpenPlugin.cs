@@ -79,7 +79,7 @@ namespace DefaultPlugins
             }
 
 
-            ReadAllPortions(parameter);
+            var result=ReadAllPortions(parameter);
 
             ContentBuffer.Clear();
             if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();
