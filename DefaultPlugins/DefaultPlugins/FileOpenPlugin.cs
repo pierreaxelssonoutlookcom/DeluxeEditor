@@ -79,17 +79,34 @@ namespace DefaultPlugins
             }
 
 
-
+            ReadAllPortions(parameter);
 
             ContentBuffer.Clear();
-            var result = ReadPortion(parameter);
             if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();
 
             
             ContentBuffer.AddRange(result);
             return String.Join(Environment.NewLine, result);
-        } 
+        }
+        public List<string> ReadAllPortions(ActionParameter parameter)
+        {
+             var lastPortion=new List<string>();
+
+            while (CanReadMore)
+            {
+                lastPortion=ReadPortion(parameter);
+            }
+
+            if (!CanReadMore)
+            { 
+                reader.Close();
+                reader = null;
+            }
+            return lastPortion;
+        }
+
         public List<string> ReadPortion(ActionParameter parameter)
+
         {
             //todo:how do I share file data between different plugins
 
@@ -101,13 +118,7 @@ namespace DefaultPlugins
             
             var linesRead=  reader.ReadLinesMax(SystemConstants.ReadPortionBufferSizeLines);
             BytesRead += linesRead.Bytes;
-            if (!CanReadMore)
-            {
-                reader.Close();
-
-                reader = null;
-            }
-
+ 
 
 
             return linesRead.Items;
