@@ -70,7 +70,7 @@ namespace DefaultPlugins
         {
               Parameter=parameter;
             FileSize = File.Exists(parameter.Parameter) ?   new FileInfo(parameter.Parameter).Length: 0;
-            BytesRead = 0; 
+
             if (reader == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);

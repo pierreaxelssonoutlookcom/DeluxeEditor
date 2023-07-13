@@ -65,9 +65,10 @@ namespace DefaultPlugins
         }
 
         public string Perform(ActionParameter parameter)
+
         {
             Parameter = parameter;
-            FileSize = new FileInfo(Path).Length;
+            FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
 
             WritesAllPortions(parameter);
             if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();

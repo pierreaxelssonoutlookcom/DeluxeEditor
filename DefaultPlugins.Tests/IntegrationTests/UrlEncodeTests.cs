@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using DefaultPlugins;
 using Model;
@@ -13,7 +14,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void UrlEncodeTest()
         {
-            var plugin = new UrlEncodePlugin();
+            var plugin = AllPlugins.InvokePlugin(PluginId.UrlEncode) as UrlEncodePlugin;
             var expected = "Hej+p%c3%a5+dig";
             var actual = plugin.Perform(
                 new ActionParameter("Hej på dig"));
@@ -23,7 +24,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void UrlEncodeTestSimple()
         {
-            var plugin = new UrlEncodePlugin();
+            var plugin = AllPlugins.InvokePlugin(PluginId.UrlEncode) as UrlEncodePlugin;
             var expected = "Ninja";
             var actual = plugin.Perform(
                 new ActionParameter("Ninja"));

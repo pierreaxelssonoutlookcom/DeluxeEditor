@@ -13,7 +13,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void UrlDecodeTest()
         {
-            var plugin = new UrlDecodePlugin();
+            var plugin = AllPlugins.InvokePlugin(PluginId.UrlDecode) as UrlDecodePlugin;
             var expected = "Hej på dig";
             var actual = plugin.Perform(
                 new ActionParameter("Hej+p%c3%a5+dig"));
@@ -22,7 +22,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void UrlDecodeTestSimple()
         {
-            var plugin = new UrlDecodePlugin();
+            var plugin = AllPlugins.InvokePlugin(PluginId.UrlDecode) as UrlDecodePlugin;
             var expected = "Ninja";
             var actual = plugin.Perform(
                 new ActionParameter("Ninja"));

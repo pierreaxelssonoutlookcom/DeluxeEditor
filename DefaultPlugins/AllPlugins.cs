@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DefaultPlugins
 {
-    public enum PluginId { FileOpen,  UrlDecode, UrlEncode}
+    public enum PluginId { FileOpen,  UrlDecode, UrlEncode, FileSave}
     public class AllPlugins
     {
         public static INamedActionPlugin  InvokePlugin(PluginId plugin)
@@ -19,8 +19,11 @@ namespace DefaultPlugins
                     case PluginId.UrlDecode: 
                     myType = typeof(UrlDecodePlugin);
                     break;
-                    case PluginId.UrlEncode:
+                case PluginId.UrlEncode:
                     myType = typeof(UrlEncodePlugin);
+                    break;
+                case PluginId.FileSave:
+                    myType = typeof(FileSavePlugin);
                     break;
             }
             if (myType == null) throw new NullReferenceException();

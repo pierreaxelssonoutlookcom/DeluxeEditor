@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DefaultPlugins;
+using DefaultPlugins.Views;
 using Model;
 
 namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
@@ -17,10 +18,11 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileOpenPluginTest()
         {
+            var plugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
+
             var expected = "ninjaåäÖ";
             if (File.Exists(TestFile)) File.Delete(TestFile);
             File.WriteAllText(TestFile, "ninjaåäÖ", Encoding.UTF8);
-            var plugin = new FileOpenPlugin();
             plugin.OpenEncoding=Encoding.UTF8;
             var actual = plugin.Perform(
                 new ActionParameter(TestFile));
@@ -29,10 +31,11 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileOpenPluginTestSimple()
         {
+            var plugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
+
             var expected = "ninjaåäö";
             if (File.Exists(TestFile2)) File.Delete(TestFile2);
             File.WriteAllText(TestFile2, "ninjaåäö");
-            var plugin = new FileOpenPlugin();
             plugin.OpenEncoding = null;
             var actual = plugin.Perform(
                 new ActionParameter(TestFile2));

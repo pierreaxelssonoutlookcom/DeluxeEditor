@@ -17,12 +17,13 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileSavePluginTest()
         {
+            var plugin = AllPlugins.InvokePlugin(PluginId.FileSave) as FileSavePlugin;
+
             var expected = "ninjaåäÖ";
             if (File.Exists(TestFile)) File.Delete(TestFile);
             File.WriteAllText(TestFile, "ninjaåäÖ", Encoding.UTF8);
-            var plugin = new FileSavePlugin();
-            plugin.ContentBuffer.Add(expected);
 
+            plugin.ContentBuffer.Add(expected);
             plugin.OpenEncoding=Encoding.UTF8;
              plugin.Perform(
                 new ActionParameter(TestFile));
@@ -34,10 +35,11 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileSavePluginTestSimple()
         {
+            var plugin = AllPlugins.InvokePlugin(PluginId.FileSave) as FileSavePlugin;
+
             var expected = "ninjaåäö";
             if (File.Exists(TestFile2)) File.Delete(TestFile2);
             File.WriteAllText(TestFile2, "ninjaåäö");
-            var plugin = new FileSavePlugin();
             plugin.ContentBuffer.Add(expected);
             plugin.OpenEncoding = null;
             plugin.Perform(
