@@ -30,13 +30,13 @@ namespace DefaultPlugins
         {
             Configuration= new ConfigurationOptions(); 
         }
-        public string Perform(ActionParameter parameter)
+        public string Perform(ActionParameter parameter, string indata)
         {   
-            var result = HttpUtility.UrlDecode(  parameter.Parameter,  Encoding.UTF8);
+            var result = HttpUtility.UrlDecode(  indata ,  Encoding.UTF8);
             return result;
         }
 
-
+        
 
 
     }

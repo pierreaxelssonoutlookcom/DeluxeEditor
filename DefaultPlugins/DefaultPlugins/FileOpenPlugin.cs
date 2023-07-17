@@ -26,8 +26,9 @@ namespace DefaultPlugins
         //todo; we might have to implement setcontext for plugins   
 
         public bool Enabled { get; set; }
-        public MemoryMappedViewStream MýStream { get; private set; }
+        public Stream InputStream { get; set; }
 
+        private MemoryMappedViewStream MýStream;
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
@@ -66,7 +67,7 @@ namespace DefaultPlugins
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.O }; 
         }
 
-        public string Perform(ActionParameter parameter)
+        public string Perform(ActionParameter parameter, string indata)
         {
               Parameter=parameter;
             FileSize = File.Exists(parameter.Parameter) ?   new FileInfo(parameter.Parameter).Length: 0;
@@ -79,7 +80,7 @@ namespace DefaultPlugins
             }
 
 
-            var result=ReadAllPortions(parameter);
+            var result = ReadAllPortions(parameter);
 
             ContentBuffer.Clear();
             if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();
@@ -106,7 +107,6 @@ namespace DefaultPlugins
         }
 
         public List<string> ReadPortion(ActionParameter parameter)
-
         {
             //todo:how do I share file data between different plugins
 
@@ -118,7 +118,7 @@ namespace DefaultPlugins
             
             var linesRead=  reader.ReadLinesMax(SystemConstants.ReadPortionBufferSizeLines);
             BytesRead += linesRead.Bytes;
- 
+            
 
 
             return linesRead.Items;

@@ -25,14 +25,13 @@ namespace DefaultPlugins
         public Type? ControlType { get; set; } = typeof(DefaultPlugins.Views.MainEdit);
         
 
-
+        public  Stream InputStream {  get; set; }
         //todo; we might have to implement setcontext for plugins   
 
         public bool Enabled { get; set; }
         //done:make dynamic
         public bool CanWriteMore { get { return FileSize != 0 && BytesWritten < FileSize && ContentBuffer.Count > 0; } }
 
-        public MemoryMappedViewStream MyStream { get; private set; }
 
 
         private StreamWriter? writer;
@@ -67,15 +66,17 @@ namespace DefaultPlugins
             return result;
         }
 
-        public string Perform(ActionParameter parameter)
+        public string Perform(ActionParameter parameter, string indata)
         {
-            Parameter = parameter;
+            ContentBuffer= indata.Split(Environment.NewLine, indata, )
+              Parameter = parameter;
             FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
+            
             if (writer == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                MyStream= mmf.CreateViewStream();
-                writer = OpenEncoding == null ?  new StreamWriter(MyStream) : new StreamWriter(MyStream, OpenEncoding);
+                InputStream= mmf.CreateViewStream();
+                writer = OpenEncoding == null ?  new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
             }
 
             WritesAllPortions(parameter);

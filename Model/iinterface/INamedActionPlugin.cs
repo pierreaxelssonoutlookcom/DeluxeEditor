@@ -18,7 +18,7 @@ namespace Model.Interface
         string Titel { get; set; }
 
         ActionParameter?  Parameter { get; set; }
-        string Perform(ActionParameter parameter);
+        string Perform(ActionParameter parameter, string indata);
 
         object? Control { get; set; }
 
