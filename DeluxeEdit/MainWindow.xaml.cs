@@ -23,5 +23,11 @@ namespace DeluxeEdit
             //todo:add usercontols dynamically
             Content = new MainEdit();
         }
+
+
+        private void Plugins_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

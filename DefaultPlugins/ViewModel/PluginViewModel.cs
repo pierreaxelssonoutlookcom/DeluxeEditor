@@ -7,12 +7,10 @@ namespace DefaultPlugins.ViewModel
 {
     public class PluginViewModel
     {
-        private Views.Plugins pluginView;
         private PluginManager manager;
 
         public PluginViewModel()
         {
-            pluginView = new Views.Plugins();
             manager = new PluginManager();    
         }   
         public IEnumerable<PluginFileItem> RemoteList()

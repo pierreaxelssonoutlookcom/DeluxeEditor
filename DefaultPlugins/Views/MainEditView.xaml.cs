@@ -13,16 +13,13 @@ namespace DefaultPlugins.Views
     public partial class MainEdit : UserControl
     {
         private MainEditViewModel editViewModel;
-        private ContentPath currenContents;
-        private List<ContentPath>  allContents;
-
+        
         public MainEdit()
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
             // temporary call
-            currenContents =editViewModel.UpdateLoad();
-            allContents = new List<ContentPath>();
+            //currenContents =editViewModel.UpdateLoad();
         }
         public void addTab(string header)
         {
@@ -32,20 +29,20 @@ namespace DefaultPlugins.Views
 
         private void Grid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            currenContents = editViewModel.KeyDown();
-            if (currenContents == null) return;
+            MainEditViewModel.CurrenContent = editViewModel.KeyDown();
+            if (MainEditViewModel.CurrenContent == null) return;
 
-            addTab(currenContents.Header);
-            MainEditBox.Text = currenContents.Content;
-            allContents.Add(currenContents);
+
+            addTab(MainEditViewModel.CurrenContent.Header);
+             MainEditViewModel.AllContents.Add(MainEditViewModel.CurrenContent);
 
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string head = (TabFiles.SelectedItem as TabItem).Header as string;
-            currenContents=  allContents.First(p => p.Header==head);
-            editViewModel.ChangeTab(currenContents);
+             MainEditViewModel.CurrenContent= MainEditViewModel.AllContents.First(p => p.Header==head);
+            editViewModel.ChangeTab( MainEditViewModel.CurrenContent);
 
         }
     }

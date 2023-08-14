@@ -15,13 +15,15 @@ namespace DefaultPlugins.ViewModel
 {
     public class MainEditViewModel
     {
+
         private FileOpenPlugin openPlugin;
         private FileSavePlugin savePlugin;
-        private static ContentPath? currentContent = null;
-        private static List<ContentPath>  allContents=new List<ContentPath>();
+        public static  ContentPath CurrenContent=null;
+        public static List<ContentPath> AllContents = new List<ContentPath>();
 
         public MainEditViewModel()
         {
+
             openPlugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
             savePlugin = AllPlugins.InvokePlugin(PluginId.FileSave) as FileSavePlugin;
         }
@@ -38,8 +40,9 @@ namespace DefaultPlugins.ViewModel
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
                 result.Content = openPlugin.Perform(new ActionParameter(result.Path), String.Empty);
-                currentContent = result;
-                allContents.Add(result);
+                CurrenContent= result;
+                                 
+                AllContents.Add(result);
             }
             //done:fix so we can keep track of contents and paths
             return result;
@@ -47,7 +50,7 @@ namespace DefaultPlugins.ViewModel
         }
         public void ChangeTab(ContentPath item)
         {
-            currentContent=allContents.First(p=>p.Path==item.Path && p.Header==item.Header);
+            MainEditViewModel.CurrenContent= MainEditViewModel.AllContents.First(p => p.Path == item.Path && p.Header == item.Header);
         }
         public void UpdateSave(string data)
         {

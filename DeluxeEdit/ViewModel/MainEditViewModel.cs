@@ -32,7 +32,7 @@ namespace DefaultPlugins.ViewModel
             {
 
                 plugin.OpenEncoding = actionResult.Encoding;
-                result = plugin.Perform(new ActionParameter(actionResult.Path));
+                result = plugin.Perform(new ActionParameter(actionResult.Path), String.Empty);
             }
             return result;
         }

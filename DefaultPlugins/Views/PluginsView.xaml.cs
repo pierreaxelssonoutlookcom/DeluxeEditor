@@ -1,4 +1,5 @@
 ﻿using DefaultPlugins.ViewModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 
 namespace DefaultPlugins.Views
@@ -13,6 +14,15 @@ namespace DefaultPlugins.Views
         {
             InitializeComponent();
             pluginViewModel = new PluginViewModel();
+            LocalList();
+        }
+        private void LocalList()
+        {
+            pluginList.DataContext = pluginViewModel.LocalList();
+        }
+        private void RemoteList()
+        {
+            pluginList.DataContext = pluginViewModel.RemoteList();
         }
     }
 }

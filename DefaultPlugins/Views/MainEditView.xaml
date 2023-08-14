@@ -7,12 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl x:Name="TabFiles" SelectionChanged="TabControl_SelectionChanged">
-        <TabItem Header="TabItem" Margin="0,30,0,-30">
-            <TextBox x:Name="MainEditBox" TextWrapping="NoWrap"   />
-        </TabItem>
-        <TabItem Header="TabItem" Margin="-2,28,-2,-30">
-            <Grid Background="#FFE5E5E5" Keyboard.KeyDown="Grid_KeyDown"    />
-        </TabItem>
     </TabControl>
 
 </UserControl>
