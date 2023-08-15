@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using DefaultPlugins.Misc;
+using Model.Interface;
+using System.Linq;
 
 namespace DefaultPlugins.ViewModel
 {
@@ -13,15 +15,31 @@ namespace DefaultPlugins.ViewModel
         {
             manager = new PluginManager();    
         }   
-        public IEnumerable<PluginFile> RemoteList()
+        public IEnumerable<PluginItem> RemoteList()
         {
-            return manager.RemoteList();
-        }
-        public IEnumerable<PluginFile> LocalList()
+            throw new NotImplementedException();     
+         }
+        public List<PluginItem> LocalList()
         {
-            var result=manager.LocalList();
+            manager.LoadFiles();
+            var result = new List<PluginItem>();
+            foreach (var f in manager.SourceFiles)
+            {
+                result.AddRange(f.Instances.Select(i => GetPluginItem(f.LocalPath, i)));
+
+            }
             return result;
         }
+
+        public PluginItem GetPluginItem(string path, INamedActionPlugin item)
+        {
+            var result = new PluginItem();
+            result.DerivedSourcePath = path;
+            result.Id = item.Id;
+            result.Version = item.Version;
+            return result;
+        }
+
 
     }
 }

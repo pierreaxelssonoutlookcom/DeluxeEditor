@@ -21,7 +21,7 @@ namespace DefaultPlugins
         public EncodingPath? GuiAction(INamedActionPlugin instance) { return null; }
         public bool Enabled { get; set; }
         public char[] MyKeyCommand { get; set; } = new char[0];
-        public string Id { get; set; } ="UrlDeclode";
+        public string Id { get; set; } = "UrlDecodePlugin";
         public string Titel { get; set; } =  "Url Declode";
         public ConfigurationOptions Configuration { get; set; }
 

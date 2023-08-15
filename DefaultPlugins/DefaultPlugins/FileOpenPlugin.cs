@@ -17,7 +17,6 @@ namespace DefaultPlugins
     {
         public Version Version { get; set; }
 
-
         public long FileSize { get; set; }
         public long BytesRead { get; set; }
 
@@ -35,7 +34,7 @@ namespace DefaultPlugins
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = "FileOpenPlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 

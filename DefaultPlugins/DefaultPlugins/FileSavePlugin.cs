@@ -41,7 +41,7 @@ namespace DefaultPlugins
 
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "";
+        public string Id { get; set; } = "FileSavePlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 

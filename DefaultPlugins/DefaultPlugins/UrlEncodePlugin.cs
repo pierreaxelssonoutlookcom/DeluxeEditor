@@ -21,9 +21,10 @@ namespace DefaultPlugins
 
         public char[] MyKeyCommand { get; set; } = new char[0];
 
-        public string Id { get; set; } = "UrlEncode";
-        public string Titel { get; set; } = "Url Eeclode";
+        public string Id { get; set; } = "UrlEncodePlugin";
+        public string Titel { get; set; } = "Url encode";
      
+
 
         public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";

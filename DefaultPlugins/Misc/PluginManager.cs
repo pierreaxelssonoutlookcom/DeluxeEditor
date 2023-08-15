@@ -4,6 +4,7 @@ using Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,33 +16,30 @@ namespace DefaultPlugins.Misc
         private static string pluginPath;
         private static Dictionary<string, Assembly>? loadedAsms;
         public static List<INamedActionPlugin> Instances= new List<INamedActionPlugin>();
+        public List<PluginFile> SourceFiles;
 
-        static PluginManager() 
+        static PluginManager()
         {
-          pluginPath = $"{Environment.GetFolderPath( Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
-          Directory.GetFiles(pluginPath, "*.dll")
-          .Select(p =>  LoadPluginFile(p));
+            pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
         }
+        public void LoadFiles()
+        {
+            SourceFiles =
+                Directory.GetFiles(pluginPath, "*.dll").ToList()
+                .Select(p => new PluginFile { LocalPath = p }).ToList();
+            SourceFiles
+            .ForEach(pp => pp.Instances = LoadPluginFile(pp.LocalPath)); ;
+            
+        }
+     
 
-         public static 
-            INamedActionPlugin InvokePlugin(Type pluginType)
+        public static INamedActionPlugin InvokePlugin(Type pluginType)
         {
             object? newItem = Activator.CreateInstance(pluginType);
 
 
-            /*
-            if (loadedAsms == null) throw new NullReferenceException();
-            foreach (var asm in loadedAsms)
-            {
-                  var type = asm.Value.GetTypes().SingleOrDefault(p => p == pluginType);
-                if (type != null)
-                {
-                       newItem=  .CreateInstance(type);
-                    break;
-                }
-            }
-            */
-          //  if (newItem == null) throw new NullReferenceException();
+
+
           var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
             if (newItemCasted == null) throw new InvalidCastException();
             //now recording all plugin objects
@@ -49,19 +47,6 @@ namespace DefaultPlugins.Misc
             return newItemCasted;
 
         }
-        public List<PluginFile> RemoteList()
-        {
-            thrownew NotImplementedException();
-        }   
-
-        public List<PluginFile> LocalList()
-        {
-            var parser = new PluginFileItemParser();
-
-            var result = Directory.GetFiles(pluginPath, "*.dll")
-                 .Select(p => parser.ParseFileName(p)).ToList();
-            return result;
-       }
 
         private static INamedActionPlugin CreateObjects(Type t)
         {
