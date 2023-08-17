@@ -14,24 +14,22 @@ namespace DefaultPlugins.Misc
     public class PluginManager
     { 
         private static string pluginPath;
-        private static Dictionary<string, Assembly>? loadedAsms;
         public static List<INamedActionPlugin> Instances= new List<INamedActionPlugin>();
-        public List<PluginFile> SourceFiles;
+        public static List<PluginFile> SourceFiles = new List<PluginFile>();
 
         static PluginManager()
         {
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
+            
         }
         public void LoadFiles()
         {
             SourceFiles =
                 Directory.GetFiles(pluginPath, "*.dll").ToList()
                 .Select(p => new PluginFile { LocalPath = p }).ToList();
-
-            foreach (var file in SourceFiles)
-            {
-                file.Instances = LoadPluginFile(file.LocalPath);               SourceFiles.Select(p => LoadPluginFile(p.LocalPath));
-            }
+            SourceFiles.ForEach(p=> 
+            p.Instances = LoadPluginFile(p.LocalPath));
+           
         }
      
 
@@ -66,26 +64,18 @@ namespace DefaultPlugins.Misc
   
         public static List<INamedActionPlugin> LoadPluginFile(string path)
         {
-            if (loadedAsms == null) loadedAsms = new Dictionary<string, Assembly>();
-
+            //done:could be multiple plugis in the same, FILE
 
             var result = new List<INamedActionPlugin>();
-            if (loadedAsms!=null && !loadedAsms.ContainsKey(path))
-            {
-                 loadedAsms[path]=Assembly.LoadFile(path);
-            }
+            var ourSource= SourceFiles.First(p => String.Equals(p.LocalPath, path, StringComparison.InvariantCultureIgnoreCase));
+            
+            
+            if (ourSource.Assembly == null) ourSource.Assembly = Assembly.Load(path);
 
-            if (loadedAsms == null) throw new NullReferenceException();
-            //done:could be multiple plugisAssemblyn in the same, FILE
-            var matchingTypes = loadedAsms[path].GetTypes()
-                .Where(p=>p.ToString().EndsWith("Plugin") ).ToList();
-            foreach (var t in matchingTypes)
-            {
-
-                var newItemCasted = CreateObjects(t);
-                 result.Add(newItemCasted);
-
-             }
+            var matchingTypes = ourSource.Assembly.GetTypes()
+                .Where(p=>p.ToString().EndsWith("Plugin") )
+                .ToList();
+            matchingTypes.ForEach(t => result.Add(CreateObjects(t)));
             
             return result;
         }
