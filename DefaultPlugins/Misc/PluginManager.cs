@@ -70,7 +70,7 @@ namespace DefaultPlugins.Misc
             var ourSource= SourceFiles.First(p => String.Equals(p.LocalPath, path, StringComparison.InvariantCultureIgnoreCase));
             
             
-            if (ourSource.Assembly == null) ourSource.Assembly = Assembly.Load(path);
+            if (ourSource.Assembly == null) ourSource.Assembly = Assembly.LoadFile(path);
 
             var matchingTypes = ourSource.Assembly.GetTypes()
                 .Where(p=>p.ToString().EndsWith("Plugin") )

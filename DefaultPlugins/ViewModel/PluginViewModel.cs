@@ -23,12 +23,13 @@ namespace DefaultPlugins.ViewModel
         {
             manager.LoadFiles();
             var result = new List<PluginItem>();
-            foreach (var f in manager.SourceFiles)
+            foreach (var f in PluginManager.SourceFiles)
             {
                 result.AddRange(f.Instances.Select(i => GetPluginItem(f.LocalPath, i)));
 
             }
-            return result       }
+            return result;
+        }
 
         public PluginItem GetPluginItem(string path, INamedActionPlugin item)
         {
