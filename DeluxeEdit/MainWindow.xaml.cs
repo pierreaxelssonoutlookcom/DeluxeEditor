@@ -30,5 +30,12 @@ namespace DeluxeEdit
             var plugins = new Plugins( );
             Content = plugins;
       ;  }
+
+        private void PluginFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var plugins = new PluginsFiles();
+            Content = plugins;
+
+        }
     }
 }

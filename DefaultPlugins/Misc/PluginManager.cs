@@ -22,14 +22,14 @@ namespace DefaultPlugins.Misc
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
             
         }
-        public void LoadFiles()
+        public static List<PluginFile> LoadFiles()
         {
             SourceFiles =
                 Directory.GetFiles(pluginPath, "*.dll").ToList()
                 .Select(p => new PluginFile { LocalPath = p }).ToList();
-            SourceFiles.ForEach(p=> 
-            p.Instances = LoadPluginFile(p.LocalPath));
-           
+               SourceFiles.ForEach(p=> 
+                  p.Instances = LoadPluginFile(p.LocalPath));
+            return SourceFiles;
         }
      
 

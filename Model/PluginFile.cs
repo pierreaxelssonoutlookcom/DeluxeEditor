@@ -8,6 +8,8 @@ namespace Model
 {
     public class PluginFile
     {
+        public bool Loaded { get; set; }
+
         public string LocalPath { get; set; }
         public string? Url { get; set; }
         public Assembly Assembly  { get; set; }

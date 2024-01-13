@@ -7,23 +7,17 @@ using System.Linq;
 
 namespace DefaultPlugins.ViewModel
 {
-    public class PluginViewModel
+    public class PluginFileViewModel
     {
         private PluginManager manager;
 
-        public PluginViewModel()
-        {
-            manager = new PluginManager();    
-        }   
         public IEnumerable<PluginItem> RemoteList()
         {
             throw new NotImplementedException();     
          }
-        public List<PluginItem  > LocalList()
+        public List<PluginFile> LocalList()
         {
-            var files=PluginManager.LoadFiles();
-            var result = files.SelectMany(p => p.Plugins).ToList();
-            return result;
+         return  PluginManager.LoadFiles();
         }
 
         public PluginItem GetPluginItem(string path, INamedActionPlugin item)

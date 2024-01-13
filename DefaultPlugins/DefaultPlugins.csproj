@@ -22,7 +22,9 @@
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
+	  <Compile Include="ViewModel\PluginFileViewModel .cs" />
 	  <Compile Include="ViewModel\PluginViewModel.cs" />
+	  <Compile Include="Views\PluginsFilesView.xaml.cs" />
 	  <Compile Include="Views\PluginsView.xaml.cs" />
 	</ItemGroup>
 	<ItemGroup>
