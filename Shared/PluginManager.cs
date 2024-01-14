@@ -1,17 +1,14 @@
-﻿using DefaultPlugins.Misc;
-using Model;
+﻿using Model;
 using Model.Interface;
-using MS.WindowsAPICodePack.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace DefaultPlugins.Misc
- {
+namespace Shared
+{
     public class PluginManager
     { 
         private static string pluginPath;
@@ -33,15 +30,15 @@ namespace DefaultPlugins.Misc
         }
      
 
-        public static INamedActionPlugin InvokePlugin(Type pluginType)
+        public static INamedActionPlugin InvokePlugin(Type type)
         {
-            object? newItem = Activator.CreateInstance(pluginType);
-          var newItemCasted = newItem is INamedActionPlugin ? newItem as INamedActionPlugin : null; ;
-            if (newItemCasted == null) throw new InvalidCastException();
-            //now recording all plugin objects
-            Instances.Add(newItemCasted);
-            return newItemCasted;
-
+            var result=CreateObjects(type);
+            return result;
+       }
+        public INamedActionPlugin InvokePlugin(PluginItem item)
+        {
+            var result = CreateObjects(item.MyType);
+            return result;
         }
 
         private static INamedActionPlugin CreateObjects(Type t)
@@ -57,11 +54,6 @@ namespace DefaultPlugins.Misc
             return newItemCasted;
         }
 
-        public INamedActionPlugin Create(PluginItem item) 
-        {
-            var result=CreateObjects(item.MyType);
-            return result;
-        }
 
 
         public static PluginFile LoadPluginFile(string path)
@@ -81,7 +73,7 @@ namespace DefaultPlugins.Misc
                 .ToList();
  
             ourSource.Plugins = matchingTypes.Select(p => 
-            new PluginItem { Id = p.ToString(), MyType = p, DerivedSourcePath=path, Version = p.Assembly.GetName().Version })
+            new PluginItem { Id = p.ToString(), MyType = p, DerivedSourcePath=path,  Version = p.Assembly.GetName().Version })
                 .ToList();
 
             return ourSource;

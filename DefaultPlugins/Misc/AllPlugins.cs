@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using DefaultPlugins.Misc;
+using Model;
+using Shared;
 
-namespace DefaultPlugins
+namespace DefaultPlugins.Misc
 {
-    public enum PluginId { FileOpen,  UrlDecode, UrlEncode, FileSave}
     public class AllPlugins
     {
         public static INamedActionPlugin  InvokePlugin(PluginId plugin)
@@ -13,16 +14,16 @@ namespace DefaultPlugins
             Type? myType = null;
             switch (plugin)
             {
-                case PluginId.FileOpen: 
+                case PluginType.FileOpen: 
                     myType = typeof(FileOpenPlugin);
                     break;
-                    case PluginId.UrlDecode: 
+                    case PluginType.UrlDecode: 
                     myType = typeof(UrlDecodePlugin);
                     break;
-                case PluginId.UrlEncode:
+                case PluginType.UrlEncode:
                     myType = typeof(UrlEncodePlugin);
                     break;
-                case PluginId.FileSave:
+                case PluginType.FileSave:
                     myType = typeof(FileSavePlugin);
                     break;
             }

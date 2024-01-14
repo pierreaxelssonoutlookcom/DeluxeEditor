@@ -14,9 +14,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="AllPlugins.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
-	  <Compile Include="Misc\PluginManager.cs" />
+	  <Compile Include="Misc\AllPlugins.cs" />
 	  <Compile Include="Properties\AssemblyInfo.cs" />
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
