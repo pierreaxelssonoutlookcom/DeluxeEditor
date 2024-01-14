@@ -9,6 +9,7 @@ using System.Linq;
 using System.Drawing;
 using System.Collections.Generic;
 using System.IO;
+using DefaultPlugins.Misc;
 //using System.Windows.Input;
 
 namespace DefaultPlugins.ViewModel
@@ -24,8 +25,8 @@ namespace DefaultPlugins.ViewModel
         public MainEditViewModel()
         {
 
-            openPlugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
-            savePlugin = AllPlugins.InvokePlugin(PluginId.FileSave) as FileSavePlugin;
+            openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
+            savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
         }
         //done :find way to renember old path before dialog 
         public ContentPath? UpdateLoad()

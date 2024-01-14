@@ -7,16 +7,19 @@ using System.IO;
 using System.Linq;
 using Extensions;
 using System.Reflection;
+using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using System.IO.Packaging;
 
 namespace Shared
 {
-    public class PluginManager
+    public class NugetManager
     {
         private static string pluginPath;
         public static List<INamedActionPlugin> Instances = new List<INamedActionPlugin>();
         public static List<PluginFile> SourceFiles = new List<PluginFile>();
 
-        static PluginManager()
+        public NugetManager()
         {
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
 
@@ -59,12 +62,14 @@ namespace Shared
 
         public static PluginFile LoadPluginFile(string path)
         {
-            //done:could be multiple plugis in the same, FILE
+          var pkg=ZipPackage.Open("test.nupkg");
+          var id = pkg.PackageProperties.Identifier ;
+            var parts = pkg.GetParts();
 
             var ourSource = SourceFiles.FirstOrDefault(p => String.Equals(p.LocalPath, path, StringComparison.InvariantCultureIgnoreCase));
 
             if (ourSource == null)
-            {
+            { 
                 ourSource = new PluginFile { LocalPath = path };
                 ourSource.Assembly = Assembly.LoadFrom(path);
 

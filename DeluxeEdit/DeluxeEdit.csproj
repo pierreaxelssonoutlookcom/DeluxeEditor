@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y C:\gitroot\personal\DeluxeEdit\DeluxeEdit\bin\Debug\net7.0-windows\* &quot;C:\Program Files\DeluxeEdit&quot;&#xD;&#xA;copy /Y &quot;C:\Program Files\DeluxeEdit\*Plugins.dll&quot; &quot;C:\Program Files\DeluxeEdit\plugins\&quot;" />
+    <Exec Command="copy /Y C:\gitroot\personal\DeluxeEdit\DefaultPlugins\bin\Debug\DefaultPlugins*.nupkg &quot;C:\Program Files\DeluxeEdit\plugins\&quot;" />
   </Target>
 
   <ItemGroup>

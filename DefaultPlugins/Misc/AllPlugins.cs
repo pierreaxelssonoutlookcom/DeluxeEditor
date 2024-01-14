@@ -9,7 +9,7 @@ namespace DefaultPlugins.Misc
 {
     public class AllPlugins
     {
-        public static INamedActionPlugin  InvokePlugin(PluginId plugin)
+        public static INamedActionPlugin  InvokePlugin(PluginType plugin)
         {
             Type? myType = null;
             switch (plugin)

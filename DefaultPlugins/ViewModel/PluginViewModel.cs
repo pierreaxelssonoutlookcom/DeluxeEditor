@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using DefaultPlugins.Misc;
 using Model.Interface;
 using System.Linq;
+using Shared;
 
 namespace DefaultPlugins.ViewModel
 {
     public class PluginViewModel
     {
-        private PluginManager manager;
 
         public IEnumerable<PluginItem> RemoteList()
         {

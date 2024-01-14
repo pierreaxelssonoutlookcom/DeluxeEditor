@@ -1,10 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Extensions
 {
     public static class StringExtenssions
     {
+        public static bool SameFileName(this string a, string b)
+        {
+            var filea = new FileInfo(a);
+            var fileb = new FileInfo(b);
+            var result=String.Equals(filea.Name, fileb.Name, StringComparison.CurrentCultureIgnoreCase);
+            return result;
+        }
         public static bool IsEmpty(this string? item)
         {
             return String.IsNullOrEmpty(item);
