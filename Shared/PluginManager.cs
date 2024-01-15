@@ -57,7 +57,7 @@ namespace Shared
 
 
 
-        public static PluginFile LoadPluginFile(string path)
+         public static PluginFile LoadPluginFile(string path)
         {
             //done:could be multiple plugis in the same, FILE
 

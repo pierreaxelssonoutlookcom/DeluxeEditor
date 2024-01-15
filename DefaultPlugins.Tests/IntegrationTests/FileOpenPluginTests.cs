@@ -19,7 +19,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileOpenPluginTest()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
+            var plugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
 
             var expected = "ninjaåäÖ";
             if (File.Exists(TestFile)) File.Delete(TestFile);
@@ -32,7 +32,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileOpenPluginTestSimple()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginId.FileOpen) as FileOpenPlugin;
+            var plugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
 
             var expected = "ninjaåäö";
             if (File.Exists(TestFile2)) File.Delete(TestFile2);
