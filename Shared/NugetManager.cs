@@ -68,10 +68,9 @@ namespace Shared
             var parts = pkg.GetParts().ToList();
             var contentTypes = parts.Select(p=>p.ContentType).ToList();
 
-            var packagePart = parts
-                .FirstOrDefault(p => p.Uri.ToString().EndsWith("DefaultPlugins.dll"));
-            return result;
-
+            var packageParts = parts
+                .Where(p => p.ContentType == "aplication/octet").ToList();
+            return result; 
             /*
             var myStream=packagePart.GetStream(FileMode.Open);
             packagePart.ContentType=
