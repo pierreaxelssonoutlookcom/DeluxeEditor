@@ -6,7 +6,13 @@
             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl x:Name="TabFiles" SelectionChanged="TabControl_SelectionChanged">
+    <TabControl>
+        <TabItem Header="TabItem">
+            <TextBox x:Name="MainEditBox" TextWrapping="NoWrap"   />
+        </TabItem>
+        <TabItem Header="TabItem">
+            <Grid Background="#FFE5E5E5" Keyboard.KeyDown="Grid_KeyDown"    />
+        </TabItem>
     </TabControl>
 
 </UserControl>

@@ -6,7 +6,7 @@
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 		<UseWPF>true</UseWPF>
 		<Version>0.0.1</Version>
-		<Title>A List o defaullt plugins for DeluxeEdit</Title>
+		<Title>A List of  nuget defaullt plugins for DeluxeEdit</Title>
 		<Authors>Pierre Axelsson</Authors>
 		<Company>Pierre Axelsson</Company>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
