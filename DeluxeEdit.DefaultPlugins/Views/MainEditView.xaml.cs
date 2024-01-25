@@ -45,5 +45,14 @@ namespace DefaultPlugins.Views
             editViewModel.ChangeTab( MainEditViewModel.CurrenContent);
 
         }
+
+        private void MainEditBox_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+            editViewModel.ScrollTo(e.NewValue);
+            MainEditBox.Text = MainEditViewModel.CurrenContent.Content;
+        }
+
+                
+
     }
 }

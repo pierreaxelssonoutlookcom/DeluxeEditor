@@ -29,6 +29,13 @@ namespace DefaultPlugins.ViewModel
             savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
         }
         //done :find way to renember old path before dialog 
+        public  void ScrollTo(double newValue)
+        {
+            var seeked= openPlugin.SeekData(newValue);
+            CurrenContent.Content = String.Join("\r\n", seeked);
+
+    }
+
         public ContentPath? UpdateLoad()
         {
             ContentPath? result = null;
@@ -51,7 +58,7 @@ namespace DefaultPlugins.ViewModel
         }
         public void ChangeTab(ContentPath item)
         {
-            MainEditViewModel.CurrenContent= MainEditViewModel.AllContents.First(p => p.Path == item.Path && p.Header == item.Header);
+            CurrenContent= MainEditViewModel.AllContents.First(p => p.Path == item.Path && p.Header == item.Header);
         }
         public void UpdateSave(string data)
         {

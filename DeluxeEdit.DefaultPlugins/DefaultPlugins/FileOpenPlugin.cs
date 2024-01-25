@@ -39,7 +39,15 @@ namespace DefaultPlugins
         public int SortOrder { get; set; }
 
         public List<string> ContentBuffer;
-
+        public List<string> SeekData(double newScrollVatue)         
+        {
+            long? seekTarget=-1;
+            seekTarget=Convert.ChangeType(newScrollVatue, seekTarget.GetType()) as long?; 
+            if (seekTarget.HasValue)
+            reader.BaseStream.Seek(seekTarget.Value, SeekOrigin.Begin);
+            var result= ReadPortion(Parameter);
+            return result;
+        }
         public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";
 
@@ -63,7 +71,7 @@ namespace DefaultPlugins
 
         public FileOpenPlugin()
         {
-            ContentBuffer = new List<string>();
+            ContentBuffer = new List<string>(); 
           //  OpenEncoding = Encoding.UTF8; m 
             Configuration = new ConfigurationOptions();
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.O };
