@@ -9,7 +9,10 @@ using System.Text;
 namespace Extensions
 {
     public static class OtherExtensions
+
     {
+
+
         public static PluginFile ParseNugetFileName(this string path)
         {
             //DefaultPlugins.0.0.1.nupkg

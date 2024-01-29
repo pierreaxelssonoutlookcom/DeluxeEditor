@@ -17,19 +17,10 @@ namespace DefaultPlugins.ViewModel
          }
         public List<PluginItem  > LocalList()
         {
-            var files=PluginManager.LoadFiles();
-            var result = files.SelectMany(p => p.Plugins).ToList();
+            var result = PluginManager.LocalListPllugins();
             return result;
         }
 
-        public PluginItem GetPluginItem(string path, INamedActionPlugin item)
-        {
-            var result = new PluginItem();
-            result.DerivedSourcePath = path;
-            result.Id = item.Id;
-            result.Version = item.Version;
-            return result;
-        }
 
 
     }

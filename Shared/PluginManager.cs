@@ -21,6 +21,22 @@ namespace Shared
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
 
         }
+         
+        public static List<PluginItem> LocalListPllugins()
+        {
+            var files = PluginManager.LoadFiles();
+            var result = files.SelectMany(p => p.Plugins).ToList();
+            return result;
+        }
+        public PluginItem GetPluginItem(string path, INamedActionPlugin item)
+        {
+            var result = new PluginItem();
+            result.DerivedSourcePath = path;
+            result.Id = item.Id;
+            result.Version = item.Version;
+            return result;
+        }
+
         public static List<PluginFile> LoadFiles()
         {
             var result = Directory.GetFiles(pluginPath, "*.dll")
@@ -55,9 +71,9 @@ namespace Shared
             return newItemCasted;
         }
 
+ 
 
-
-         public static PluginFile LoadPluginFile(string path)
+        public static PluginFile LoadPluginFile(string path)
         {
             //done:could be multiple plugis in the same, FILE
 
@@ -74,14 +90,16 @@ namespace Shared
                 .Where(p => p.ToString().EndsWith("Plugin"))
                 .ToList();
 
-            ourSource.Plugins = matchingTypes.Select(p =>
-            new PluginItem { Id = p.ToString(), MyType = p, DerivedSourcePath = path, Version = p.Assembly.GetName().Version })
-                .ToList();
+            ourSource.Plugins = matchingTypes.Select(p =>  path.CreatePluginItem(p)).ToList();
+
+
+
 
             return ourSource;
         }
         public static void UnLoadPluginFile(string path)
         {
+            throw new NotImplementedException();
             var match = SourceFiles.FirstOrDefault(p => String.Equals(path, p.LocalPath, StringComparison.CurrentCultureIgnoreCase));
             if (match != null)
             {
