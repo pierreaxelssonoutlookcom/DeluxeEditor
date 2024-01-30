@@ -28,15 +28,6 @@ namespace Shared
             var result = files.SelectMany(p => p.Plugins).ToList();
             return result;
         }
-        public PluginItem GetPluginItem(string path, INamedActionPlugin item)
-        {
-            var result = new PluginItem();
-            result.DerivedSourcePath = path;
-            result.Id = item.Id;
-            result.Version = item.Version;
-            return result;
-        }
-
         public static List<PluginFile> LoadFiles()
         {
             var result = Directory.GetFiles(pluginPath, "*.dll")
@@ -52,9 +43,14 @@ namespace Shared
             var result = CreateObjects(type);
             return result;
         }
-        public INamedActionPlugin InvokePlugin(PluginItem item)
+        public static INamedActionPlugin InvokePlugin(PluginItem item)
         {
             var result = CreateObjects(item.MyType);
+            return result;
+        }
+        public static IEnumerable<INamedActionPlugin> InvokePlugins(IEnumerable<PluginItem> items)
+        {
+            var result = items.Select(p=>  CreateObjects(p.MyType)).ToList();
             return result;
         }
 

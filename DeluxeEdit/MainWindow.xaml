@@ -5,9 +5,4 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeluxeEdit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Button Name="Plugins" Content="Plugins" Click="Plugins_Click" />
-        <Button Name="PluginFiles" Content="PluginFiles"  Click="PluginFiles_Click" />
-    </StackPanel>
-</Window>
+        Title="MainWindow" Height="450" Width="800"/>

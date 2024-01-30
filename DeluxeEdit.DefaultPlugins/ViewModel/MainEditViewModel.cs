@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.IO;
 using DefaultPlugins.Misc;
+using Shared;
 //using System.Windows.Input;
 
 namespace DefaultPlugins.ViewModel
@@ -22,6 +23,15 @@ namespace DefaultPlugins.ViewModel
         public static  ContentPath CurrenContent=null;
         public static List<ContentPath> AllContents = new List<ContentPath>();
 
+        public List<string> PluginList { get; private set; }
+
+        public void LoadMenu()
+        {
+            var plugins=PluginManager.InvokePlugins(PluginManager.LocalListPllugins());
+
+            PluginList= plugins.Select(p => p.Id).ToList(); 
+        } 
+                                    
         public MainEditViewModel()
         {
 

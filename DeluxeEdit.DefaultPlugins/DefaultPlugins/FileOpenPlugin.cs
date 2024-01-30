@@ -75,8 +75,10 @@ namespace DefaultPlugins
             ContentBuffer = new List<string>(); 
           //  OpenEncoding = Encoding.UTF8; m 
             Configuration = new ConfigurationOptions();
+            Configuration.ShowInMenu = "&File";
+            Configuration.ShowInMenuItem = "&Open"; ;
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.O };
-            Version = Version.Parse("0.1");
+            Version =   Version.Parse("0.1");
         }
 
         public string Perform(ActionParameter parameter)

@@ -6,14 +6,14 @@
             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
+    <DockPanel Margin="0,-1,0,1">
+        <Menu x:Name="MainMenu" DockPanel.Dock="Top"/>
+    
     <TabControl Name="TabFiles">
         <TabItem Header="TabItem"> 
             <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   />
         </TabItem>
-        <TabItem Header="TabItem">
-            <Menu x:Name="MainMenu"/>
-        </TabItem>
-    </TabControl>
+        </TabControl>
+    </DockPanel>
 
 </UserControl>

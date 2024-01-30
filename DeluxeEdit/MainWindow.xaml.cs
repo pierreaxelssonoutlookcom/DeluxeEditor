@@ -21,7 +21,7 @@ namespace DeluxeEdit
         {
             InitializeComponent();
             //todo:add usercontols dynamically
-          //  Content = new MainEdit();
+           Content = new MainEdit();
         }
 
 

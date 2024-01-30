@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeluxeEditE.Exensions\DeluxeEditE.Exensions.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
   </ItemGroup>
 

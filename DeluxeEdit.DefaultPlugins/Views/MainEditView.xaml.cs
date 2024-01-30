@@ -18,6 +18,8 @@ namespace DefaultPlugins.Views
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
+
+            MainMenu.Items.Add("´xxxx");
             // temporary call
             //currenContents =editViewModel.UpdateLoad();
         }

@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
-using Extensions;
+using DeluxeEdit.Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using CustomFileApiFile;
@@ -57,6 +57,8 @@ namespace DefaultPlugins
             ContentBuffer = new List<string>();
             //  OpenEncoding = Encoding.UTF8;
             Configuration = new ConfigurationOptions();
+            Configuration.ShowInMenu = "&File";
+            Configuration.ShowInMenuItem = "&Save";
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.S };
             Version = Version.Parse("0.1");
         }
