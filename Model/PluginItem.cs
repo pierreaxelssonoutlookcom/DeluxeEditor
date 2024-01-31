@@ -12,6 +12,9 @@ namespace Model
         public bool Enabled { get; set; }
         public string DerivedSourcePath { get; set; }
 
-
-    }
+        public override string ToString()
+        {
+            return "${Id} v.{Version} {MyType }";
+        }
+    };
 }

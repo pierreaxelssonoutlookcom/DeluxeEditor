@@ -23,13 +23,23 @@ namespace DefaultPlugins.ViewModel
         public static  ContentPath CurrenContent=null;
         public static List<ContentPath> AllContents = new List<ContentPath>();
 
-        public List<string> PluginList { get; private set; }
+        public static List<string> PluginList { get; private set; }
+        public  static Dictionary<string,ConfigurationOptions> EditMenu{ get; set; }= new Dictionary<string,ConfigurationOptions>();
 
-        public void LoadMenu()
+        public Dictionary<string, ConfigurationOptions> LoadMenu()
         {
             var plugins=PluginManager.InvokePlugins(PluginManager.LocalListPllugins());
+            var showInMenuConfs = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent())
+                 .Select(p => p.Configuration);
 
-            PluginList= plugins.Select(p => p.Id).ToList(); 
+            showInMenuConfs.ForEach(p => EditMenu[p.ShowInMenu] = p);
+
+
+
+
+            PluginList = plugins.Select(p => p.ToString()).ToList();
+
+            return EditMenu;
         } 
                                     
         public MainEditViewModel()

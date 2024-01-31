@@ -13,13 +13,21 @@ namespace DefaultPlugins.Views
     public partial class MainEdit : UserControl
     {
         private MainEditViewModel editViewModel;
-        
+        private Dictionary<string, ConfigurationOptions> menuConfig;
+
         public MainEdit()
         {
             InitializeComponent();
             editViewModel = new MainEditViewModel();
+           menuConfig=editViewModel.LoadMenu();
+            foreach (var key in menuConfig.Keys)
+            {
+                var myMenu = MainMenu.Items.Add(key);
+                string menuItem = $" {menuConfig[key].ShowInMenuItem}  ( {menuConfig[key].KeyCommand} )";
+                MainMenu.Items.Add(menuItem);
 
-            MainMenu.Items.Add("´xxxx");
+            }
+
             // temporary call
             //currenContents =editViewModel.UpdateLoad();
         }

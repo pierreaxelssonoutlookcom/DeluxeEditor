@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Model
 {
-    public class Combo
+    public  class MenuItem
     {
+        public string Name { get; set; }
     }
 }
