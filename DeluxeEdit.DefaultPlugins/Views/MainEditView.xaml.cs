@@ -18,15 +18,6 @@ namespace DefaultPlugins.Views
         public MainEdit()
         {
             InitializeComponent();
-            editViewModel = new MainEditViewModel();
-           menuConfig=editViewModel.LoadMenu();
-            foreach (var key in menuConfig.Keys)
-            {
-                var myMenu = MainMenu.Items.Add(key);
-                string menuItem = $" {menuConfig[key].ShowInMenuItem}  ( {menuConfig[key].KeyCommand} )";
-                MainMenu.Items.Add(menuItem);
-
-            }
 
             // temporary call
             //currenContents =editViewModel.UpdateLoad();
@@ -62,7 +53,18 @@ namespace DefaultPlugins.Views
             MainEditBox.Text = MainEditViewModel.CurrenContent.Content;
         }
 
-                
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            editViewModel = new MainEditViewModel();
+            menuConfig = editViewModel.LoadMenu();
+            foreach (var key in menuConfig.Keys)
+            {
+                var myMenu = MainMenu.Items.Add(key);
+                string menuItem = $" {menuConfig[key].ShowInMenuItem}  ( {menuConfig[key].KeyCommand} )";
+                MainMenu.Items.Add(menuItem);
 
+            }
+
+        }
     }
 }

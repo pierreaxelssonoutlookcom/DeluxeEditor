@@ -17,6 +17,8 @@ namespace Model
         public Assembly Assembly  { get; set; }
         public List<PluginItem> Plugins { get; set; }
         public List<INamedActionPlugin> Instances { get; set; }
+        public List<Type> MatchingTypes { get; set; }
+
         public PluginFile() 
         {
             Plugins = new List<PluginItem>();

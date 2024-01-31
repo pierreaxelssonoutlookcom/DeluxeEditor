@@ -101,7 +101,7 @@ namespace DefaultPlugins.ViewModel
             bool keysOkProceed = false;
             var matchCount = openPlugin.Configuration.KeyCommand
                 .Cast<System.Windows.Input.Key>()
-                .Count(p => System.Windows.Input.Keyboard.IsKeyDown(p));
+                .Count(p => System.Windows.Input.Keyboard .IsKeyDown(p));
             
             keysOkProceed=matchCount == openPlugin.Configuration.KeyCommand.Count && openPlugin.Configuration.KeyCommand.Count>0;
             if (keysOkProceed) result=UpdateLoad();

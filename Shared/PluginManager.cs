@@ -25,7 +25,12 @@ namespace Shared
         public static List<PluginItem> LocalListPllugins()
         {
             var files = PluginManager.LoadFiles();
-            var result = files.SelectMany(p => p.Plugins).ToList();
+            var result= new List<PluginItem>();
+            foreach( var f in files)
+            { 
+                 var items= f.MatchingTypes.Select(p=> f.LocalPath.CreatePluginItem(p));
+                result.AddRange(items);
+            }
             return result;
         }
         public static List<PluginFile> LoadFiles()
@@ -82,12 +87,9 @@ namespace Shared
 
                 SourceFiles.Add(ourSource);
             }
-            var matchingTypes = ourSource.Assembly.GetTypes()
+            ourSource.MatchingTypes = ourSource.Assembly.GetTypes()
                 .Where(p => p.ToString().EndsWith("Plugin"))
                 .ToList();
-
-            ourSource.Plugins = matchingTypes.Select(p =>  path.CreatePluginItem(p)).ToList();
-
 
 
 
