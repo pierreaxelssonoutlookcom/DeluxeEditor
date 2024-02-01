@@ -53,15 +53,17 @@ namespace DefaultPlugins.ViewModel
 
 
 
-            var pitems= plugins.Select(p => new CustomMenuItem{ Title= p.ToString()).ToList();
+            var pitems = plugins.Select(p => new CustomMenuItem { Title = p.ToString() } ).ToList();
+
             pluginsHeader.MenuItems.AddRange(pitems);
+
             return MainMenu;
         } 
                                     
         public MainEditViewModel()
         {
 
-            openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as ;
+            openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
             savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
         }
         //done :find way to renember old path before dialog 
