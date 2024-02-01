@@ -57,8 +57,8 @@ namespace DefaultPlugins
             ContentBuffer = new List<string>();
             //  OpenEncoding = Encoding.UTF8;
             Configuration = new ConfigurationOptions();
-            Configuration.ShowInMenu = "&File";
-            Configuration.ShowInMenuItem = "&Save";
+            Configuration.ShowInMenu = "File";
+            Configuration.ShowInMenuItem = "Save";
             Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.S };
             Version = Version.Parse("0.1");
         }

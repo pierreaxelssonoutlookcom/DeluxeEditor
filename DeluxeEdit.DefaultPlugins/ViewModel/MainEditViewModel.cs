@@ -28,7 +28,7 @@ namespace DefaultPlugins.ViewModel
 
         public Dictionary<string, ConfigurationOptions> LoadMenu()
         {
-            var plugins=PluginManager.InvokePlugins(PluginManager.LocalListPllugins());
+            var plugins=PluginManager.InvokePlugins(PluginManager.GetPluginsLocal());
             var showInMenuConfs = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent())
                  .Select(p => p.Configuration);
 

@@ -17,7 +17,7 @@ namespace DefaultPlugins.ViewModel
          }
         public List<PluginItem  > LocalList()
         {
-            var result = PluginManager.LocalListPllugins();
+            var result = PluginManager.GetPluginsLocal();
             return result;
         }
 

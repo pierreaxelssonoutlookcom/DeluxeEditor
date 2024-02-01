@@ -11,6 +11,7 @@ namespace DeluxeEdit.Extensions
         public static PluginItem CreatePluginItem(this string path, Type item)
         {
             var result = new PluginItem();
+            result.MyType = item;
             result.DerivedSourcePath = path;
             result.Id = item.ToString();
             result.Version = item.Assembly.GetName().Version;

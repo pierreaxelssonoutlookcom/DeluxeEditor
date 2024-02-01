@@ -1,11 +1,11 @@
-﻿using Model;
+﻿using DeluxeEdit.Extensions;
+using Model;
 using Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using DeluxeEdit.Extensions;
 using System.Reflection;
 
 namespace Shared
@@ -22,12 +22,12 @@ namespace Shared
 
         }
          
-        public static List<PluginItem> LocalListPllugins()
+        public static List<PluginItem> GetPluginsLocal()
         {
             var files = PluginManager.LoadFiles();
             var result= new List<PluginItem>();
             foreach( var f in files)
-            { 
+             { 
                  var items= f.MatchingTypes.Select(p=> f.LocalPath.CreatePluginItem(p));
                 result.AddRange(items);
             }
@@ -49,13 +49,14 @@ namespace Shared
             return result;
         }
         public static INamedActionPlugin InvokePlugin(PluginItem item)
-        {
+        {   
             var result = CreateObjects(item.MyType);
             return result;
         }
         public static IEnumerable<INamedActionPlugin> InvokePlugins(IEnumerable<PluginItem> items)
         {
-            var result = items.Select(p=>  CreateObjects(p.MyType)).ToList();
+            var result=items.Select(p => InvokePlugin(p)).ToList(); 
+
             return result;
         }
 
