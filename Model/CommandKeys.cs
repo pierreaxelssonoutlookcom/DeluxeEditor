@@ -13,8 +13,8 @@ namespace Model
         {
             KeyCommand = new List<Key>();
         }
-        public string KeysToString()
-       {
+        public override string ToString()
+        {
            var result= String.Join("+", KeyCommand.Select(p => p.ToString()));
             return result;
         }

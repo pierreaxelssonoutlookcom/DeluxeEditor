@@ -39,7 +39,7 @@ namespace DefaultPlugins.ViewModel
                     MainMenu.Add(header);
                 }
 
-                var item = new CustomMenuItem { Title = $"{conf.ShowInMenuItem} ({conf.KeyCommand.KeysToString() })" };
+                var item = new CustomMenuItem { Title = $"{conf.ShowInMenuItem} ({conf.KeyCommand })" };
                 header.MenuItems.Add(item);
             }
             var pluginsHeader = MainMenu.FirstOrDefault(p => p.Header == "Plugins");
