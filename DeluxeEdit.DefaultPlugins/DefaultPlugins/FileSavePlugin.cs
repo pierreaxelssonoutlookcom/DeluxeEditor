@@ -59,7 +59,7 @@ namespace DefaultPlugins
             Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save";
-            Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.S };
+            Configuration.KeyCommand.KeyCommand = new List<Key> { Key.LeftCtrl, Key.S };
             Version = Version.Parse("0.1");
         }
         public EncodingPath? GuiAction(INamedActionPlugin instance)

@@ -77,7 +77,7 @@ namespace DefaultPlugins
             Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Open"; ;
-            Configuration.KeyCommand = new List<Key> { Key.LeftCtrl, Key.O };
+            Configuration.KeyCommand.KeyCommand =  new List<Key> { Key.LeftCtrl, Key.O };
             Version =   Version.Parse("0.1");
         }
 

@@ -39,7 +39,7 @@ namespace DefaultPlugins.ViewModel
                     MainMenu.Add(header);
                 }
 
-                var item = new CustomMenuItem { Title = conf.ShowInMenuItem };
+                var item = new CustomMenuItem { Title = $"{conf.ShowInMenuItem} ({conf.KeyCommand.KeysToString() })" };
                 header.MenuItems.Add(item);
             }
             var pluginsHeader = MainMenu.FirstOrDefault(p => p.Header == "Plugins");
@@ -117,11 +117,11 @@ namespace DefaultPlugins.ViewModel
             //done:cast enum from int
             ContentPath result = null;
             bool keysOkProceed = false;
-            var matchCount = openPlugin.Configuration.KeyCommand
+            var matchCount = openPlugin.Configuration.KeyCommand.KeyCommand
                 .Cast<System.Windows.Input.Key>()
                 .Count(p => System.Windows.Input.Keyboard .IsKeyDown(p));
             
-            keysOkProceed=matchCount == openPlugin.Configuration.KeyCommand.Count && openPlugin.Configuration.KeyCommand.Count>0;
+            keysOkProceed=matchCount == openPlugin.Configuration.KeyCommand.KeyCommand.Count && openPlugin.Configuration.KeyCommand.KeyCommand.Count>0;
             if (keysOkProceed) result=UpdateLoad();
 
              
