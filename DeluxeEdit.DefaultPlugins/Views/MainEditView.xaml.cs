@@ -65,7 +65,10 @@ namespace DefaultPlugins.Views
 
                 foreach (var inner in item.MenuItems)
                 {
-                     MainMenu.Items.Add(new MenuItem { Header =inner.Title });
+                    MenuItem newExistMenuItem = (MenuItem)this.MainMenu.Items[index];
+                    newExistMenuItem.Items.Add(new MenuItem { Header = inner.Title });
+
+
 
                 }
 
