@@ -79,5 +79,18 @@ namespace DefaultPlugins.Views
             }
 
         }
+
+        private void MainEditBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var keyeddata = editViewModel.KeyDown();
+            if (keyeddata == null) e.Handled = false;
+            else
+            {
+                MainEditBox.Text = keyeddata.Content;
+                e.Handled = true;
+            }
+
+            
+        }
     }
 }

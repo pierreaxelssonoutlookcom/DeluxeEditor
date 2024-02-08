@@ -11,7 +11,7 @@
     
     <TabControl Name="TabFiles">
         <TabItem Header="TabItem"> 
-            <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   />
+            <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>
         </TabItem>
         </TabControl>
     </DockPanel>
