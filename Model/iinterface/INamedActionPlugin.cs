@@ -25,7 +25,8 @@ namespace Model.Interface
 
         Type?  ControlType { get; set; }
 
-        EncodingPath?  GuiAction(INamedActionPlugin instance) ;
+        EncodingPath? GuiAction(INamedActionPlugin instance);
+        object CreateControl();
         string Path { get; set; } 
   
         

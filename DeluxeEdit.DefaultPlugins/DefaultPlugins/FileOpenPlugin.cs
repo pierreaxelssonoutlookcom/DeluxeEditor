@@ -3,7 +3,6 @@ using Model.Interface;
 using Shared;
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using DeluxeEdit.Extensions;
@@ -15,6 +14,13 @@ namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
     {
+        public object CreateControl()
+        {
+            object result = null;
+            if (ControlType!!=null)  result= Activator.CreateInstance (ControlType);
+            return result;
+        }
+
         public Version Version { get; set; }
 
         public long FileSize { get; set; }

@@ -16,6 +16,13 @@ namespace DefaultPlugins
 {
     public class FileSavePlugin : INamedActionPlugin
     {
+        public object CreateControl()
+        {
+            object result = null;
+            if (ControlType! != null) result = Activator.CreateInstance(ControlType);
+            return result;
+        }
+
 
         public Version Version { get; set; }
 

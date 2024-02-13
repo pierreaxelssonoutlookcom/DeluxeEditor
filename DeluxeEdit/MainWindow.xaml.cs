@@ -9,6 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DefaultPlugins.Misc;
+using System.IO;
+using DefaultPlugins;
+using System;
 
 namespace DeluxeEdit
 {
@@ -17,11 +21,17 @@ namespace DeluxeEdit
     /// </summary>
     public partial class MainWindow : Window
     {
+
        public MainWindow()
         {
             InitializeComponent();
             //todo:add usercontols dynamically
-           Content = new MainEdit();
+
+            var plugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
+            UserControl edit=plugin.CreateControl() as UserControl;
+
+
+            Content = edit; ;
         }
 
 

@@ -9,6 +9,11 @@ namespace DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
+        public object CreateControl()
+        {
+            return null;
+        }
+
         public Version Version { get; set; }
 
         public ActionParameter Parameter { get; set; }
