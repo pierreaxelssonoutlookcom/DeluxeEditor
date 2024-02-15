@@ -19,6 +19,7 @@ namespace Shared
         static PluginManager()
         {
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
+            LoadFiles();
 
         }
          

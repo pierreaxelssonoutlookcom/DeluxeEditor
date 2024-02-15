@@ -33,6 +33,14 @@ namespace DefaultPlugins
             var result= InvokePlugin(myType);
             return result;
         }
+        public static INamedActionPlugin InvokePlugin(string type)
+        {
+            var matchedType = PluginManager.SourceFiles.SelectMany(p => p.MatchingTypes)
+            .Single(p => p.ToString() == type);
+            object result= Activator.CreateInstance(matchedType);
+            return result as INamedActionPlugin;
+         }
+
         public static INamedActionPlugin InvokePlugin(Type type)
         {
             var result = PluginManager.CreateObject(type);
