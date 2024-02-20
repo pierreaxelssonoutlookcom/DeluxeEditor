@@ -32,7 +32,7 @@ namespace DefaultPlugins.Views
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { 
+        {
             MainEditViewModel.CurrenContent = MainEditViewModel.AllContents.First(p => p.Header == (e.Source as TabItem).Header);
             editViewModel.ChangeTab(MainEditViewModel.CurrenContent);
 
@@ -40,8 +40,8 @@ namespace DefaultPlugins.Views
 
             editViewModel.ChangeTab(MainEditViewModel.CurrenContent);
 
-           // addTab(MainEditViewModel.CurrenContent.Header);
-///       //     MainEditViewModel.AllContents.Add(MainEditViewModel.CurrenContent);
+            // addTab(MainEditViewModel.CurrenContent.Header);
+            ///       //     MainEditViewModel.AllContents.Add(MainEditViewModel.CurrenContent);
 
 
         }
@@ -52,34 +52,31 @@ namespace DefaultPlugins.Views
             MainEditBox.Text = MainEditViewModel.CurrenContent.Content;
         }
 
-        
+
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             editViewModel = new MainEditViewModel();
-            var  menu = editViewModel.LoadMenu();
+            var menu = editViewModel.LoadMenu();
 
 
 
-            foreach (var item in menu )
+            foreach (var item in menu)
             {
-                int index= MainMenu.Items.Add( new MenuItem {  Header= item.Header });
+                int index = MainMenu.Items.Add(new MenuItem { Header = item.Header });
 
                 foreach (var inner in item.MenuItems)
                 {
                     MenuItem newExistMenuItem = (MenuItem)this.MainMenu.Items[index];
                     var newItem = new MenuItem { Header = inner.Title };
                     newItem.Click += MenuItem_Click;
-                        
 
 
-;                    newExistMenuItem.Items.Add(newItem);
+
+                    newExistMenuItem.Items.Add(newItem);
 
 
 
                 }
-
-
-
 
 
             }
@@ -97,21 +94,23 @@ namespace DefaultPlugins.Views
                 e.Handled = true;
             }
 
-            
+
         }
 
         private void TabFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MainEditViewModel.CurrenContent = MainEditViewModel.AllContents.First(p => p.Header == (e.Source as TabItem).Header);
-            editViewModel.ChangeTab(MainEditViewModel.CurrenContent);
-
 
         }
 
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            var clicked= e.Source as MenuItem;
+            var mymenu=MainEditViewModel.MainMenu.SelectMany(p=>p.MenuItems).First(p=>p.Title==clicked.Header) ;
+            editViewModel.DoCommand(mymenu);
 
 
         }
     }
 }
+

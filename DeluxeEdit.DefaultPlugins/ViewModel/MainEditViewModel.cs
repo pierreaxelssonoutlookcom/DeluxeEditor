@@ -23,10 +23,17 @@ namespace DefaultPlugins.ViewModel
 
         private FileOpenPlugin openPlugin;
         private FileSavePlugin savePlugin;
-        public static  ContentPath CurrenContent=null;
+        public static ContentPath CurrenContent = null;
         public static List<ContentPath> AllContents = new List<ContentPath>();
 
-        public  static List< CustomMenu> MainMenu= new List<CustomMenu>();
+        public static List<CustomMenu> MainMenu = new List<CustomMenu>();
+
+        public void DoCommand(CustomMenuItem item)
+         {
+            var plugin = AllPlugins.InvokePlugin(item.Title);
+            plugin.Perform(new ActionParameter());
+
+        }
 
         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
         {
@@ -40,20 +47,25 @@ namespace DefaultPlugins.ViewModel
             return result;
         }
 
-         public List<CustomMenu> LoadMenu()
+
+
+        public List<CustomMenu> LoadMenu()
         { 
             var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
-            var head = GetMenuHeaders(plugins);
-            foreach(var item in head)
+            var result = GetMenuHeaders(plugins);
+            foreach(var item in result)
             {
              item.MenuItems.AddRange(     GetMenuItems(item, plugins));
             }
-            return head;
+            MainMenu.Clear();
+            MainMenu.AddRange( result );
+
+            return result;
         }
         public List<CustomMenuItem> GetMenuItems(CustomMenu item, IEnumerable<INamedActionPlugin> plugins)
         {
             var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent() && item.Header == p.Configuration.ShowInMenuItem)
-                .Select(p => new CustomMenuItem { Title = openPlugin.Configuration.ShowInMenuItem, MenuAction=(x=> p.Perform(p.Parameter)) } )
+                .Select(p => new CustomMenuItem { Title = openPlugin.Configuration.ShowInMenuItem } )
                 .ToList();
           return result;
         }
