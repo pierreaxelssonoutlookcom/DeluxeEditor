@@ -14,6 +14,7 @@ using Shared;
 using System.Windows.Controls;
 using DefaultPlugins.Views;
 using MS.WindowsAPICodePack.Internal;
+using System.Windows.Forms;
 //using System.Windows.Input;
 
 namespace DefaultPlugins.ViewModel
@@ -27,15 +28,25 @@ namespace DefaultPlugins.ViewModel
         public static List<ContentPath> AllContents = new List<ContentPath>();
 
         public static List<CustomMenu> MainMenu = new List<CustomMenu>();
-
-        public void DoCommand(CustomMenuItem item)
-         {
-            var plugin = AllPlugins.InvokePlugin(item.Title);
-            plugin.Perform(new ActionParameter());
-
+        public void SetCommands(INamedActionPlugin instance, List<CustomMenu> menu)
+        {
+            foreach (var item in menu.SelectMany(p => p.MenuItems))
+            {
+                item.MenuAction = null; 
+            }
         }
 
-        public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
+        public void SetCommand(CustomMenuItem item)
+        {
+            
+        }
+        public void DoCommand(CustomMenuItem item)
+        {
+
+ 
+        }
+
+         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
         {
             var ps = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent()).ToList();
             var result = ps.Select(p=> new CustomMenu { Header = p.Configuration.ShowInMenu }).ToList();
