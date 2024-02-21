@@ -56,30 +56,12 @@ namespace DefaultPlugins.Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             editViewModel = new MainEditViewModel();
-            var menu = editViewModel.LoadMenu();
+            editViewModel.ShowMenu(this.MainMenu);
+            foreach(var item in MainMenu.Items)
+                item.Click += MenuItem_Click;
 
 
 
-            foreach (var item in menu)
-            {
-                int index = MainMenu.Items.Add(new MenuItem { Header = item.Header });
-
-                foreach (var inner in item.MenuItems)
-                {
-                    MenuItem newExistMenuItem = (MenuItem)this.MainMenu.Items[index];
-                    var newItem = new MenuItem { Header = inner.Title };
-                    newItem.Click += MenuItem_Click;
-
-
-
-                    newExistMenuItem.Items.Add(newItem);
-
-
-
-                }
-
-
-            }
 
         }
 
@@ -106,8 +88,7 @@ namespace DefaultPlugins.Views
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var clicked= e.Source as MenuItem;
-            var mymenu=MainEditViewModel.MainMenu.SelectMany(p=>p.MenuItems).First(p=>p.Title==clicked.Header) ;
-            editViewModel.DoCommand(mymenu);
+            editViewModel.DoCommand(clicked);
 
 
         }

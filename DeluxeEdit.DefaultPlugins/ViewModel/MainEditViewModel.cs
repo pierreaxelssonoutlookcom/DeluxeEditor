@@ -1,22 +1,13 @@
 ﻿using Model.Interface;
 using Model;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using DeluxeEdit.Extensions;
-using System.Security.Cryptography;
+
+using Extensions;
 using System.Linq;
-using System.Drawing;
 using System.Collections.Generic;
 using System.IO;
-using DefaultPlugins;
 using Shared;
 using System.Windows.Controls;
-using DefaultPlugins.Views;
-using MS.WindowsAPICodePack.Internal;
-//using System.Windows.Forms;
-using System.Diagnostics;
-//using System.Windows.Input;
 
 namespace DefaultPlugins.ViewModel
 {
@@ -29,24 +20,28 @@ namespace DefaultPlugins.ViewModel
         public static List<ContentPath> AllContents = new List<ContentPath>();
 
         public static List<CustomMenu> MainMenu = new List<CustomMenu>();
-        public void SetCommands(INamedActionPlugin instance, List<CustomMenu> menu)
+
+        public object ShowM { get; internal set; }
+
+        public void SetCommands(List<CustomMenu> menu, INamedActionPlugin instance)
         {
             if (instance == null) throw new ArgumentNullException(nameof(instance));
             if (instance.Parameter == null) throw new ArgumentNullException(nameof(instance));
-            menu.SelectMany(p => p.MenuItems)
-                .ForEach(x => x.MenuAction = c => instance.Perform(instance.Parameter));
+            foreach(var item  in menu.SelectMany(p => p.MenuItems)) item.MenuAction = c => instance.Perform(instance.Parameter);
         }
-            public void SetCommand(CustomMenuItem item)
+         
+        public void DoCommand(MenuItem item)
         {
+//            var plugin=AllPlugins.InvokePlugins() 
+            LoadMenu();
             
-        }
-        public void DoCommand(CustomMenuItem item)
-        {
+            var mymenu = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
 
- 
+            SetCommands(MainMenu, null);
+
         }
 
-         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
+        public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
         {
             var ps = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent()).ToList();
             var result = ps.Select(p=> new CustomMenu { Header = p.Configuration.ShowInMenu }).ToList();
@@ -64,10 +59,8 @@ namespace DefaultPlugins.ViewModel
         { 
             var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
             var result = GetMenuHeaders(plugins);
-            foreach(var item in result)
-            {
-             item.MenuItems.AddRange(     GetMenuItems(item, plugins));
-            }
+            foreach(var item in result) item.MenuItems.AddRange(     GetMenuItems(item, plugins));
+            
             MainMenu.Clear();
             MainMenu.AddRange( result );
 
@@ -173,6 +166,24 @@ namespace DefaultPlugins.ViewModel
             return result;
         }
 
+        public void ShowMenu(Menu mainMenu)
+        {
+            foreach (var item in MainMenu)
+            {
+                int index = mainMenu.Items.Add(new MenuItem { Header = item.Header });
+
+                foreach (var inner in item.MenuItems)
+                {
+                    MenuItem newExistMenuItem = (MenuItem)mainMenu.Items[index];
+                    var newItem = new MenuItem { Header = inner.Title };
+                    newExistMenuItem.Items.Add(newItem);
+                }
+
+
+            }
+
+
+        }
     }
 }
 
