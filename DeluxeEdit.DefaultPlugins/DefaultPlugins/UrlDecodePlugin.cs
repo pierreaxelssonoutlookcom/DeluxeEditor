@@ -36,8 +36,11 @@ namespace DefaultPlugins
 
         public UrlDecodePlugin()
         {
-            Configuration= new ConfigurationOptions();
+            Configuration = new ConfigurationOptions();
             Version = Version.Parse("0.1");
+            Configuration.ShowInMenu = "Plugins";
+            Configuration.ShowInMenuItem = "UrlDecode";
+
 
         }
         public string Perform(ActionParameter parameter)

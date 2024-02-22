@@ -23,18 +23,18 @@ namespace DefaultPlugins.ViewModel
 
         public object ShowM { get; internal set; }
 
-        public void SetCommands(List<CustomMenu> menu, INamedActionPlugin instance)
+        public void SetCommands(List<CustomMenu> menu, List<INamedActionPlugin> plugins )
         {
-            if (instance == null) throw new ArgumentNullException(nameof(instance));
-            if (instance.Parameter == null) throw new ArgumentNullException(nameof(instance));
-            foreach(var item  in menu.SelectMany(p => p.MenuItems)) item.MenuAction = c => instance.Perform(instance.Parameter);
+
+            foreach (var item in menu.SelectMany(p => p.MenuItems)) 
+                item.MenuAction=  c => item.Plugin.Perform(item.Plugin.Parameter);
         }
          
         public void DoCommand(MenuItem item)
         {
 //            var plugin=AllPlugins.InvokePlugins() 
             LoadMenu();
-            
+           
             var mymenu = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
 
             SetCommands(MainMenu, null);
@@ -69,13 +69,14 @@ namespace DefaultPlugins.ViewModel
         public List<CustomMenuItem> GetMenuItems(CustomMenu item, IEnumerable<INamedActionPlugin> plugins)
         {
             var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent() && item.Header == p.Configuration.ShowInMenuItem)
-                .Select(p => new CustomMenuItem { Title = openPlugin.Configuration.ShowInMenuItem } )
+                .Select(p => new CustomMenuItem { Title = openPlugin.Configuration.ShowInMenuItem, MyType=p.GetType(), Plugin=p } )
                 .ToList();
           return result;
         }
                                     
 
         public MainEditViewModel()
+
         { 
 
             openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
@@ -172,13 +173,12 @@ namespace DefaultPlugins.ViewModel
             {
                 int index = mainMenu.Items.Add(new MenuItem { Header = item.Header });
 
-                foreach (var inner in item.MenuItems)
+                foreach (var menuItem in item.MenuItems)
                 {
                     MenuItem newExistMenuItem = (MenuItem)mainMenu.Items[index];
-                    var newItem = new MenuItem { Header = inner.Title };
+                    var newItem = new MenuItem { Header = menuItem.Title };
                     newExistMenuItem.Items.Add(newItem);
                 }
-
 
             }
 

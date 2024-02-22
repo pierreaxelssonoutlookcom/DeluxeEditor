@@ -38,7 +38,12 @@ namespace DefaultPlugins
         public UrlEncodePlugin()
         {
             Configuration = new ConfigurationOptions();
+
+
+
             Version = Version.Parse("0.1");
+
+
 
         }
 
