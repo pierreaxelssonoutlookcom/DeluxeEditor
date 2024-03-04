@@ -9,6 +9,9 @@ namespace DefaultPlugins
 {
     public class UrlDecodePlugin : INamedActionPlugin
     {
+
+        public bool ParameterIsSelectedText { get; set; } = true;
+
         public object CreateControl()
         {
             return null;

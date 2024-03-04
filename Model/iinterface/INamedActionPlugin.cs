@@ -12,8 +12,9 @@ namespace Model.Interface
         ConfigurationOptions Configuration { get; set; }
 
 
+        bool ParameterIsSelectedText        { get; set; }
         bool Enabled { get; set; }
-        Version  Version { get; set; }
+        Version Version { get; set; }
 
         string Id { get; set; }
         string Titel { get; set; }

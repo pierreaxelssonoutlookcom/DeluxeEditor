@@ -23,32 +23,27 @@ namespace DefaultPlugins.ViewModel
 
         public object ShowM { get; internal set; }
 
-        public void SetCommands(List<CustomMenu> menu, List<INamedActionPlugin> plugins )
-        {
-
-            foreach (var item in menu.SelectMany(p => p.MenuItems)) 
-                item.MenuAction=  c => item.Plugin.Perform(item.Plugin.Parameter);
-        }
          
-        public void DoCommand(MenuItem item)
+        public string DoCommand(MenuItem item, string SelectedText)
         {
-//            var plugin=AllPlugins.InvokePlugins() 
-            LoadMenu();
-           
-            var mymenu = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
+            var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
 
-            SetCommands(MainMenu, null);
+            ActionParameter parameter;
+            if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
+                parameter = new ActionParameter(SelectedText);
+            else
+                parameter = myMenuItem.Plugin.Parameter;
+
+                
+            var result=myMenuItem.Plugin.Perform(parameter);
+            return result;
 
         }
 
         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
-        {
+            {
             var ps = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent()).ToList();
             var result = ps.Select(p=> new CustomMenu { Header = p.Configuration.ShowInMenu }).ToList();
-
-
-            var pluginsHeader = new CustomMenu { Header = "Plugins" };
-            result.Add(pluginsHeader);
  
             return result;
         }
@@ -63,6 +58,7 @@ namespace DefaultPlugins.ViewModel
             
             MainMenu.Clear();
             MainMenu.AddRange( result );
+
 
             return result;
         }

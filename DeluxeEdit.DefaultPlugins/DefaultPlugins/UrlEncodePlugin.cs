@@ -9,6 +9,8 @@ namespace DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
+        public bool ParameterIsSelectedText { get; set; } = true;
+
         public object CreateControl()
         {
             return null;
@@ -38,6 +40,8 @@ namespace DefaultPlugins
         public UrlEncodePlugin()
         {
             Configuration = new ConfigurationOptions();
+            Configuration.ShowInMenu = "Plugins";
+            Configuration.ShowInMenuItem = "UrlEncode";
 
 
 

@@ -14,6 +14,9 @@ namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
     {
+
+        public bool ParameterIsSelectedText { get; set; } = false;
+
         public object CreateControl()
         {
             object result = null;
@@ -29,7 +32,7 @@ namespace DefaultPlugins
         public ActionParameter? Parameter { get; set; }
 
         public object? Control { get; set; }
-        public Type? ControlType{ get; set; }=typeof(DefaultPlugins.Views.MainEdit);
+        public Type? ControlType{ get; set; }=typeof(DeluxeEdit.DefaultPlugins.Views.MainEdit);
     
         //todo; we might have to implement setcontext for plugins   
 
