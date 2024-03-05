@@ -1,5 +1,4 @@
 ﻿using Model;
-using DefaultPlugins.Views;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -37,14 +36,10 @@ namespace DeluxeEdit
 
         private void Plugins_Click(object sender, RoutedEventArgs e)
         {
-            var plugins = new Plugins( );
-            Content = plugins;
-      ;  }
+       }
 
         private void PluginFiles_Click(object sender, RoutedEventArgs e)
         {
-            var plugins = new PluginsFiles();
-            Content = plugins;
 
         }
     }

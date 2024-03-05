@@ -8,7 +8,7 @@ using Shared;
 
 namespace DefaultPlugins.ViewModel
 {
-    public class PluginViewModel
+    public class PluginsViewModel
     {
 
         public IEnumerable<PluginItem> RemoteList()
@@ -21,6 +21,14 @@ namespace DefaultPlugins.ViewModel
             return result;
         }
 
+        public IEnumerable<PluginFile> RemoteListFiles()
+        {
+            throw new NotImplementedException();
+        }
+        public List<PluginFile> LocalListFiles()
+        {
+            return PluginManager.LoadFiles();
+        }
 
 
     }

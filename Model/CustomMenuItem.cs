@@ -12,7 +12,6 @@ namespace Model
         public Type MyType { get; set; }
 
         public string Title { get; set; }
-        public Func<ActionParameter, string> MenuAction { get; set; }
         public ActionParameter Parameter { get; set; }
 
 

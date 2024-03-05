@@ -7,7 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Margin="0,-1,0,1">
-        <Menu x:Name="MainMenu" DockPanel.Dock="Top" />
+        <Menu x:Name="MainMenu" DockPanel.Dock="Top">
+            <MenuItem Header="Plugins">i
+                <MenuItem Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    ></MenuItem>
+
+            </MenuItem>
+
+        </Menu>
         <TabControl Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged"      >
             <TabItem Header="TabItem">
                 <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>

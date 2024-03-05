@@ -92,13 +92,22 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void TabFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MainEditViewModel.CurrenContent = MainEditViewModel.AllContents.First(p => p.Header == (e.Source as TabItem).Header);
-
         }
-
+*
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var clicked = e.Source as MenuItem;
             editViewModel.DoCommand(clicked, MainEditBox.SelectedText);
+
+
+        }
+
+        private void ShowPlugins_Click(object sender, RoutedEventArgs e)
+        {
+            var view = new Plugins();
+            var win = new Window();
+            win.Content = view;
+            win .ShowDialog();
 
 
         }
