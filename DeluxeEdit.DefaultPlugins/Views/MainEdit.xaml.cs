@@ -16,7 +16,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         public MainEdit()
         {
             InitializeComponent();
-
+            
             // temporary call
             //currenContents =editViewModel.UpdateLoad();
         }
@@ -90,4 +90,3 @@ namespace DeluxeEdit.DefaultPlugins.Views
     }
 
 }
-

@@ -136,7 +136,7 @@ namespace DefaultPlugins.ViewModel
         public void UpdateSave(string data)
         {
             savePlugin.Perform(new ActionParameter(CurrenContent.Path, CurrenContent.Content));
-        } 
+        }
 
 
         // Create the OnPropertyChanged method to raise the event
@@ -147,6 +147,10 @@ namespace DefaultPlugins.ViewModel
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
+        public bool HeaderExist(string header)
+        {
+            throw new NotImplementedException();
+        }
         public ContentPath?  KeyDown()
         {
             //done:cast enum from int
@@ -165,6 +169,8 @@ namespace DefaultPlugins.ViewModel
 
         public void ShowMenu(Menu mainMenu)
         {
+            LoadMenu();
+
             foreach (var item in MainMenu)
             {
                 int index = mainMenu.Items.Add(new MenuItem { Header = item.Header });
