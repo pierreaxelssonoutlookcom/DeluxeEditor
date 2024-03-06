@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Input;
-namespace Model
+﻿namespace Model
 {
     public class ConfigurationOptions
     {

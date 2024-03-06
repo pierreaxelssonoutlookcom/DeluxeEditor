@@ -21,7 +21,6 @@
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
-	  <Compile Include="ViewModel\PluginFileViewModel .cs" />
 	  <Compile Include="ViewModel\PluginsViewModel.cs" />
 	  <Compile Include="Views\MainEdit.xaml.cs" />
 	  <Compile Include="Views\Plugins.xaml.cs" />

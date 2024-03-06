@@ -1,19 +1,7 @@
 ﻿using DefaultPlugins.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Formats.Tar;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DeluxeEdit.DefaultPlugins.Views
 {
@@ -22,6 +10,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
     /// </summary>
     public partial class MainEdit: UserControl
     {
+
         private MainEditViewModel editViewModel;
 
         public MainEdit()
@@ -93,7 +82,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         {
             MainEditViewModel.CurrenContent = MainEditViewModel.AllContents.First(p => p.Header == (e.Source as TabItem).Header);
         }
-*
+
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var clicked = e.Source as MenuItem;
@@ -104,11 +93,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
 
         private void ShowPlugins_Click(object sender, RoutedEventArgs e)
         {
-            var view = new Plugins();
-            var win = new Window();
-            win.Content = view;
-            win .ShowDialog();
-
+            Plugins.CreateAndShow();
 
         }
     }

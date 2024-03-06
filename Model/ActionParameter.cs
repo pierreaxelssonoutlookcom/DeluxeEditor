@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Model
-{
+﻿namespace Model
+ {
     public class ActionParameter
     {
         public string Parameter { get; set; } = "";

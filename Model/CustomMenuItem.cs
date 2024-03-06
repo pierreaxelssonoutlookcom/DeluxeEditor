@@ -1,7 +1,6 @@
 ﻿
 using Model.Interface;
 using System;
-using System.Collections.Generic;
 
 namespace Model
 {
