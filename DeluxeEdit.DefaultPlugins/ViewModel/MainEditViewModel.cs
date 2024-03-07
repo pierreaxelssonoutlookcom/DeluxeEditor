@@ -86,14 +86,6 @@ namespace DefaultPlugins.ViewModel
             CurrenContent.Content = String.Join("\r\n", seeked);
 
     }
-        public void AddOrUpddateTab(string header, TabControl control)
-        {
-            if (WPFUtil.TabÉxist(header, control) == false)
-            {
-                var item = new TabItem { Header = header };
-                control.Items.Add(item);
-            }
-        }
 
 
         public ContentPath? UpdateLoad()

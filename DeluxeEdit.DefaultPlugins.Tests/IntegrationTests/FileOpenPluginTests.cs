@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using DefaultPlugins;
-using DefaultPlugins;
-using DefaultPlugins.Views;
 using Model;
 
 namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests

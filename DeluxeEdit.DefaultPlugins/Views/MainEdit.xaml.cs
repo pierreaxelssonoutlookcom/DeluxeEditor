@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
 namespace DeluxeEdit.DefaultPlugins.Views
 {
     /// <summary>
@@ -57,7 +56,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
             {
                 MainEditBox.Text = keyeddata.Content;
 
-                editViewModel.AddOrUpddateTab(keyeddata.Header, TabFiles);
+             WPFUtil.AddOrUpddateTab(keyeddata.Header, TabFiles);
                 e.Handled = true;
             }
 
