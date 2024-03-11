@@ -14,6 +14,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Remove="Misc\**" />
+	  <None Remove="Misc\**" />
+	  <Page Remove="Misc\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
 	  <Compile Include="AllPlugins.cs" />
 	  <Compile Include="Properties\AssemblyInfo.cs" />
@@ -36,9 +42,6 @@
 	  <ProjectReference Include="..\DeluxeEdit,Exensions\DeluxeEdit.Exensions.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
 	  <ProjectReference Include="..\Shared\Shared.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Misc\" />
 	</ItemGroup>
 
 </Project>

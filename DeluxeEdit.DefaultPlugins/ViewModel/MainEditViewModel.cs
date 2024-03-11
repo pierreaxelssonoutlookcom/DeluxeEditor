@@ -56,6 +56,7 @@ namespace DefaultPlugins.ViewModel
         { 
             var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
             var result = GetMenuHeaders(plugins);
+
             foreach(var item in result) item.MenuItems.AddRange(     GetMenuItems(item, plugins));
             
             MainMenu.Clear();
@@ -143,7 +144,7 @@ namespace DefaultPlugins.ViewModel
             foreach (var item in MainMenu)
             {
 
-                               int index= mainMenu.Items.IndexOf( new MenuItem {  Header=item.Header });
+                int index= mainMenu.Items.IndexOfText( item.Header);
                 if (index==-1) index = mainMenu.Items.Add(new MenuItem { Header = item.Header });
 
 
@@ -154,6 +155,7 @@ namespace DefaultPlugins.ViewModel
                     var newItem = new MenuItem { Header = menuItem.Title };
                     newExistMenuItem.Items.Add(newItem);
                 }
+                
 
             }
 

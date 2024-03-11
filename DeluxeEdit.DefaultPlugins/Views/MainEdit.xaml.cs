@@ -42,7 +42,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
             editViewModel.ShowMenu(this.MainMenu);
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;
-
+           
 
 
 
@@ -67,7 +67,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
 
-            var clicked =
+            var clicked =   
                 e.Source as MenuItem;
             editViewModel.DoCommand(clicked, MainEditBox.SelectedText);
 
