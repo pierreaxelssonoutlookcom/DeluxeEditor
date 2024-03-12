@@ -25,10 +25,10 @@ namespace DeluxeEdit.DefaultPlugins
             int result = -1;
             for (int i = 0; i < collection.Count; i++)
             {
-                var casted= collection[i] as HeaderedItemsControl;
-                if (casted.Header==text  )
+                var header = (collection[i] as HeaderedItemsControl).Header as string;
+                if (header== text  )
                {
-                    result = i;
+                    result = i; 
                     break;
                 }
             }
