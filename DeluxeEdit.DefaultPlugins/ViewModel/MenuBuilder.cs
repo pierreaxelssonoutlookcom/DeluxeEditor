@@ -44,11 +44,10 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
         }
 
 
-        public void ShowMenu(Menu mainMenu)
+        public void ShowMenu(Menu mainMenu, List<CustomMenu> customMenus) 
         {
-            var customMebu = BuildMenu();
-
-            foreach (var item in customMebu)
+ 
+            foreach (var item in customMenus)
             {
 
                 int index = mainMenu.Items.IndexOfText(item.Header);

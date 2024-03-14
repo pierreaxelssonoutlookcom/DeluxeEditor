@@ -34,6 +34,12 @@ namespace DefaultPlugins.ViewModel
             openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
             savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
         }
+        public List<CustomMenu> GetMenu()
+        {
+            return MainMenu;
+        }
+
+
 
         public string DoCommand(MenuItem item, string SelectedText)
         {

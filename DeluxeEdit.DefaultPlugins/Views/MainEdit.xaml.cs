@@ -40,10 +40,11 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             editViewModel = new MainEditViewModel();
+            var customMenu= editViewModel.GetMenu();
 
             var builder = new MenuBuilder();
 
-            builder.ShowMenu(this.MainMenu);
+            builder.ShowMenu(this.MainMenu, customMenu);
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;
            
