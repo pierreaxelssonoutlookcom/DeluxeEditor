@@ -43,6 +43,7 @@ namespace DefaultPlugins.ViewModel
             var allItems=menu.SelectMany(p => p.MenuItems);
             foreach (var item in allItems)
             {
+
                 if (item.Plugin is FileNewPlugin)
                     item.MenuActon = (p => new NewFileViewModel(currentTab).GetNewFile());
                 else if (item.Plugin is FileNewPlugin)

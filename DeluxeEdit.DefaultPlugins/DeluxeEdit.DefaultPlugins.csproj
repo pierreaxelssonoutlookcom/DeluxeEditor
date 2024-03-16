@@ -27,6 +27,7 @@
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
+	  <Compile Include="ViewModel\CustomViewData.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
 	  <Compile Include="ViewModel\MenuBuilder.cs" />
 	  <Compile Include="ViewModel\NewFileViewModel.cs" />
