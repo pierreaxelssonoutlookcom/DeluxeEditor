@@ -9,6 +9,7 @@ using System.IO;
 using Shared;
 using System.Windows.Controls;
 using DeluxeEdit.DefaultPlugins;
+using MS.WindowsAPICodePack.Internal;
 
 namespace DefaultPlugins.ViewModel
 {
@@ -22,14 +23,7 @@ namespace DefaultPlugins.ViewModel
             plugin = AllPlugins.InvokePlugin(PluginType.FileNew);
             currentTab = tab;
         }
-        public ContentPath GetNewFile()
-        {
-
-            var result = new ContentPath { Header = "newfile.txt", Content = "" };
-        
-            return result;
-        }
-        public void AddNewTextControlAndListen(string name)
+        public TextBox AddNewTextControlAndListen(string name)
         {
 
             WPFUtil.AddOrUpddateTab(name, currentTab);
@@ -38,6 +32,18 @@ namespace DefaultPlugins.ViewModel
             text.Name = name;
             text.KeyDown += Text_KeyDown;
             currentTab.Items.Add(text);
+            return text;
+        }
+
+        public ContentPath GetNewFile()
+        {
+            var result = new ContentPath { Header = "newfile.txt", Content = "" };
+
+            plugin.Perform(new ActionParameter { Parameter = result.Header });
+                
+            return result;
+
+
         }
         private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {

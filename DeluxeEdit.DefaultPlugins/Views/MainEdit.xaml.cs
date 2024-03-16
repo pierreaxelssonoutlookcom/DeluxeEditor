@@ -33,14 +33,23 @@ namespace DeluxeEdit.DefaultPlugins.Views
  
         private void MainEditBox_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
-            editViewModel.ScrollTo(e.NewValue);
+            editViewModel.ScrollTo(e.NewValue); 
             MainEditBox.Text = MainEditViewModel.CurrenContent.Content;
         }
-
-
+        private void Loadfile()
+        {
+            MainEditBox.Text = editViewModel.LoadFile().Content;
+            
+        } 
+        private void setTriggers()
+        {
+            
+             
+        }
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            editViewModel = new MainEditViewModel();
+            editViewModel = new MainEditViewModel(TabFiles);
+
             newViewModel = new NewFileViewModel(TabFiles);
             newViewModel.AddNewTextControlAndListen("newfile.txt");
             var customMenu = editViewModel.GetMenu();

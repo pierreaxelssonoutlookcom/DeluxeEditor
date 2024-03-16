@@ -18,7 +18,7 @@ namespace DefaultPlugins.ViewModel
 {
     public class MainEditViewModel
     {
-
+        TabControl currentTab;
         private FileOpenPlugin openPlugin;
         private FileSavePlugin savePlugin;
         public static ContentPath CurrenContent = null;
@@ -28,9 +28,9 @@ namespace DefaultPlugins.ViewModel
 
         public object ShowM { get; internal set; }
 
-        public MainEditViewModel()
+        public MainEditViewModel(TabControl tab)
         {
-
+            currentTab=tab;
             openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
             savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
         }
@@ -38,10 +38,12 @@ namespace DefaultPlugins.ViewModel
         {
             return MainMenu;
         }
-
-
-
-        public string DoCommand(MenuItem item, string SelectedText)
+        private void setMenuCommand(CustomMenuItem menu)
+        {
+            menu.MenuActon = (p => new NewFileViewModel(currentTab).GetNewFile());
+        }
+        
+public string DoCommand(MenuItem item, string SelectedText)
         {
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
 
@@ -65,9 +67,19 @@ namespace DefaultPlugins.ViewModel
             var seeked= openPlugin.SeekData(newValue);
             CurrenContent.Content = String.Join("\r\n", seeked);
 
-    }
+    }   public TextBox AddNewTextControlAndListen(string name)
+        {
 
-        public ContentPath? UpdateLoad()
+            WPFUtil.AddOrUpddateTab(name, currentTab);
+
+            var text = new TextBox();
+            text.Name = name;
+            text.KeyDown += Text_KeyDown;
+            currentTab.Items.Add(text);
+            return text;
+        }
+
+        public ContentPath? LoadFile()
         {
             ContentPath? result = null;
             var action= openPlugin.GuiAction(openPlugin);
@@ -78,8 +90,12 @@ namespace DefaultPlugins.ViewModel
                 result.Path = action.Path;
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
+
                 result.Content = openPlugin.Perform(new ActionParameter(result.Path));
-                CurrenContent= result;
+
+                var text=AddNewTextControlAndListen(result.Header);
+                text.Text = result.Content;
+                CurrenContent = result;
                                  
                 AllContents.Add(result);
             }
@@ -95,6 +111,18 @@ namespace DefaultPlugins.ViewModel
         {
             savePlugin.Perform(new ActionParameter(CurrenContent.Path, CurrenContent.Content));
         }
+        private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var keyeddata = KeyDown();
+            if (keyeddata == null) e.Handled = false;
+            else
+            {
+
+
+                e.Handled = true;
+            }
+        }
+
         public ContentPath?  KeyDown()
         {
             //done:cast enum from int
@@ -105,7 +133,7 @@ namespace DefaultPlugins.ViewModel
                 .Count(p => System.Windows.Input.Keyboard .IsKeyDown(p));
             
             keysOkProceed=matchCount == openPlugin.Configuration.KeyCommand.Keys.Count && openPlugin.Configuration.KeyCommand.Keys.Count>0;
-            if (keysOkProceed) result=UpdateLoad();
+            if (keysOkProceed) result=LoadFile();
 
              
             return result;

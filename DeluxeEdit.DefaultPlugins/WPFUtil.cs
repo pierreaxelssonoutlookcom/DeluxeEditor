@@ -6,6 +6,8 @@ namespace DeluxeEdit.DefaultPlugins
     public  static class WPFUtil
     {
         
+
+
         public static void AddOrUpddateTab(string header, TabControl control)
         {
             if (WPFUtil.TabÉxist(header, control) == false)

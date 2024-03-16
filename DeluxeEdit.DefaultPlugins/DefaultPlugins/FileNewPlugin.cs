@@ -94,6 +94,12 @@ namespace DefaultPlugins
             return "";
           
         }
+
+        public string MenuAction(ActionParameter parameter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<string> ReadAllPortions(ActionParameter parameter)
         {
              var lastPortion=new List<string>();
