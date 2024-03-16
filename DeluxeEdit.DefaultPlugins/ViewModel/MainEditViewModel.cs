@@ -38,13 +38,22 @@ namespace DefaultPlugins.ViewModel
         {
             return MainMenu;
         }
-        private void setMenuCommand(CustomMenuItem menu)
+        private void SetMenuActions(List<CustomMenu>  menu)
         {
-            menu.MenuActon = (p => new NewFileViewModel(currentTab).GetNewFile());
+            var allItems=menu.SelectMany(p => p.MenuItems);
+            foreach (var item in allItems)
+            {
+                if (item.Plugin is FileNewPlugin)
+                    item.MenuActon = (p => new NewFileViewModel(currentTab).GetNewFile());
+                else if (item.Plugin is FileNewPlugin)
+                    item.MenuActon = (p => LoadFile());
+
+            }
         }
         
 public string DoCommand(MenuItem item, string SelectedText)
         {
+            SetMenuActions(MainMenu);
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
 
             ActionParameter parameter;
