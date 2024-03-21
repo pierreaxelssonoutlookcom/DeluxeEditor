@@ -54,16 +54,17 @@ namespace DefaultPlugins.ViewModel
         public string DoCommand(MenuItem item, string SelectedText)
         {
             string result="" ;
-
+            var publisher = new CustomViewData();
+            
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems).First(p => p.Title == item.Header);
             if (myMenuItem.Plugin is FileNewPlugin)
-                CustomViewData.LastNewFile=  newFileViewModel.GetNewFile();
+                publisher.PublishNewFile(newFileViewModel.GetNewFile());
             else if (myMenuItem.Plugin is FileOpenPlugin)
-                CustomViewData.LastLoadFile=LoadFile();
-            else if (myMenuItem.Plugin is   FileSavePlugin)  
+                publisher.PublishLoadFile(LoadFile());
+            else if (myMenuItem.Plugin is FileSavePlugin)
                 SaveFile();
-            else if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())                
-                result = myMenuItem.Plugin.Perform(new ActionParameter { Parameter=SelectedText } );
+            else if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
+                result = myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText });
             else
                 result = myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter);
 
@@ -114,12 +115,14 @@ namespace DefaultPlugins.ViewModel
 
                 AllContents.Add(result);
             }
-            //done:fix so we can keep track of contents and paths
+            //done:fix so we can  keep track of contents and paths
             return result;
 
         }
         public void ChangeTab(ContentPath item)
         {
+            MyFiles.Current = MyFiles.Files.FirstOrDefault(p => p.Path==item.Path);
+            if (MyFiles.Current == null) 
             CurrenContent = MainEditViewModel.AllContents.First(p => p.Path == item.Path && p.Header == item.Header);
         }
         public ContentPath SaveFile()

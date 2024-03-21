@@ -1,6 +1,9 @@
 ﻿using DefaultPlugins.ViewModel;
 using DeluxeEdit.DefaultPlugins.ViewModel;
+using System;
+using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 namespace DeluxeEdit.DefaultPlugins.Views
@@ -59,11 +62,14 @@ namespace DeluxeEdit.DefaultPlugins.Views
             builder.ShowMenu(this.MainMenu, customMenu);
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;
-           
 
-
-
-        }
+           var viewData = new CustomViewData();
+            viewData.subscrile(OVEvent);
+                
+       }
+       private  void OVEvent(EventType type)
+        {
+       }
 
         private void MainEditBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
