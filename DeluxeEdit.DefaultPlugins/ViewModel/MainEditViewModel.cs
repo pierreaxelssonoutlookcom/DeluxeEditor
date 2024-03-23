@@ -108,8 +108,8 @@ namespace DefaultPlugins.ViewModel
                 result.Content = openPlugin.Perform(new ActionParameter { Parameter = result.Path });
                 var text = AddNewTextControlAndListen(result.Header);
                 text.Text = result.Content;
-                MyFiles.Files.Add(
-                    new MyFile
+                MyEditFiles.Files.Add(
+                    new MyEditFile
                     {
                         Path = result.Path,
                         Content = result.Content,
@@ -122,13 +122,13 @@ namespace DefaultPlugins.ViewModel
         }
         public void ChangeTab(TabItem  item)
         {
-            MyFiles.Current = MyFiles.Files.FirstOrDefault(p => p.Header==item.Header);
+            MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header==item.Header);
                 
         }
         public ContentPath SaveFile()
         {
-            var text = MyFiles.Current.Text as TextBox;
-            var result = new ContentPath { Path = MyFiles.Current.Path, Content = text.Text };
+            var text = MyEditFiles.Current.Text as TextBox;
+            var result = new ContentPath { Path = MyEditFiles.Current.Path, Content = text.Text };
             savePlugin.Perform(new ActionParameter { Parameter = result.Path, InData = result.Content });
             return result;
         }

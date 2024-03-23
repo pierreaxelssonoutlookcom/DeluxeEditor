@@ -41,16 +41,17 @@ namespace DefaultPlugins.ViewModel
         public ContentPath GetNewFile()
         {
                var result = new ContentPath { Header = "newfile.txt", Content = "" };
-            MyFiles.Files.Add(new MyFile { Header = result.Header });
+            MyEditFiles.Files.Add(new MyEditFile { Header = result.Header });
             var text=AddNewTextControlAndListen(result.Header);
-            MyFiles.Files.Add(
-               new MyFile
+            MyEditFiles.Files.Add(
+               new MyEditFile
                {
                    Path = result.Path,
                    Content = result.Content,
                    Header = result.Header,
                    Text = text,
-                   Tab = currentTab.Items.CurrentItem
+                   Tab = currentTab.Items.CurrentItem,
+                   IsNewFile = true
                });
 
 

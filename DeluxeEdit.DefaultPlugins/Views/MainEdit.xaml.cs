@@ -39,14 +39,14 @@ namespace DeluxeEdit.DefaultPlugins.Views
         }
         private void EditFile()
         {
-            var text = MyFiles.Current.Text as TextBox;
+            var text = MyEditFiles.Current.Text as TextBox;
             text.Text = CustomViewData.EditFile.Content;
 
 
         }
         private void NewFile()
         {
-            var text = MyFiles.Current.Text as TextBox;
+            var text = MyEditFiles.Current.Text as TextBox;
             text.Text = CustomViewData.NewFile.Content;
 
 
@@ -71,9 +71,9 @@ namespace DeluxeEdit.DefaultPlugins.Views
        }
        private  void OVEvent(EventType type)
         {
-            if (type == EventType.LoadFile)
+            if (type == EventType.EditFile)
                 EditFile();
-            else if (type==EventType.NewFileType)
+            else if (type==EventType.NewFile)
                 NewFile();
 
 
