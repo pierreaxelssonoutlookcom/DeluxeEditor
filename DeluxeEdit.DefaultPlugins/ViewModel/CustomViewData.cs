@@ -1,51 +1,70 @@
 ﻿using Model;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace DeluxeEdit.DefaultPlugins.ViewModel
 {
     public enum EventType { NewFile, EditFile }
+    public delegate void Cust(EventType type, ContentPath path);
 
-    public class CustomViewData
+    
+    public class CustomEventArgs : EventArgs
     {
 
-        public delegate void ChangedHandler(EventType type);
+        public EventType Type { get; set; }
 
-        public event ChangedHandler Changed;
+        public ContentPath Path{ get; set; }
+    }
+    public class CustomViewData
+    {
+        public event EventHandler<CustomEventArgs> RaiseEvent;
+
+        public ContentPath NewFile { get; set; }
+        public ContentPath EditFile { get; set; }
 
 
-        public static ContentPath NewFile { get; set; }
-        public static ContentPath EditFile { get; set; }
-        private  static ContentPath OldNewFile { get; set; }
-        private static ContentPath OldEditFile { get; set; }
+        private EventType? currentItem = null;
 
-        private bool IsNewFile { get; set; }
 
-        protected  void RaiseEvent(EventArgs e)
+        public CustomViewData()
         {
 
-            if (! NewFile.Equals(OldNewFile))                
-                Changed.Invoke(EventType.NewFile);
-
-            if (!EditFile.Equals(OldEditFile))
-                Changed.Invoke(EventType.EditFile);
-
+            RaiseEvent += RaiseCustomEvent;
         }
-        public void PublishNewFile(ContentPath path)
-        { 
-            OldNewFile=NewFile;
 
+        private void CustomViewData_RaiseCEvent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RaiseCustomEvent(object? sender, CustomEventArgs e)
+        {
+            if (currentItem == EventType.NewFile)
+                RaiseEvent.Invoke( null, new CustomEventArgs { Path = NewFile, Type = currentItem.Value });
+            else if (currentItem == EventType.EditFile)
+                RaiseEvent.Invoke(null, new CustomEventArgs { Path = EditFile, Type = currentItem.Value });
+
+            currentItem = null;
+       }
+
+        
+         
+ 
+         public void PublishNewFile(ContentPath path)
+        {
+            if (path == null) return; 
+             
+            currentItem=EventType.NewFile;
             NewFile = path;
+            RaiseCustomEvent(null, new CustomEventArgs { Type=EventType.NewFile,  Path=path  }   );
         }
         public void PublishLoadFile(ContentPath path)
         {
-            OldEditFile = EditFile;
-            EditFile = path;
+
+            if (path == null) return;
+
+            currentItem = EventType.EditFile; ;
+            NewFile = path;
+            RaiseCustomEvent(null, new CustomEventArgs { Type = EventType.EditFile, Path = path });
         }
 
 
@@ -53,9 +72,9 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
 
 
 
-        public void subscrile(ChangedHandler handler)
+        public void subscrile(EventHandler<CustomEventArgs> handler)
         {
-            Changed += handler;
+            RaiseEvent += handler;
         }
 
   

@@ -25,29 +25,24 @@ namespace DeluxeEdit.DefaultPlugins.Views
             // temporary call
             //currenContents =editViewModel.UpdateLoad();
         }
-        private void Grid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
 
-
-
-        }
-
- 
         private void MainEditBox_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
             editViewModel.ScrollTo(e.NewValue); 
         }
-        private void EditFile()
+        private void EditFile(ContentPath path)
         {
             var text = MyEditFiles.Current.Text as TextBox;
-            text.Text = CustomViewData.EditFile.Content;
+            text.Text = path.Content;
 
 
         }
-        private void NewFile()
+        private void NewFile(ContentPath path)
+
         {
             var text = MyEditFiles.Current.Text as TextBox;
-            text.Text = CustomViewData.NewFile.Content;
+            text.Text = path.Content;
+
 
 
         }
@@ -66,15 +61,15 @@ namespace DeluxeEdit.DefaultPlugins.Views
                 item.Click += MenuItem_Click;
 
            var viewData = new CustomViewData();
-            viewData.subscrile(OVEvent);
+            viewData.subscrile(OnEvent);
                 
        }
-       private  void OVEvent(EventType type)
+       private  void OnEvent(object sender, CustomEventArgs  e)
         {
-            if (type == EventType.EditFile)
-                EditFile();
-            else if (type==EventType.NewFile)
-                NewFile();
+            if (e.Type == EventType.EditFile)
+                EditFile(e.Path);
+            else if (e.Type ==EventType.NewFile)
+                NewFile(e.Path);
 
 
        }
