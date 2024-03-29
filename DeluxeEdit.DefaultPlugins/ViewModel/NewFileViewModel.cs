@@ -25,13 +25,13 @@ namespace DefaultPlugins.ViewModel
             plugin = AllPlugins.InvokePlugin(PluginType.FileNew);
             currentTab = tab;
         }
-        public TextBox AddNewTextControlAndListen(string name)
+        public TextBox AddNewTextControlAndListen(string filename)
         {
 
-            WPFUtil.AddOrUpddateTab(name, currentTab);
+            WPFUtil.AddOrUpddateTab(filename, currentTab);
 
             var text = new TextBox();
-            text.Name = name;
+            text.Name = Path.GetFileNameWithoutExtension(filename);
             text.KeyDown += Text_KeyDown;
             currentTab.Items.Add(text);
 

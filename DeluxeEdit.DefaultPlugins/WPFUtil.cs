@@ -26,6 +26,7 @@ namespace DeluxeEdit.DefaultPlugins
         public static int IndexOfText(this ItemCollection  collection, string text)
         {
             int result = -1;
+
             for (int i = 0; i < collection.Count; i++)
             { 
                 string header = "";
