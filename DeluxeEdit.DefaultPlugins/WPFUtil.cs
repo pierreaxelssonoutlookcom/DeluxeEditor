@@ -22,10 +22,11 @@ namespace DeluxeEdit.DefaultPlugins
 
         public static bool TabÉxist(string header, TabControl control)
         {
-            var result = IndexOfText(control.Items, header) > -1;
+            var result = IndexOfText(control.Items, header) != null;
+                ;
             return result;
         }
-        public static nint IndexOfText(ItemCollection  collection, string text)
+        public static int? IndexOfText(ItemCollection  collection, string text)
         {
 
             for (int i = 0; i < collection.Count; i++)
@@ -51,7 +52,7 @@ namespace DeluxeEdit.DefaultPlugins
 
 
 
-            return Minus1;
+            return null ;
         } 
 
     }

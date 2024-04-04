@@ -19,7 +19,8 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
             var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
            var result = GetMenuHeaders(plugins);
 
-            foreach (var item in result) item.MenuItems.AddRange(GetMenuItems(item, plugins));
+            foreach (var item in result) 
+                item.MenuItems.AddRange(GetMenuItems(item, plugins));
 
 
 
@@ -28,6 +29,7 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
 
         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
         {
+            
             var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent())
                 .Select(p => p.Configuration.ShowInMenu).Distinct()
             .Select(p => new CustomMenu { Header = p }).ToList();
@@ -38,7 +40,8 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
         public List<CustomMenuItem> GetMenuItems(CustomMenu item, IEnumerable<INamedActionPlugin> plugins)
         {
             var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent() && item.Header == p.Configuration.ShowInMenu)
-                .Select(p => new CustomMenuItem { Title = p.Configuration.ShowInMenuItem, Plugin = p })
+                .Select(p => 
+                new CustomMenuItem { Title = $"{p.Configuration.ShowInMenuItem} ({p.Configuration.KeyCommand.ToString()}"    , Plugin = p })
                 .ToList();
             return result;
         }
@@ -51,15 +54,14 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
             {
 
                 var index =-WPFUtil.IndexOfText(     mainMenu.Items, item.Header);
-                int IndexCasted = (int)index;
-                if (index.Equals( WPFUtil.Minus1))
+                if (index==  null )
                 {
                     index = mainMenu.Items.Add(new MenuItem { Header = item.Header });
                 }
 
                 foreach (var menuItem in item.MenuItems)
                 {
-                    MenuItem newExistMenuItem =  mainMenu.Items[IndexCasted] as MenuItem;
+                    MenuItem newExistMenuItem =  mainMenu.Items[index.Value] as MenuItem;
                     var newItem = new MenuItem { Header = menuItem.Title };
                     newExistMenuItem.Items.Add(newItem);
 
