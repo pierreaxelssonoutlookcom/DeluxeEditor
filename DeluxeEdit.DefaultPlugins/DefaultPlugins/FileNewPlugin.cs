@@ -48,16 +48,6 @@ namespace DefaultPlugins
         public int SortOrder { get; set; }
 
         public List<string> ContentBuffer;
-        public List<string> SeekData(double newScrollVatue)         
-        {
-            long? seekTarget=null;
-            seekTarget=Convert.ChangeType(newScrollVatue, seekTarget.GetType()) as long?; 
-            if (seekTarget.HasValue)
-
-            reader.BaseStream.Seek(seekTarget.Value, SeekOrigin.Current);
-            var result= ReadPortion(Parameter);
-            return result;
-        }
         public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";
 

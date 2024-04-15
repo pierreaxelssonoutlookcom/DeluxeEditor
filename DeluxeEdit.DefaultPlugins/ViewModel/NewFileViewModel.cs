@@ -43,7 +43,7 @@ namespace DefaultPlugins.ViewModel
                var result = new ContentPath { Header = "newfile.txt", Content = "" };
             MyEditFiles.Files.Add(new MyEditFile { Header = result.Header });
             var text=AddNewTextControlAndListen(result.Header);
-            MyEditFiles.Files.Add(
+            MyEditFiles.Add(
                new MyEditFile
                {
                    Path = result.Path,

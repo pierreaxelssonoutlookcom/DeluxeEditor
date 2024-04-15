@@ -108,7 +108,7 @@ namespace DefaultPlugins.ViewModel
                 result.Content  = await openPlugin.Perform(new ActionParameter { Parameter = result.Path });
                 var text = AddNewTextControlAndListen(result.Header);
                 text.Text = result.Content;
-                MyEditFiles.Files.Add(
+                MyEditFiles.Add(
                     new MyEditFile
                     {
                         Path = result.Path,
