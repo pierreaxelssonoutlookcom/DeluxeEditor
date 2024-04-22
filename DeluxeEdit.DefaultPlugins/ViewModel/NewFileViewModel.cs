@@ -25,7 +25,7 @@ namespace DefaultPlugins.ViewModel
             plugin = AllPlugins.InvokePlugin(PluginType.FileNew);
             currentTab = tab;
         }
-        public TextBox AddNewTextControlAndListen(string filename)
+        public TextBox AddNewTextControlAndSubscribe(string filename)
         {
 
             WPFUtil.AddOrUpddateTab(filename, currentTab);
@@ -42,7 +42,7 @@ namespace DefaultPlugins.ViewModel
         {
                var result = new ContentPath { Header = "newfile.txt", Content = "" };
             MyEditFiles.Files.Add(new MyEditFile { Header = result.Header });
-            var text=AddNewTextControlAndListen(result.Header);
+            var text=AddNewTextControlAndSubscribe (result.Header);
             MyEditFiles.Add(
                new MyEditFile
                {

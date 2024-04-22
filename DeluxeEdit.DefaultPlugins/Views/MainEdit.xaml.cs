@@ -1,10 +1,6 @@
 ﻿using DefaultPlugins.ViewModel;
 using DeluxeEdit.DefaultPlugins.ViewModel;
 using Model;
-using System;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 namespace DeluxeEdit.DefaultPlugins.Views
@@ -51,7 +47,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
             editViewModel = new MainEditViewModel(TabFiles);
 
             newViewModel = new NewFileViewModel(TabFiles);
-            newViewModel.AddNewTextControlAndListen("newfile.txt");
+            newViewModel.AddNewTextControlAndSubscribe("newfile.txt");
             var customMenu = editViewModel.GetMenu();
     
             var builder = new MenuBuilder();

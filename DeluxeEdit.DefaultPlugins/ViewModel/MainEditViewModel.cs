@@ -80,7 +80,7 @@ namespace DefaultPlugins.ViewModel
               //done :find way to renember old path before dialog 
  
         }
-        public TextBox AddNewTextControlAndListen(string path)
+        public TextBox AddNewTextControlAndSubscribe(string path)
         {
             var name = new FileInfo(path).Name;
             WPFUtil.AddOrUpddateTab(name, currentTab);
@@ -106,7 +106,7 @@ namespace DefaultPlugins.ViewModel
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
                 result.Content  = await openPlugin.Perform(new ActionParameter { Parameter = result.Path });
-                var text = AddNewTextControlAndListen(result.Header);
+                var text = AddNewTextControlAndSubscribe(result.Header);
                 text.Text = result.Content;
                 MyEditFiles.Add(
                     new MyEditFile

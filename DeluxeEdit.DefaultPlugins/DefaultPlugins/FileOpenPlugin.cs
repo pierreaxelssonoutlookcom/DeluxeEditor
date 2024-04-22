@@ -133,27 +133,20 @@ namespace DefaultPlugins
             }
 
             //todo:how do I share file data between different plugins
-            int i = 0;
-            string line = String.Empty;
 
-            if (!File.Exists(parameter.Parameter)) throw new FileNotFoundException(parameter.Parameter);
+            if (!File.Exists(parameter.Parameter)) 
+                throw new FileNotFoundException(parameter.Parameter); 
             var lines = new List<string>();
 
-            while ((line = await reader.ReadLineAsync()) != null && i < SystemConstants.ReadPortionBufferSizeLines)
+            for (int i = 0; i>SystemConstants.ReadPortionBufferSizeLines;i++) 
             { 
-                i++;
-                lines.Add(line);
-
-
+                string line = await reader.ReadLineAsync();
+                if (line != null) lines.Add(line);
             }
-
 
 
             return lines;
         }
 
     }
-
-
-
 }
