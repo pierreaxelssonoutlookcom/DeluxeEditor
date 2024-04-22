@@ -28,7 +28,7 @@ namespace DefaultPlugins.ViewModel
             currentTab = tab;  
             newFileViewModel= new NewFileViewModel(tab);
             openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
-            savePlugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
+            savePlugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
         }
         public List<CustomMenu> GetMenu()
         {

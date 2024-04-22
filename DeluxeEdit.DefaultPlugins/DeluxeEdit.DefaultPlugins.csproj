@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 	  <Compile Include="DefaultPlugins\FileNewPlugin.cs" />
+	  <Compile Include="DefaultPlugins\FileSaveAslugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
 	  <Compile Include="AllPlugins.cs" />
 	  <Compile Include="Properties\AssemblyInfo.cs" />

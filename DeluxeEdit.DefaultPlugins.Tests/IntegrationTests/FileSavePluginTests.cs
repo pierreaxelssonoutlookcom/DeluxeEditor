@@ -14,7 +14,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public void FileSavePluginTest()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
+            var plugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
 
             var expected = "ninjaåäÖ";
             if (File.Exists(TestFile)) File.Delete(TestFile);
@@ -31,7 +31,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
          public void FileSavePluginTestSimple()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.FileSave) as FileSavePlugin;
+            var plugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
 
             var expected = "ninja";
             if (File.Exists(TestFile2)) File.Delete(TestFile2);
