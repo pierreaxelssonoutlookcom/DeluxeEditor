@@ -75,7 +75,7 @@ namespace DefaultPlugins
             if (Parameter != null) oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
             var dialog= new DeluxeFileDialog();
             var result=dialog.ShowFileOpenDialog(oldDir);
-            return null;
+            return result;
         }
 
 
@@ -141,7 +141,10 @@ namespace DefaultPlugins
             for (int i = 0; i>SystemConstants.ReadPortionBufferSizeLines;i++) 
             { 
                 string line = await reader.ReadLineAsync();
-                if (line != null) lines.Add(line);
+                if (line != null)
+                    lines.Add(line);
+                else
+                    break;
             }
 
 
