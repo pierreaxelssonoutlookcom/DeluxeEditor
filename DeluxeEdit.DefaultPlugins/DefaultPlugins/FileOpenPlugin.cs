@@ -102,8 +102,9 @@ namespace DefaultPlugins
             FileSize = File.Exists(parameter.Parameter) ?   new FileInfo(parameter.Parameter).Length: 0;
 
 
-
-            var result = await  ReadAllPortions(parameter);
+            ContentBuffer.Clear();
+            var result = await ReadPortion(parameter);
+            ContentBuffer.AddRange(result);
             return  String.Join(Environment.NewLine, result);
         }
         public async Task<List<string>> ReadAllPortions(ActionParameter parameter)
