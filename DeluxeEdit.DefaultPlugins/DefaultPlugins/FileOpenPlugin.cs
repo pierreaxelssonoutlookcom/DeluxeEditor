@@ -108,7 +108,7 @@ namespace DefaultPlugins
             return  String.Join(Environment.NewLine, result);
         }
         public async Task<List<string>> ReadAllPortions(ActionParameter parameter)
-        {
+        { 
              var result=new List<string>();
 
                 var localResult = await ReadPortion(parameter);

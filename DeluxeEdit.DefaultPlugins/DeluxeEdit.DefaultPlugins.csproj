@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 		<UseWPF>true</UseWPF>
@@ -11,6 +11,7 @@
 		<Company>Pierre Axelsson</Company>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<UserSecretsId>b129b379-a295-4367-a3e3-7aae961e7337</UserSecretsId>
+		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 
 	<ItemGroup>
