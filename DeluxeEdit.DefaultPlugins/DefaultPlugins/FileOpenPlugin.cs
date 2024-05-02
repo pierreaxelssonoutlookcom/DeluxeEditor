@@ -20,25 +20,10 @@ namespace DefaultPlugins
 
         public bool ParameterIsSelectedText { get; set; } = false;
 
-        public object CreateControl(bool showToo)
-        {
-            object view = new MainEdit();
-            Window win = null;
-            var result = view;
-            if (showToo)
-            {
-                win = new Window();
-                result = win;
-
-                win.Content = view;
-                win.Show();
-
-            }
-
-            return result;
-        }
 
         public Version Version { get; set; }
+        public string VersionString { get; set; } = "0.2";
+
 
         public long FileSize { get; set; }
         public long BytesRead { get; set; }
@@ -77,10 +62,26 @@ namespace DefaultPlugins
         }
 
 
-        public bool CanReadMore { get { return reader.BaseStream.CanRead; } }
-                
 
- 
+        public object CreateControl(bool showToo)
+        {
+            object view = new MainEdit();
+            Window win = null;
+            var result = view;
+            if (showToo)
+            {
+                win = new Window();
+                result = win;
+
+                win.Content = view;
+                win.Show();
+
+            }
+
+            return result;
+        }
+
+
 
         public FileOpenPlugin()
         {
@@ -90,7 +91,7 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Open"; ;
             Configuration.KeyCommand.Keys =  new List<Key> { Key.LeftCtrl, Key.O };
-            Version =   Version.Parse("0.1");
+            Version =   Version.Parse(VersionString);
         }
 
         public async Task<string> Perform(ActionParameter parameter)

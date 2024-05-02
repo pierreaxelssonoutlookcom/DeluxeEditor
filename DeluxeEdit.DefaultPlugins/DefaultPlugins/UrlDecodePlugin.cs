@@ -14,11 +14,12 @@ namespace DefaultPlugins
 
         public object CreateControl(bool showToo)
         {
-            return null;
+            return String.Empty;
         }
 
 
         public Version Version { get; set; }
+        public string VersionString { get; set; } = "0.2";
 
         public ActionParameter Parameter { get; set; }
 
@@ -33,14 +34,12 @@ namespace DefaultPlugins
 
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
-
         public UrlDecodePlugin()
         {
             Configuration = new ConfigurationOptions();
-            Version = Version.Parse("0.1");
+            Version = Version.Parse(VersionString);
             Configuration.ShowInMenu = "Plugins";
             Configuration.ShowInMenuItem = "UrlDecode";
-
 
         }
         public async Task<string> Perform(ActionParameter parameter)

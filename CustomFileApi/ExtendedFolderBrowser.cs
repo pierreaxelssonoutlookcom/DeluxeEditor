@@ -249,11 +249,11 @@ namespace FolderBrowser
 		
 		#region Private Members
 
-		private InternalFolderBrowser m_InternalFolderBrowser = null;
+		private InternalFolderBrowser m_InternalFolderBrowser ;
 		public event EventHandler SelectedFolderChanged;
 		private const string MAKE_NEW_FOLDER_BUTTON = "&Make New Folder";
 		
-		private ShowNewButtonHandler m_ShowNewButtonHandler = null;
+		private ShowNewButtonHandler m_ShowNewButtonHandler;
 		private const string BROWSE_FOR_FOLDER_CLASS_NAME =  "#32770";
 		#endregion
 

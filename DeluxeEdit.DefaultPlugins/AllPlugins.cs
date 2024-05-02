@@ -28,7 +28,7 @@ namespace DefaultPlugins
                     myType = typeof(FileSavePlugin);
                     break;
                 case PluginType.FileSaveAs:
-                    myType = typeof(FileSavePlugin);
+                        myType = typeof(FileSavePlugin);
                     break;
                 case PluginType.FileNew:
                     myType = typeof(FileNewPlugin);
@@ -41,11 +41,16 @@ namespace DefaultPlugins
         }
         public static INamedActionPlugin InvokePlugin(string type)
         {
-            var matchedType = PluginManager.SourceFiles.SelectMany(p => p.MatchingTypes)
-            .Single(p => p.ToString() == type);
-            object result= Activator.CreateInstance(matchedType);
-            return result as INamedActionPlugin;
-         }
+            INamedActionPlugin? result = null;
+            Type? matchedType = PluginManager.SourceFiles.SelectMany(p => p.MatchingTypes)
+            .SingleOrDefault(p => p.ToString() == type);
+            if (matchedType != null)
+            {
+                object objecctResult = Activator.CreateInstance(matchedType);
+                if (objecctResult is INamedActionPlugin) result = objecctResult as INamedActionPlugin;
+            }
+            return result;
+;        }
 
         public static INamedActionPlugin InvokePlugin(Type type)
         {

@@ -40,6 +40,7 @@ namespace DefaultPlugins
 
 
         public Version Version { get; set; }
+        public string VersionString { get; set; } = "0.2";
 
         public long FileSize { get; set; }
         public long BytesWritten { get; set; }
@@ -79,7 +80,7 @@ namespace DefaultPlugins
             Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save As";
-            Version = Version.Parse("0.1");
+            Version = Version.Parse(VersionString);
         }
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {

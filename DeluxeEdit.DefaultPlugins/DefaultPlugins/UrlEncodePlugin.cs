@@ -11,12 +11,11 @@ namespace DefaultPlugins
     {
         public bool ParameterIsSelectedText { get; set; } = true;
 
-        public object CreateControl(bool showToo)
-        {
-            return null;
-        }
 
         public Version Version { get; set; }
+
+
+        public string VersionString { get; set; } = "0.2";
 
         public ActionParameter Parameter { get; set; }
 
@@ -43,11 +42,16 @@ namespace DefaultPlugins
 
 
 
-            Version = Version.Parse("0.1");
+            Version = Version.Parse(VersionString);
 
 
 
         }
+        public object CreateControl(bool showToo)
+        {
+            return "";
+        }
+
 
         public async Task<string> Perform(ActionParameter parameter)
         {

@@ -15,6 +15,8 @@ namespace Model.Interface
         bool ParameterIsSelectedText        { get; set; }
         bool Enabled { get; set; }
         Version Version { get; set; }
+        public string VersionString { get; set; }
+
 
         string Id { get; set; }
         string Titel { get; set; }

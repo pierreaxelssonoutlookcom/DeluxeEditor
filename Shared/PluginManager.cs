@@ -81,7 +81,6 @@ namespace Shared
         }
         public static void UnLoadPluginFile(string path)
         {
-            throw new NotImplementedException();
             var match = SourceFiles.FirstOrDefault(p => String.Equals(path, p.LocalPath, StringComparison.CurrentCultureIgnoreCase));
             if (match != null)
             {

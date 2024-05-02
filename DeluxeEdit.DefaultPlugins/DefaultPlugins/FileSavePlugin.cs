@@ -43,6 +43,8 @@ namespace DefaultPlugins
 
 
 
+        public string VersionString { get; set; } = "0.2";
+
         public Version Version { get; set; }
 
         public long FileSize { get; set; }
@@ -84,7 +86,7 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save";
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.S };
-            Version = Version.Parse("0.1");
+            Version = Version.Parse(VersionString);
         }
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {

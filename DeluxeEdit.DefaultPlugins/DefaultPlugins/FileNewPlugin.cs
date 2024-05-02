@@ -16,21 +16,19 @@ namespace DefaultPlugins
 
         public bool ParameterIsSelectedText { get; set; } = false;
 
-        public object CreateControl(bool showToo)
-        {
-            var result = new MainEdit();
-
-            return result;
-        }
 
         public Version Version { get; set; }
+        public string VersionString { get; set; } = "0.2";
+
 
         public long FileSize { get; set; }
         public long BytesRead { get; set; }
 
-        public ActionParameter? Parameter { get; set; }
+        public ActionParameter? Parameter { get; set; }    
+            
 
-    
+
+
         //todo; we might have to implement setcontext for plugins   
 
         public bool Enabled { get; set; }
@@ -49,6 +47,12 @@ namespace DefaultPlugins
         public string Path { get; set; } = "";
 
 
+        public object CreateControl(bool showToo)
+        {
+            var result = new MainEdit();
+
+            return result;
+        }
 
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
@@ -74,7 +78,7 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "New"; 
             Configuration.KeyCommand.Keys =  new List<Key> { Key.LeftCtrl, Key.N };
-            Version =   Version.Parse("0.1");
+            Version = Version.Parse(VersionString);
         }
 
         public async Task<string> Perform(ActionParameter parameter)

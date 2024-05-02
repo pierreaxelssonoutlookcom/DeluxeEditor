@@ -16,13 +16,14 @@ using System.Threading;
 namespace Shared
 {
     public class NugetManager
-    {
+    { 
+            /*
+
         private static string pluginPath;
         public static List<INamedActionPlugin> Instances = new List<INamedActionPlugin>();
         public static List<PluginFile> SourceFiles = new List<PluginFile>();
 
         public static object NullPropertyProvider { get; private set; }
-
         static NugetManager()
         {
             pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
@@ -117,14 +118,15 @@ namespace Shared
 
             return ourSource;
             */
-        
-        public static void UnLoadPluginFile(string path)
+    /*
+    public static void UnLoadPluginFile(string path)
+    {
+        var match = SourceFiles.FirstOrDefault(p => String.Equals(path, p.LocalPath, StringComparison.CurrentCultureIgnoreCase));
+        if (match != null)
         {
-            var match = SourceFiles.FirstOrDefault(p => String.Equals(path, p.LocalPath, StringComparison.CurrentCultureIgnoreCase));
-            if (match != null)
-            {
-                var asm = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(p => path.SameFileName(p.GetName().CodeBase));
-            }
+            var asm = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(p => path.SameFileName(p.GetName().CodeBase));
         }
+    }
+    */
     }                                                               
 }
