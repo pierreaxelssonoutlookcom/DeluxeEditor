@@ -1,11 +1,8 @@
 ﻿using Model;
 using Model.Interface;
-using Shared;
 using System;
 using System.IO;
 using System.Text;
-using System.Windows.Controls;
-using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using CustomFileApiFile;

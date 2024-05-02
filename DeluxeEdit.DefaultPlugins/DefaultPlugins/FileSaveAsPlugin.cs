@@ -5,16 +5,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
 using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using CustomFileApiFile;
-using System.Windows.Markup.Localizer;
 using DeluxeEdit.DefaultPlugins.Views;
-using System.Windows.Forms;
 using System.Windows;
-using MS.WindowsAPICodePack.Internal;
 using System.Threading.Tasks;
 
 namespace DefaultPlugins

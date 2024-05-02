@@ -12,9 +12,6 @@ using CustomFileApiFile;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
 using System.Threading.Tasks;
-using System.Windows.Shapes;
-using static System.Windows.Forms.LinkLabel;
-using System.Threading;
 
 namespace DefaultPlugins
 {

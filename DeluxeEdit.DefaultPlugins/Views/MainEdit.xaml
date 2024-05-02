@@ -1,28 +1,30 @@
-﻿<UserControl x:Class="DeluxeEdit.DefaultPlugins.Views.MainEdit"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DeluxeEdit.DefaultPlugins.Views"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="DeluxeEdit.DefaultPlugins.Views.MainEdit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth= "800" Loaded="UserControl_Loaded">
     <DockPanel Margin="0,-1,0,1">
         <Menu x:Name="MainMenu" DockPanel.Dock="Top">
 
             <MenuItem Header="Plugins">
-                <MenuItem Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    ></MenuItem>
+                <MenuItem x:Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    />
 
             </MenuItem>
 
 
         </Menu>
-        <TabControl Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged"      >
-            <TabItem Header="TabItem">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" >
-                    
+        <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged"      >
+            <ui:DynamicScrollViewer>
+                <TabItem Header="TabItem">
+                
                 <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>
-                </ScrollViewer>
             </TabItem>
+            </ui:DynamicScrollViewer>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>
         </TabControl>
     </DockPanel>
 </UserControl>
