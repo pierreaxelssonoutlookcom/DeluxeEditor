@@ -28,7 +28,9 @@ namespace DeluxeEdit.DefaultPlugins.Views
         }
         private void EditFile(ContentPath path)
         {
-            var text = MyEditFiles.Current.Text as TextBox;
+            var current = MyEditFiles.Current ?? MyEditFiles.Current.Text;
+
+            var text =  current as TextBox;
             text.Text = path.Content;
 
 
@@ -36,7 +38,11 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void NewFile(ContentPath path)
 
         {
-            var text = MyEditFiles.Current.Text as TextBox;
+
+            var current = MyEditFiles.Current ?? MyEditFiles.Current.Text;
+
+
+            var text = current  as TextBox;
             text.Text = path.Content;
 
 
@@ -89,12 +95,13 @@ namespace DeluxeEdit.DefaultPlugins.Views
 
         private void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (e.Source is MenuItem)
+            {
+                var clicked = e.Source as MenuItem;
 
-            var clicked =   
-                e.Source as MenuItem;
-            editViewModel.DoCommand(clicked, MainEditBox.SelectedText);
+                editViewModel.DoCommand(clicked, MainEditBox.SelectedText);
 
-
+            }
         }
 
         private void ShowPlugins_Click(object sender, RoutedEventArgs e)

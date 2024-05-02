@@ -24,7 +24,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         }
         private void ShowDisplay()
         {
-            if (ShowFiles.IsChecked.Value)
+            if (ShowFiles.IsChecked.GetValueOrDefault())
                 data.ItemsSource = viewModel.LocalListFiles();
             else
                 data.ItemsSource = viewModel.LocalList();

@@ -9,7 +9,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public async void UrlEncodeTest()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.UrlEncode) as UrlEncodePlugin;
+            var plugin = AllPlugins.InvokePlugin(PluginType.UrlEncode);
             var expected = "Hej+p%c3%a5+dig";
             var actual = await plugin.Perform(
                 new ActionParameter("Hej på dig"));

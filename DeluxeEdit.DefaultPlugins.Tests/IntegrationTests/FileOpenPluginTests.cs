@@ -14,7 +14,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public async void FileOpenPluginTest()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
+            var plugin = FileOpenPlugin.CastNative( AllPlugins.InvokePlugin(PluginType.FileOpen));
 
             var expected = "ninjaåäÖ";
             if (File.Exists(TestFile)) File.Delete(TestFile);

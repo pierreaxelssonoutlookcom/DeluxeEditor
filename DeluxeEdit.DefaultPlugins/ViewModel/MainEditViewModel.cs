@@ -2,6 +2,7 @@
 using DeluxeEdit.DefaultPlugins.ViewModel;
 using Extensions;
 using Model;
+using Model.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,7 @@ namespace DefaultPlugins.ViewModel
         TabControl currentTab;
         private NewFileViewModel newFileViewModel;
         private FileOpenPlugin openPlugin;
-        private FileSavePlugin savePlugin;
+        private INamedActionPlugin savePlugin;
         
         private static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
 
@@ -27,9 +28,10 @@ namespace DefaultPlugins.ViewModel
         {
             currentTab = tab;  
             newFileViewModel= new NewFileViewModel(tab);
-            openPlugin = AllPlugins.InvokePlugin(PluginType.FileOpen) as FileOpenPlugin;
-            savePlugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
+            openPlugin = FileOpenPlugin.CastNative( AllPlugins.InvokePlugin(PluginType.FileOpen));
+            savePlugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs);
         }
+
         public List<CustomMenu> GetMenu()
         {
             return MainMenu;
@@ -125,12 +127,15 @@ namespace DefaultPlugins.ViewModel
             MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header==item.Header);
                 
         }
-        public ContentPath SaveFile()
+        public  async void  SaveFile()
         {
             var text = MyEditFiles.Current.Text as TextBox;
-            var result = new ContentPath { Path = MyEditFiles.Current.Path, Content = text.Text };
-            savePlugin.Perform(new ActionParameter { Parameter = result.Path, InData = result.Content });
-            return result;
+            if (text != null)
+            {
+                var result = new ContentPath { Path = MyEditFiles.Current.Path, Content = text.Text };
+                 await savePlugin.Perform(new ActionParameter { Parameter = result.Path, InData = result.Content });
+            }
+ 
         }
         private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -147,7 +152,7 @@ namespace DefaultPlugins.ViewModel
         public async Task<ContentPath?> KeyDown()
         {
             //done:cast enum from int
-            ContentPath result = null;
+            ContentPath? result = null;
             bool keysOkProceed = false;
             var matchCount = openPlugin.Configuration.KeyCommand.Keys
                 .Cast<System.Windows.Input.Key>()

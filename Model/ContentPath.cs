@@ -4,9 +4,9 @@ namespace Model
 {
   public class ContentPath: IEquatable<ContentPath>
     {
-        public string Path { get; set; }
-        public string Content { get; set; }
-        public string Header { get; set; }
+        public string Path { get; set; } = "";
+        public string Content { get; set; } = "";
+        public string Header { get; set; } = "";
 
 
         public bool Equals(ContentPath other)

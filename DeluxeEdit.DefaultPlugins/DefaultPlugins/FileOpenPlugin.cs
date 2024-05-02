@@ -17,6 +17,13 @@ namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
     {
+        public  static FileOpenPlugin CastNative(INamedActionPlugin item)
+        {
+            if (item is FileOpenPlugin)
+                return item as FileOpenPlugin;
+            else
+                return null;
+        }
 
         public bool ParameterIsSelectedText { get; set; } = false;
 

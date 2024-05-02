@@ -7,7 +7,7 @@ namespace Model
 {
     public class MyEditFiles
     {
-        public static MyEditFile Current {  get; set; }
+        public static MyEditFile? Current { get; set; }
         public static void Add(MyEditFile item )
         {
 

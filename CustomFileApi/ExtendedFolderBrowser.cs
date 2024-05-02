@@ -294,7 +294,7 @@ namespace FolderBrowser
 				IntPtr.Zero); 
 
 			//Get current thread
-			int currentThread =  AppDomain.GetCurrentThreadId();
+			int currentThread =   Thread.CurrentThread.ManagedThreadId;
 			
 			return (currentThread == activeThreadID.ToInt32());
 

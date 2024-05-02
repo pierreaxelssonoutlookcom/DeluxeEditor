@@ -29,7 +29,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             Assert.Equal(expected, actual);
         }
         [Fact]
-         public void FileSavePluginTestSimple()
+         public async void FileSavePluginTestSimple()
         {
             var plugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
 
@@ -37,7 +37,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             if (File.Exists(TestFile2)) File.Delete(TestFile2);
             File.WriteAllText(TestFile2, "ninja");
             plugin.OpenEncoding = null;
-            plugin.Perform(
+            await  plugin.Perform(
                 new ActionParameter(TestFile2, "ninja"));
             var actual = File.ReadAllText(TestFile);
 
