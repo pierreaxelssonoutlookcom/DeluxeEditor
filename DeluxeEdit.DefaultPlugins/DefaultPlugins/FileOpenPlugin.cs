@@ -12,6 +12,8 @@ using CustomFileApiFile;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using System.Data.Common;
 
 namespace DefaultPlugins
 {
@@ -66,11 +68,10 @@ namespace DefaultPlugins
         public object CreateControl(bool showToo)
         {
             object view = new MainEdit();
-            Window win = null;
             var result = view;
             if (showToo)
             {
-                win = new Window();
+                var win = new Window();
                 result = win;
 
                 win.Content = view;
@@ -100,17 +101,25 @@ namespace DefaultPlugins
             else
                 return null;
         }
+        public  async Task<IEnumerable<string>> Perform()
+        {
+            List<string> result= new List<string>();
+
+            if (Parameter != null)
+            {
+                FileSize = File.Exists(Parameter.Parameter) ? new FileInfo(Parameter.Parameter).Length : 0;
+
+
+                 
+                result = await ReadPortion(Parameter);
+            }
+            return result;
+        }
 
         public async Task<string> Perform(ActionParameter parameter)
         {
-              Parameter=parameter;
-            FileSize = File.Exists(parameter.Parameter) ?   new FileInfo(parameter.Parameter).Length: 0;
-
-
-            ContentBuffer.Clear();
-            var result = await ReadPortion(parameter);
-            ContentBuffer.AddRange(result);
-            return  String.Join(Environment.NewLine, result);
+            string result =String.Join(Environment.NewLine, Perform());
+            return result;
         }
         public async Task<List<string>> ReadAllPortions(ActionParameter parameter)
         { 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Model.Interface
@@ -26,6 +27,7 @@ namespace Model.Interface
 
         Task<string> Perform(ActionParameter parameter);
 
+       Task<IEnumerable<string>> Perform();
 
 
 

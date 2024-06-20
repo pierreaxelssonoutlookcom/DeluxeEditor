@@ -71,17 +71,19 @@ namespace DefaultPlugins
             return result;
         }
 
+        public async Task<IEnumerable<string>> Perform()
+        {
+            return null;
+        }
+
+
 
 
 
 
         public async Task<string> Perform(ActionParameter parameter)
         {
-
-            reader = new StringReader("");
-            await reader.ReadToEndAsync();
-            return "";
-          
+            return String.Empty;
         }
 
         public string MenuAction(ActionParameter parameter)

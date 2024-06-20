@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using System.Web;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace DefaultPlugins
 {
@@ -48,7 +49,11 @@ namespace DefaultPlugins
             return result;
         }
 
-        
+        public async Task<IEnumerable<string>> Perform()
+        {
+            return null;
+        }
+
 
 
     }

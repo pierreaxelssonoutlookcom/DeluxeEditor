@@ -34,6 +34,7 @@
 	  <Compile Include="ViewModel\MenuBuilder.cs" />
 	  <Compile Include="ViewModel\NewFileViewModel.cs" />
 	  <Compile Include="ViewModel\PluginsViewModel.cs" />
+	  <Compile Include="ViewModel\TempFileManager.cs" />
 	  <Compile Include="Views\MainEdit.xaml.cs" />
 	  <Compile Include="Views\Plugins.xaml.cs" />
 	  <Compile Include="WPFUtil.cs" />

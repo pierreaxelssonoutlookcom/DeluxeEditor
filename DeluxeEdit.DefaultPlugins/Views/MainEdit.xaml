@@ -18,12 +18,12 @@
 
         </Menu>
         <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged" Width="100"      >
-            <ui:DynamicScrollViewer>
+            <ScrollViewer Name="ScrollView" >
                 <TabItem Header="TabItem">
 
                     <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>
                 </TabItem>
-            </ui:DynamicScrollViewer>
+            </ScrollViewer>
             <Button/>
         </TabControl>
     </DockPanel>

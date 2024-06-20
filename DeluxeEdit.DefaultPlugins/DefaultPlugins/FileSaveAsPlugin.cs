@@ -91,6 +91,10 @@ namespace DefaultPlugins
             var result = dialog.ShowFileSaveDialog(oldDir);
             return result;
         }
+        public async Task<IEnumerable<string>> Perform()
+        {
+            return null;
+        }
 
         public async Task<string> Perform(ActionParameter parameter)
         {

@@ -48,8 +48,6 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             editViewModel = new MainEditViewModel(TabFiles);
-
-            newViewModel = new NewFileViewModel(TabFiles);
             newViewModel.AddNewTextControlAndSubscribe("newfile.txt");
             var customMenu = editViewModel.GetMenu();
     
