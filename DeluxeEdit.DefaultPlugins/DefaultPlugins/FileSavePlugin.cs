@@ -115,7 +115,6 @@ namespace DefaultPlugins
 
         public async Task<string> Perform(ActionParameter parameter)
         {
-            ContentBuffer = parameter.InData.Split(Environment.NewLine).ToList();
               Parameter = parameter;
             FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
             
@@ -126,18 +125,19 @@ namespace DefaultPlugins
                 writer = OpenEncoding == null ?  new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
             }
 
-            WritesAllPortions(parameter);
-            if (ContentBuffer.Count > SystemConstants.ReadBufferSizeLines) ContentBuffer.Clear();
+            WritePortion();
+                
+               
 
             return "";
 
         }
-        public void WritesAllPortions(ActionParameter parameter)
+        public  async void WritesAllPortions()
         {
        
             while (CanWriteMore)
             {
-               WritePortion(parameter);
+               WritePortion();
             }
 
             if (!CanWriteMore)
@@ -148,11 +148,11 @@ namespace DefaultPlugins
             
         }
 
-        public async void WritePortion(ActionParameter parameter)
+        public async void WritePortion()
         {
 
-            if (!File.Exists(parameter.Parameter)) throw new FileNotFoundException(parameter.Parameter);
-            await writer.WriteLinesMax(ContentBuffer, SystemConstants.ReadPortionBufferSizeLines);
+            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
+            await writer.WriteLinesMax(Parameter.InData, SystemConstants.ReadPortionBufferSizeLines);
             await writer.FlushAsync();
 
         }
@@ -160,4 +160,4 @@ namespace DefaultPlugins
     }
 
 }
-    
+ 

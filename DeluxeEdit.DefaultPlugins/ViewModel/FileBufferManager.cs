@@ -8,15 +8,30 @@ using System.Threading.Tasks;
 
 namespace DeluxeEdit.DefaultPlugins.ViewModel
 {
+
     public class FileBufferManager
     {
 
         public async Task<List<string>> ReadPortion(FileOpenPlugin plugin, MyEditFile file)
         {
+            plugin.Parameter = new ActionParameter(file.Path);
             var result = await plugin.Perform();
             return result.ToList();
 
-            
+
+
+
+
+
+        }
+         
+        public async void WriteRPortion(List<string> data,FileSavePlugin plugin, MyEditFile file)
+        {
+            await plugin.Perform(new ActionParameter(file.Path, data));
+         
+
+
+
 
 
 
