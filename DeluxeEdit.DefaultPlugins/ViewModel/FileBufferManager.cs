@@ -12,24 +12,34 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
 
     public class FileBufferManager
     {
-        private List<string> MemoryMuffer { get; set; }
+        private Stack<string> MyMuffer { get; set; }
         public FileBufferManager()
         {
-            MemoryMuffer = new List<string>();
+            MyMuffer = new Stack<string>();
         }
         public async void ClearMemoryBuffer()
         {
-            MemoryMuffer.Clear();
+            MyMuffer.Clear();
+
         }
         public void ScrollTo(double newValue)
-        { }
-        public async void ReadPortion(FileOpenPlugin plugin, MyEditFile file)
+        { 
+        }
+        public  string PopBuffer(FileOpenPlugin plugin, MyEditFile file)
+        {
+           var result= MyMuffer.Pop();
+            return result;
+        }
+        public async void ReadBufeePush(FileOpenPlugin plugin, MyEditFile file)
         {
             plugin.Parameter = new ActionParameter(file.Path);
-            MemoryMuffer.AddRange(await plugin.Perform());
-                
-               
-                ;
+
+            (await plugin.Perform()).ToList().ForEach(p => MyMuffer.Push(p));
+
+
+
+
+            ;
 
 
 
@@ -54,10 +64,10 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
 
         public async void AppenBuffer(IEnumerable<string> data, MyEditFile file)
         {
-            File.AppendAllLines(file.BufferPath, data);
+            File.AppendAllLines(file.Path 
+   , data);
         }
-
-
+        
 
 
     }
