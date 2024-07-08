@@ -5,20 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace DeluxeEdit.DefaultPlugins.ViewModel
 {
 
     public class FileBufferManager
     {
-
-        public async Task<List<string>> ReadPortion(FileOpenPlugin plugin, MyEditFile file)
+        private List<string> MemoryMuffer { get; set; }
+        public FileBufferManager()
+        {
+            MemoryMuffer = new List<string>();
+        }
+        public async void ClearMemoryBuffer()
+        {
+            MemoryMuffer.Clear();
+        }
+        public void ScrollTo(double newValue)
+        { }
+        public async void ReadPortion(FileOpenPlugin plugin, MyEditFile file)
         {
             plugin.Parameter = new ActionParameter(file.Path);
-            var result = await plugin.Perform();
-            return result.ToList();
-
-
+            MemoryMuffer.AddRange(await plugin.Perform());
+                
+               
+                ;
 
 
 

@@ -18,12 +18,10 @@
 
         </Menu>
         <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged" Width="100"      >
-            <ScrollViewer Name="ScrollView" >
                 <TabItem Header="TabItem">
 
-                    <TextBox x:Name="MainEditBox" TextWrapping="NoWrap" ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>
+                    <TextBox x:Name="MainEditBox" TextWrapping="NoWrap"   ScrollBar.Scroll="MainEditBox_Scroll"   KeyDown="MainEditBox_KeyDown"/>
                 </TabItem>
-            </ScrollViewer>
             <Button/>
         </TabControl>
     </DockPanel>
