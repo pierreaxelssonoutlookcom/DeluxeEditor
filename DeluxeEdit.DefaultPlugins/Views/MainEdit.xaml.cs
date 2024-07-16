@@ -16,9 +16,11 @@ namespace DeluxeEdit.DefaultPlugins.Views
         public MainEdit()
         {
             InitializeComponent();
+            editViewModel = new MainEditViewModel(TabFiles);
+            newViewModel = new NewFileViewModel(TabFiles);
 
         }
- 
+
         private void MainEditBox_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
             editViewModel.ScrollTo(e.NewValue); 
@@ -47,7 +49,6 @@ namespace DeluxeEdit.DefaultPlugins.Views
         }
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            editViewModel = new MainEditViewModel(TabFiles);
             newViewModel.AddNewTextControlAndSubscribe("newfile.txt");
             var customMenu = editViewModel.GetMenu();
     
@@ -108,7 +109,8 @@ namespace DeluxeEdit.DefaultPlugins.Views
         private void TabFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (TabFiles.Items.Count <= 1) return;
-            editViewModel.ChangeTab(e.Source as TabItem);
+            editViewModel.ChangeTab(TabFiles.SelectedItem as TabItem);
+
 
         }
     }
