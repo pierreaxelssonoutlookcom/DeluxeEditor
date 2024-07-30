@@ -67,9 +67,9 @@ namespace DefaultPlugins.ViewModel
             else if (myMenuItem.Plugin is FileSavePlugin)
                 SaveFile();
             else if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
-                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText });
+                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText }, null);
             else
-                result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter);
+                result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, null);
 
 
             return result;
@@ -82,6 +82,7 @@ namespace DefaultPlugins.ViewModel
         {
               //done :find way to renember old path before dialog 
  
+
         }
         public TextBox AddNewTextControlAndSubscribe(string path)
         {
@@ -109,7 +110,7 @@ namespace DefaultPlugins.ViewModel
                 result.Path = action.Path;
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
-                result.Content  = await openPlugin.Perform(new ActionParameter { Parameter = result.Path });
+                result.Content  = await openPlugin.Perform(new ActionParameter { Parameter = result.Path }, null);
                 var text = AddNewTextControlAndSubscribe(result.Header);
                 text.Text = result.Content;
                 MyEditFiles.Add(result);
@@ -128,7 +129,7 @@ namespace DefaultPlugins.ViewModel
             {
 
                 var split = text.Text.Split(Environment.NewLine).ToList();
-                await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, split));
+                await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, split), null);
             }
 
         }

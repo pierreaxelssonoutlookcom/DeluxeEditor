@@ -5,6 +5,8 @@ using System.Text;
 using System.Web;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Metadata;
 
 namespace DefaultPlugins
 {
@@ -43,15 +45,17 @@ namespace DefaultPlugins
             Configuration.ShowInMenuItem = "UrlDecode";
 
         }
-        public async Task<string> Perform(ActionParameter parameter)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
             var result = HttpUtility.UrlDecode( parameter.Parameter,  Encoding.UTF8);
             return result;
         }
-
-        public async Task<IEnumerable<string>> Perform()
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
-            return null;
+            var result = HttpUtility.UrlDecode(Parameter.Parameter, Encoding.UTF8);
+            return new List<string> { result };
+
+
         }
 
 

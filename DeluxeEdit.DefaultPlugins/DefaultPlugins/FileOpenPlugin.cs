@@ -14,6 +14,7 @@ using System.Windows;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace DefaultPlugins
 {
@@ -99,7 +100,7 @@ namespace DefaultPlugins
             else
                 return null;
         }
-        public  async Task<IEnumerable<string>> Perform()
+        public  async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
             List<string> result= new List<string>();
 
@@ -111,20 +112,24 @@ namespace DefaultPlugins
 
 
                  
-                result = await ReadPortion();
+                result = await ReadAllPortion(progresss);
             }
             return result;
         }
 
-        public async Task<string> Perform(ActionParameter parameter)
-        {
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
+        { 
             if (parameter == null) throw new ArgumentNullException();
-     
-            string result =String.Join(Environment.NewLine, Perform());
-            return result;
+            List<string> result = new List<string>();
+
+            FileSize = File.Exists(parameter.Parameter) ? new FileInfo(parameter.Parameter).Length : 0;
+
+            var lines = await ReadAllPortion(progresss);         
+           return String.Join(Environment.NewLine, lines);
+
         }
 
-        public async Task<List<string>> ReadAllPortion()
+        public async Task<List<string>> ReadAllPortion(IProgress<long> progresss ) 
         {
             var result = new List<string>();
             var total = new List<string>();
@@ -132,19 +137,21 @@ namespace DefaultPlugins
             if (reader == null)
             {
 
+
                     
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
                 MýStream = mmf.CreateViewStream();
                 reader = OpenEncoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, OpenEncoding);
             }
-            while( (result= await ReadPortion()) !=null)
+           
+            while ((result = await ReadPortion(progresss)) != null)
 
             {
                 total.AddRange(result); 
             }
             return total;
         }
-        public async Task<List<string>> ReadPortion()
+        public async Task<List<string>> ReadPortion(IProgress<long> progress)
         {
             if (Parameter == null) throw new ArgumentNullException();
 
@@ -164,8 +171,9 @@ namespace DefaultPlugins
                 throw new FileNotFoundException(Parameter.Parameter);
 
             var lines = await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
+     //S       progress.Report(lines.Count);
 
-            Parameter.InData= lines;
+            Parameter.InData= lines;    
             return lines;
 
 

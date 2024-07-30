@@ -5,6 +5,7 @@ using System.Web;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace DefaultPlugins
 {
@@ -58,20 +59,24 @@ namespace DefaultPlugins
 
 
 
-        public async Task<IEnumerable<string>> Perform()
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
-            return null;
+            var result = HttpUtility.UrlEncode(Parameter.Parameter, Encoding.UTF8);
+            return new List<string> { result };
+
+
         }
 
 
 
 
 
-        public async Task<string> Perform(ActionParameter parameter)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
             var result = HttpUtility.UrlEncode(parameter.Parameter, Encoding.UTF8);
             return result;
         }
+
     }
 
 

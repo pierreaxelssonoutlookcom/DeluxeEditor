@@ -12,6 +12,11 @@ using CustomFileApiFile;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using System.Data.Common;
+using System.Windows.Media.Imaging;
+using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace DefaultPlugins
 {
@@ -88,45 +93,51 @@ namespace DefaultPlugins
             var result = dialog.ShowFileSaveDialog(oldDir);
             return result;
         }
-        public async Task<IEnumerable<string>> Perform()
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
+
+            WritesAllPortions(progresss); ; ;
             return null;
         }
 
-        public async Task<string> Perform(ActionParameter parameter)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
-              Parameter = parameter;
-            FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
-            
+            WritesAllPortions(progresss); ; ;
+            return null;
+        }
+        public void WritesAllPortions(IProgress<long> progresss)
+        {
             if (writer == null)
             {
-                using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                InputStream= mmf.CreateViewStream();
-                writer = OpenEncoding == null ?  new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
+                    InputStream = mmf.CreateViewStream();
+                    writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
             }
-
-            WritePortion();; ;
- 
-            return "";
-
-        }
-        public void WritesAllPortions()
-        {
-       
-            foreach (var s in Parameter.InData)
+            for (int i = 0; i <  Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
             {
-               WritePortion();
+                var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
+                WritePortion(batch, progresss);
+    
             }
 
 
-        }
+
+        } 
 
 
-        public async void WritePortion()
+        public async void WritePortion(List<string> indata, IProgress<long> progresss)
         {
+            if (writer == null)
+            {
+                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
+                InputStream = mmf.CreateViewStream();
+                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+            }
+
 
             if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-            await writer.WriteLinesMax(Parameter.InData, SystemConstants.ReadPortionBufferSizeLines);
+            await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
+            
             await writer.FlushAsync();
 
         }

@@ -107,7 +107,7 @@ namespace DefaultPlugins
             var result = dialog.ShowFileSaveDialog(oldDir);
             return result;
         }
-        public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
             FileSize = File.Exists(Parameter.Parameter) ? new FileInfo(Parameter.Parameter).Length : 0;
 
@@ -118,74 +118,73 @@ namespace DefaultPlugins
                 writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
             }
 
-            WritesAllPortions(progress);
+            WritesAllPortions(progresss);
             return null;
 
         }
 
 
-        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress )
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
-              Parameter = parameter;  
-            FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
-            
+            Parameter = parameter;
+            FileSize = File.Exists(parameter.Parameter) ? new FileInfo(parameter.Parameter).Length : 0;
+
             if (writer == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                InputStream= mmf.CreateViewStream();
-                writer = OpenEncoding == null ?  new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+                InputStream = mmf.CreateViewStream();
+                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
             }
 
-            WritesAllPortions(progress);
-                    
-               
+            WritesAllPortions(progresss);
+
+
 
             return "";
-
         }
-        public void WritesAllPortions(IProgress<long> progresss)
-        {
-            if (writer == null)
+            public void WritesAllPortions(IProgress<long> progresss)
             {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
-            for (int i = 0; i < Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
-            {
-                var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
-                WritePortion(batch, progresss);
+                if (writer == null)
+                {
+                    using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
+                    InputStream = mmf.CreateViewStream();
+                    writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+                }
+                for (int i = 0; i < Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
+                {
+                    var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
+                    WritePortion(batch, progresss);
 
-            }
-
-
-
-        }
+                }
 
 
-        public async void WritePortion(List<string> indata, IProgress<long> progresss)
-        {
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+
             }
 
 
-            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-            await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
+            public async void WritePortion(List<string> indata, IProgress<long> progresss)
+            {
+                if (writer == null)
+                {
+                    using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
+                    InputStream = mmf.CreateViewStream();
+                    writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
+                }
+
+
+                if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
+                await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
+            progress.Report(lines.Count);
 
             await writer.FlushAsync();
 
+            }
+
         }
 
+
+
+
     }
-
-
-
-
-
-}
 
  

@@ -25,9 +25,9 @@ namespace Model.Interface
         ActionParameter?  Parameter { get; set; }
 
 
-        Task<string> Perform(ActionParameter parameter);
+        Task<string> Perform(ActionParameter parameter, IProgress<long> progresss);
 
-       Task<IEnumerable<string>> Perform();
+       Task<IEnumerable<string>> Perform(IProgress<long> progresss);
 
 
 

@@ -71,7 +71,7 @@ namespace DefaultPlugins
             return result;
         }
 
-        public async Task<IEnumerable<string>> Perform()
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
             return null;
         }
@@ -81,7 +81,7 @@ namespace DefaultPlugins
 
 
 
-        public async Task<string> Perform(ActionParameter parameter)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
             return String.Empty;
         }
