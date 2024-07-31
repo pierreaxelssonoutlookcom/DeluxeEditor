@@ -16,7 +16,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         public MainEdit()
         {
             InitializeComponent();
-            editViewModel = new MainEditViewModel(TabFiles);
+            editViewModel = new MainEditViewModel(TabFiles, progressBar );
             newViewModel = new NewFileViewModel(TabFiles);
 
         }
@@ -125,6 +125,11 @@ namespace DeluxeEdit.DefaultPlugins.Views
             editViewModel.ScrollTo(e.VerticalOffset);
                 
              
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

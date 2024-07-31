@@ -15,7 +15,8 @@ namespace DefaultPlugins.ViewModel
 {
     public class MainEditViewModel
     {
-        TabControl currentTab;
+        private ProgressBar prog;
+        private TabControl currentTab;
         private NewFileViewModel newFileViewModel;
         private FileOpenPlugin openPlugin;
         private INamedActionPlugin savePlugin;
@@ -24,8 +25,9 @@ namespace DefaultPlugins.ViewModel
 
         public object ShowM { get; internal set; }
 
-        public MainEditViewModel(TabControl tab)
+        public MainEditViewModel(TabControl tab, ProgressBar prog)
         {
+            this.prog = prog;
             currentTab = tab;  
             newFileViewModel= new NewFileViewModel(tab);
             openPlugin = FileOpenPlugin.CastNative( AllPlugins.InvokePlugin(PluginType.FileOpen));
@@ -88,29 +90,38 @@ namespace DefaultPlugins.ViewModel
         {
             var name = new FileInfo(path).Name;
             WPFUtil.AddOrUpddateTab(name, currentTab);
-
+    
             var text = new TextBox();
-
             text.Name = name;
+            text.AcceptsReturn = true;
             text.KeyDown += Text_KeyDown;
             currentTab.Items.Add(text);
+            var prog=new ProgressBar();
+            prog.Name = "progress"+name;
 
+
+            var cont = new StackPanel();
+            cont.Orientation = Orientation.Vertical; ;
+            cont.Children.Add(prog);
+            cont.Children.Add(cont);
             return text;
         }
 
         public async Task<MyEditFile?> LoadFile()
         {
+             var progress = new Progress<long>(value => prog.Value = value);
+
             MyEditFile? result = null;
             var action = openPlugin.GuiAction(openPlugin);
             //if user cancelled path is empty 
             if (action != null && action.Path.HasContent())
-            {
+            { 
                 result = new MyEditFile();
 
                 result.Path = action.Path;
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
-                result.Content  = await openPlugin.Perform(new ActionParameter { Parameter = result.Path }, null);
+                result.Content  = await openPlugin.Perform(new ActionParameter(result.Path) , progress);
                 var text = AddNewTextControlAndSubscribe(result.Header);
                 text.Text = result.Content;
                 MyEditFiles.Add(result);

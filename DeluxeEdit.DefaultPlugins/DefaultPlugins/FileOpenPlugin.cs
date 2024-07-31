@@ -171,7 +171,8 @@ namespace DefaultPlugins
                 throw new FileNotFoundException(Parameter.Parameter);
 
             var lines = await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
-     //S       progress.Report(lines.Count);
+
+            progress.Report(lines.Count);
 
             Parameter.InData= lines;    
             return lines;

@@ -162,7 +162,7 @@ namespace DefaultPlugins
             }
 
 
-            public async void WritePortion(List<string> indata, IProgress<long> progresss)
+            public async void WritePortion(List<string> indata, IProgress<long> progress)
             {
                 if (writer == null)
                 {
@@ -174,7 +174,8 @@ namespace DefaultPlugins
 
                 if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
                 await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
-            progress.Report(lines.Count);
+            var maxLines = Math.Max(indata.Count, SystemConstants.ReadPortionBufferSizeLines);
+            progress.Report(maxLines);
 
             await writer.FlushAsync();
 

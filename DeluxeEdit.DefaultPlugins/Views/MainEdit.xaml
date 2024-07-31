@@ -20,11 +20,17 @@
         <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged" Width="100"      >
             <TabItem Header="TabItem">
 
-                <TextBox x:Name="MainEditBox"  AcceptsReturn="True"   HorizontalScrollBarVisibility="Auto"    VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap"   ScrollViewer.ScrollChanged="MainEditBox_ScrollChanged"   KeyDown="MainEditBox_KeyDown" />
+                <StackPanel Orientation="Vertical">
+                    <ProgressBar x:Name="progressBar" />
+
+                    <TextBox x:Name="MainEditBox"  AcceptsReturn="True"   HorizontalScrollBarVisibility="Auto"    VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap"   ScrollViewer.ScrollChanged="MainEditBox_ScrollChanged"   KeyDown="MainEditBox_KeyDown" />
+                    <Button Content="Button" Click="Button_Click"/>
+                </StackPanel>
 
 
             </TabItem>    
-                         
+                       
+            
             <Button/>
         </TabControl>
     </DockPanel>
