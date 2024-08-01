@@ -21,7 +21,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             File.WriteAllText(TestFile, "ninjaåäÖ", Encoding.UTF8);
             plugin.OpenEncoding=Encoding.UTF8;
             var actual = await plugin.Perform(
-                new ActionParameter(TestFile));
+                new ActionParameter(TestFile), null);
             Assert.Equal(expected, actual);
         }
         [Fact]
@@ -34,7 +34,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             File.WriteAllText(TestFile2, "ninjaåäö");
             plugin.OpenEncoding = null;
             var actual = await plugin.Perform(
-                new ActionParameter(TestFile2));
+                new ActionParameter(TestFile2), null);
             Assert.Equal(expected, actual);
         }
 

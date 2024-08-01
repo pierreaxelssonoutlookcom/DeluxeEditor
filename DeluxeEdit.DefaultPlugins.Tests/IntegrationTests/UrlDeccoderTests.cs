@@ -13,7 +13,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             var plugin = AllPlugins.InvokePlugin(PluginType.UrlDecode) as UrlDecodePlugin;
             var expected = "Hej på dig";
             var actual = await plugin.Perform(
-                new ActionParameter("Hej+p%c3%a5+dig"));
+                new ActionParameter("Hej+p%c3%a5+dig"), null);
             Assert.Equal(expected, actual);
         }
         [Fact]
@@ -22,7 +22,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
             var plugin = AllPlugins.InvokePlugin(PluginType.UrlDecode) as UrlDecodePlugin;
             var expected = "Ninja";
             var actual = await plugin.Perform(
-                new ActionParameter("Ninja"));
+                new ActionParameter("Ninja"), null);
             Assert.Equal(expected, actual);
         }
 
