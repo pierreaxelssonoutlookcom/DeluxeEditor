@@ -28,6 +28,7 @@ namespace DeluxeEdit.DefaultPlugins
         }
         public static int? IndexOfText(ItemCollection  collection, string text)
         {
+            int? result = null;
 
             for (int i = 0; i < collection.Count; i++)
             { 
@@ -35,24 +36,29 @@ namespace DeluxeEdit.DefaultPlugins
 
                 if (collection[i] is HeaderedItemsControl)
                 {
-                    header = (collection[i] as HeaderedItemsControl).Header.ToString();
-                }
-                 else if (collection[i] is TabItem) 
-                {
-                    header = (collection[i] as TabItem).Header.ToString();
-                }
+                    var obj = collection[i] is HeaderedItemsControl ? collection[i] as HeaderedItemsControl : null;
 
+
+                    if (obj != null) header = obj.Header.ToString();
+                }
+                else if (collection[i] is TabItem)
+                {
+                    var t = collection[i] as TabItem;
+                      if (t != null) header = t.Header.ToString();
+
+
+                }
 
                if (header == text)  
                {
-                    return i;
-                    break;
+                   result = i;
+                        ;
+                        break;
                 }
             }
 
 
-
-            return null ;
+            return result ;
         } 
 
     }

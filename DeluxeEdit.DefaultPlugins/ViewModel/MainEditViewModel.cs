@@ -69,7 +69,8 @@ namespace DefaultPlugins.ViewModel
             else if (myMenuItem.Plugin is FileSavePlugin)
                 SaveFile();
             else if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
-                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText }, null);
+                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText }, 
+                    null);
             else
                 result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, null);
 

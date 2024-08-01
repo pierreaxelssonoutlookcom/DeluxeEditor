@@ -5,8 +5,7 @@ using System.Text;
 using System.Web;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
+using Extensions;
 
 namespace DefaultPlugins
 {
@@ -40,10 +39,15 @@ namespace DefaultPlugins
         public UrlDecodePlugin()
         {
             Configuration = new ConfigurationOptions();
-            Version = Version.Parse(VersionString);
-            Configuration.ShowInMenu = "Plugins";
-            Configuration.ShowInMenuItem = "UrlDecode";
+           Version = VersionString.HasContent() ? Version.Parse(VersionString) : null;
 
+            if (Configuration != null)
+
+            {
+                Configuration.ShowInMenu = "Plugins";
+                Configuration.ShowInMenuItem = "UrlDecode";
+
+            }         
         }
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {

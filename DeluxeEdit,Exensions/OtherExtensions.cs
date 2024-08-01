@@ -39,7 +39,7 @@ namespace Extensions
         public async static Task<List<string>> ReadLinesMax(this StreamReader reader, int maxLines)
         {
 
-            List<string> result = null;
+            List<string>? result = null;
             for (int i = 0; i < maxLines; i++)
             {
                 string line = await reader.ReadLineAsync();
@@ -54,6 +54,7 @@ namespace Extensions
                     else
                         resultLine = line;
                     if (result == null) result = new List<string>();
+                    
                     result.Add(resultLine);
                 }
 
