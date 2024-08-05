@@ -103,7 +103,7 @@ namespace DefaultPlugins
             string oldDir = @"c:\";
 
             if (Parameter != null) oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
-            var dialog = new DeluxeFileDialog();
+        _:    var dialog = new DeluxeFileDialog();
             var result = dialog.ShowFileSaveDialog(oldDir);
             return result;
         }
@@ -163,7 +163,8 @@ namespace DefaultPlugins
         }
 
 
-        public async void WritePortion(List<string> indata, IProgress<long> progresss)
+        public async void WritePortion(List<string> indata, IProgress<long> progress
+            )
         {
             if (writer == null)
             {
@@ -174,8 +175,9 @@ namespace DefaultPlugins
 
 
             if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-            await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
-
+            int lineCount= await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
+          if (progress != null) progress.Report(lineCount);
+                
             await writer.FlushAsync();
 
         }

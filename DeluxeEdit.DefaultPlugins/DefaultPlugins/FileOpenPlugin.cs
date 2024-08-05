@@ -172,7 +172,11 @@ namespace DefaultPlugins
 
             result  = await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
             var lineCount =result != null ? result.Count : 0;
-            progress.Report(lineCount);
+            if (progress != null)
+                progress.Report(lineCount);
+          
+
+
 
             return result;
 

@@ -69,13 +69,13 @@ namespace Extensions
         /// <param name="buffer"></param>
         /// <param name="maxLines"></param>
         /// <returns></returns>
-        public static async  Task<bool> WriteLinesMax(this StreamWriter writer, List<string> buffer, int maxLines)
+        public static async  Task<int> WriteLinesMax(this StreamWriter writer, List<string> buffer, int maxLines)
         { 
-            var result = false;
+            var result = 0;
             foreach (var item in buffer.Take(maxLines).Select(p=>p.ToString()))
             {
                 await writer.WriteLineAsync(item);
-                result = true;
+                result++;
 
             }
 
