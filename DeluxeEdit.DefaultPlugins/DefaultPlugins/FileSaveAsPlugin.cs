@@ -52,14 +52,14 @@ namespace DefaultPlugins
 
         public ActionParameter? Parameter { get; set; }
 
-        
 
-        public  Stream InputStream {  get; set; }
+
+        public Stream InputStream { get; set; }
         //todo; we might have to implement setcontext for plugins   
 
         public bool Enabled { get; set; }
         //done:make dynamic
-        
+
 
 
         private StreamWriter? writer;
@@ -70,7 +70,7 @@ namespace DefaultPlugins
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
-        
+
         public ConfigurationOptions Configuration { get; set; }
         public string Path { get; set; } = "";
 
@@ -105,44 +105,5 @@ namespace DefaultPlugins
             WritesAllPortions(progresss); ; ;
             return null;
         }
-        public void WritesAllPortions(IProgress<long> progresss)
-        {
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                    InputStream = mmf.CreateViewStream();
-                    writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
-            for (int i = 0; i <  Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
-            {
-                var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
-                WritePortion(batch, progresss);
-    
-            }
-
-
-
-        } 
-
-
-        public async void WritePortion(List<string> indata, IProgress<long> progress)
-        {
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
-
-
-            int lineCount = await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
-            if (progress != null) progress.Report(lineCount);
-
-            await writer.FlushAsync();
-
-        }
-
     }
-
-}
-    
+}   

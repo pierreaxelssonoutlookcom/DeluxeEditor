@@ -176,7 +176,8 @@ namespace DefaultPlugins
 
             if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
             int lineCount= await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
-          if (progress != null) progress.Report(lineCount);
+          if (progress != null)
+ progress.Report(lineCount);
                 
             await writer.FlushAsync();
 

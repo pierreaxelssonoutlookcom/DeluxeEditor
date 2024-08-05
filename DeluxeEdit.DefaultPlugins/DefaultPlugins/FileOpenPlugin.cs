@@ -174,7 +174,8 @@ namespace DefaultPlugins
             var lineCount =result != null ? result.Count : 0;
             if (progress != null)
                 progress.Report(lineCount);
-          
+           
+
 
 
 
