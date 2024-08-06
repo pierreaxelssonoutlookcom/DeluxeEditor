@@ -101,7 +101,6 @@ namespace DefaultPlugins.ViewModel
             result.Text.Name = name.Replace(".", "");
             result.Text.AcceptsReturn = true;
             result.Text.KeyDown += Text_KeyDown;
-            currentTab.Items.Add(result.Text);
 
             result.ProgressBar = new ProgressBar();
             result.ProgressBar.Name = "progress" + name.Replace(".", "");

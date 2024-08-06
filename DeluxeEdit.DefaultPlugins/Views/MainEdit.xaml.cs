@@ -132,7 +132,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
         {
              var data = await editViewModel.LoadFile();
             MainEditBox.Text = data.Content;
-
+//
         }
     }
 
