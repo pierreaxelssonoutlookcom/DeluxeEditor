@@ -130,7 +130,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            var data = await editViewModel.LoadFile();
+             var data = await editViewModel.LoadFile();
             MainEditBox.Text = data.Content;
 
         }

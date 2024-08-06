@@ -144,12 +144,13 @@ namespace DefaultPlugins
                 reader = OpenEncoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, OpenEncoding);
             }
            
+            
             while ((result = await ReadPortion(progresss)) != null)
 
             {
                 total.AddRange(result); 
             }
-            return total;
+return total;
         }
         public async Task<List<string>> ReadPortion(IProgress<long> progress)
         {

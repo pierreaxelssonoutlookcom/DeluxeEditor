@@ -17,7 +17,7 @@
 
 
         </Menu>
-        <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged" Width="100"      >
+        <TabControl x:Name="TabFiles"  SelectionChanged="TabFiles_SelectionChanged"     >
             <TabItem Header="TabItem">
 
                 <StackPanel Orientation="Vertical">

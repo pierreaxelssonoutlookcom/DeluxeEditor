@@ -1,4 +1,5 @@
-﻿using DeluxeEdit.DefaultPlugins;
+﻿using DefaultPlugins.Model;
+using DeluxeEdit.DefaultPlugins;
 using DeluxeEdit.DefaultPlugins.ViewModel;
 using Extensions;
 using Model;
@@ -9,7 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Shapes;
+
+
 
 namespace DefaultPlugins.ViewModel
 {
@@ -20,7 +22,7 @@ namespace DefaultPlugins.ViewModel
         private NewFileViewModel newFileViewModel;
         private FileOpenPlugin openPlugin;
         private INamedActionPlugin savePlugin;
-        
+
         private static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
 
         public object ShowM { get; internal set; }
@@ -28,9 +30,9 @@ namespace DefaultPlugins.ViewModel
         public MainEditViewModel(TabControl tab, ProgressBar prog)
         {
             this.prog = prog;
-            currentTab = tab;  
-            newFileViewModel= new NewFileViewModel(tab);
-            openPlugin = FileOpenPlugin.CastNative( AllPlugins.InvokePlugin(PluginType.FileOpen));
+            currentTab = tab;
+            newFileViewModel = new NewFileViewModel(tab);
+            openPlugin = FileOpenPlugin.CastNative(AllPlugins.InvokePlugin(PluginType.FileOpen));
             savePlugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs);
         }
 
@@ -57,11 +59,11 @@ namespace DefaultPlugins.ViewModel
 
         public async Task<string> DoCommand(MenuItem item, string SelectedText)
         {
-            string result="" ;
+            string result = "";
             var publisher = new EventData();
-            
+
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems)
-                .Single(p => item!=null && p!=null  && p.Title == item.Header);
+                .Single(p => item != null && p != null && p.Title == item.Header);
             if (myMenuItem.Plugin is FileNewPlugin)
                 publisher.PublishNewFile(newFileViewModel.GetNewFile());
             else if (myMenuItem.Plugin is FileOpenPlugin)
@@ -69,7 +71,7 @@ namespace DefaultPlugins.ViewModel
             else if (myMenuItem.Plugin is FileSavePlugin)
                 SaveFile();
             else if (myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
-                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText }, 
+                result = await myMenuItem.Plugin.Perform(new ActionParameter { Parameter = SelectedText },
                     null);
             else
                 result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, null);
@@ -81,58 +83,64 @@ namespace DefaultPlugins.ViewModel
 
 
 
-   public void ScrollTo(double newValue)
+        public void ScrollTo(double newValue)
         {
-              //done :find way to renember old path before dialog 
- 
+            //done :find way to renember old path before dialog 
+
+
 
         }
-        public TextBox AddNewTextControlAndSubscribe(string path)
+
+        public ComboControl AddNewTextControlAndSubscribe(string path)
         {
+            var result = new ComboControl();
             var name = new FileInfo(path).Name;
+
+            result.Text = new TextBox();
+
+            result.Text.Name = name.Replace(".", "");
+            result.Text.AcceptsReturn = true;
+            result.Text.KeyDown += Text_KeyDown;
+            currentTab.Items.Add(result.Text);
+
+            result.ProgressBar = new ProgressBar();
+            result.ProgressBar.Name = "progress" + name.Replace(".", "");
+            result.Panel = new StackPanel();
+            result.Panel.Name = "panel" + name.Replace(".", "");
+            result.Panel.Orientation = Orientation.Vertical; ;
+            result.Panel.Children.Add(result.ProgressBar);
+            result.Panel.Children.Add(result.Text);
             WPFUtil.AddOrUpddateTab(name, currentTab);
-    
-            var text = new TextBox();
-            text.Name = name;
-            text.AcceptsReturn = true;
-            text.KeyDown += Text_KeyDown;
-            currentTab.Items.Add(text);
-            var prog=new ProgressBar();
-            prog.Name = "progress"+name;
+            currentTab.Items.Add(result.Panel);
+            return result;
 
-
-            var cont = new StackPanel();
-            cont.Orientation = Orientation.Vertical; ;
-            cont.Children.Add(prog);
-            cont.Children.Add(cont);
-            return text;
         }
 
-        public async  Task<MyEditFile?> LoadFile()
+        public async Task<MyEditFile?> LoadFile()
         {
-             var progress = new Progress<long>(value => prog.Value = value);
+            var progress = new Progress<long>(value => prog.Value = value);
 
             MyEditFile? result = null;
             var action = openPlugin.GuiAction(openPlugin);
             //if user cancelled path is empty 
             if (action != null && action.Path.HasContent())
-            { 
+            {
                 result = new MyEditFile();
 
                 result.Path = action.Path;
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
-                result.Content  = await openPlugin.Perform(new ActionParameter(result.Path) , progress);
-                var text = AddNewTextControlAndSubscribe(result.Header);
-                text.Text = result.Content;
+                result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
+                var combo = AddNewTextControlAndSubscribe(result.Header);
+                combo.Text.Text = result.Content;
                 MyEditFiles.Add(result);
             }
             return result;
         }
-        public void ChangeTab(TabItem  item)
+        public void ChangeTab(TabItem item)
         {
-            MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header==item.Header);
-                
+            MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header == item.Header);
+
         }
         public async void SaveFile()
         {
@@ -146,7 +154,7 @@ namespace DefaultPlugins.ViewModel
 
         }
         private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-       {
+        {
             var keyeddata = KeyDown();
             if (keyeddata == null) e.Handled = false;
             else
@@ -160,7 +168,7 @@ namespace DefaultPlugins.ViewModel
         public async Task<MyEditFile?> KeyDown()
         {
             //done:cast enum from int
-            MyEditFile ? result = null;
+            MyEditFile? result = null;
             bool keysOkProceed = false;
             var matchCount = openPlugin.Configuration.KeyCommand.Keys
                 .Cast<System.Windows.Input.Key>()
