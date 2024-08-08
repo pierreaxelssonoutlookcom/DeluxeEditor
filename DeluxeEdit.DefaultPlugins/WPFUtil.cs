@@ -13,12 +13,13 @@ namespace DeluxeEdit.DefaultPlugins
 
         public static void AddOrUpddateTab(string header, TabControl control, object contentControl)
         {
-            TabItem item;
+            TabItem? item = null;
             var index = IndexOfText(control.Items, header);
-            if (index.HasValue && control.Items[index.Value] is TabItem)
+            if (index.HasValue)
             {
-                item = control.Items[index.Value] as TabItem;
+             
                 
+                item =control.Items[index.Value] is TabItem ? control.Items[index.Value] as TabItem : null;
 
                 
             }

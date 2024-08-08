@@ -36,7 +36,7 @@ namespace Extensions
         /// <param name="reader"></param>
         /// <param name="maxLines"></param>
         /// <returns></returns>
-        public async static Task<List<string>> ReadLinesMax(this StreamReader reader, int maxLines)
+        public async static Task<List<string>?> ReadLinesMax(this StreamReader reader, int maxLines)
         {
 
             List<string>? result = null;
@@ -59,6 +59,7 @@ namespace Extensions
                 }
 
             }
+             result=result != null && result.Count >0 ?  result : null;
             return result;
 
         }

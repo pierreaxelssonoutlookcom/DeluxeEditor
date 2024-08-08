@@ -117,7 +117,6 @@ namespace DefaultPlugins.ViewModel
         }
         public async Task<MyEditFile?> LoadFile()
         {
-            var progress = new Progress<long>(value => prog.Value = value);
 
             MyEditFile? result = null;
             var action = openPlugin.GuiAction(openPlugin);
@@ -129,8 +128,13 @@ namespace DefaultPlugins.ViewModel
                 result.Path = action.Path;
                 result.Header = new FileInfo(result.Path).Name;
                 openPlugin.OpenEncoding = action.Encoding;
-                result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
                 var combo = AddMyContols(result.Header);
+
+                var progress = new Progress<long>(value => combo.ProgressBar.Value = value);
+
+
+                result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
+
                 combo.Text.Text = result.Content;
                 MyEditFiles.Add(result);
             }
