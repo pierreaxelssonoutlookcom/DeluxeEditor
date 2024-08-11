@@ -21,10 +21,9 @@ namespace DefaultPlugins.ViewModel
 {
     public class MainEditViewModel
     {
-        private ProgressBar prog;
-        private TabControl currentTab;
-        private TextBlock myProgressStatus;
-        private StatusBar myStatus;
+        private ProgressBar progressBar;
+        private TabControl tabFiles;
+        private TextBlock progressText, statusText;
         private NewFileViewModel newFileViewModel;
         private FileOpenPlugin openPlugin;
         private INamedActionPlugin savePlugin;
@@ -33,11 +32,12 @@ namespace DefaultPlugins.ViewModel
 
         public object ShowM { get; internal set; }
 
-        public MainEditViewModel(TabControl tab, ProgressBar prog, TextBlock   progressStatus  )
+        public MainEditViewModel(TabControl tab, ProgressBar bar, TextBlock   progressText,TextBlock statusText)
         {
-            this.prog = prog;
-            currentTab = tab;
-            myProgressStatus = progressStatus;
+            this.progressBar = bar;
+            tabFiles = tab;
+            this.progressText = progressText;
+            this.statusText = statusText;
 
             newFileViewModel = new NewFileViewModel(tab);
             openPlugin = FileOpenPlugin.CastNative(AllPlugins.InvokePlugin(PluginType.FileOpen));
@@ -109,15 +109,14 @@ namespace DefaultPlugins.ViewModel
             result.Text.Name = name.Replace(".", "");
             result.Text.AcceptsReturn = true;
             result.Text.KeyDown += Text_KeyDown;
-            prog.ValueChanged += ProgressBar_ValueChanged;
+            progressBar.ValueChanged += ProgressBar_ValueChanged;
 
 
             result.Panel = new StackPanel();
             result.Panel.Name = "panel" + name.Replace(".", "");
             result.Panel.Orientation = Orientation.Vertical; 
-            result.Panel.Children.Add(result.ProgressBar);
             result.Panel.Children.Add(result.Text);
-            WPFUtil.AddOrUpddateTab(name, currentTab, result.Panel) ;
+            WPFUtil.AddOrUpddateTab(name, tabFiles, result.Panel) ;
             // currentTab.Items.Add(resu
 
             return result; 
@@ -136,27 +135,27 @@ namespace DefaultPlugins.ViewModel
 
         public async Task<MyEditFile?> LoadFile()
         {
-
+           
             MyEditFile? result = null;
             var action = openPlugin.GuiAction(openPlugin);
             //if user cancelled path is empty 
-            if (action != null && action.Path.HasContent())
-            {
-                result = new MyEditFile();
+            if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
 
-                result.Path = action.Path;
-                result.Header = new FileInfo(result.Path).Name;
-                openPlugin.OpenEncoding = action.Encoding;
-                var combo = AddMyContols(result.Header);
+            statusText.Text = $" File: {action.Path}";        
+            result = new MyEditFile();
 
-                var progress = new Progress<long>(value => combo.ProgressBar.Value = value);
+            result.Path = action.Path;
+            result.Header = new FileInfo(result.Path).Name;
+            openPlugin.OpenEncoding = action.Encoding;
+            var combo = AddMyContols(result.Header);
+            var progress = new Progress<long>(value => progressBar.Value = value);
 
 
-                result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
+            result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
 
-                combo.Text.Text = result.Content;
-                MyEditFiles.Add(result);
-            }
+            combo.Text.Text = result.Content;
+            MyEditFiles.Add(result);
+            
             return result;
         }
 

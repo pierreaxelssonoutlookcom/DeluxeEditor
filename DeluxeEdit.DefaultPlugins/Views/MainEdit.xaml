@@ -16,12 +16,15 @@
 
 
         </Menu>
-        <StatusBar Name="Status" VerticalAlignment="Bottom">
+        <StatusBar VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="StatusText"> Status::</TextBlock>
+            </StatusBarItem>
             <StatusBarItem>
                 <TextBlock> Progress::</TextBlock>
             </StatusBarItem>
             <StatusBarItem>
-                <TextBlock Name="ProgressStatus">:</TextBlock>
+                <TextBlock Name="ProgressText">:</TextBlock>
             </StatusBarItem>
 
 
@@ -32,14 +35,15 @@
 
 
                 <StackPanel Orientation="Vertical" Width="794">
+                    <Button Content="Button" Click="Button_Click"/>
+
 
                     <TextBox x:Name="MainEditBox"  AcceptsReturn="True"   HorizontalScrollBarVisibility="Auto"    VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap"   ScrollViewer.ScrollChanged="MainEditBox_ScrollChanged"   KeyDown="MainEditBox_KeyDown" />
-                    <Button Content="Button" Click="Button_Click"/>
                 </StackPanel>
             </TabItem>
 
         </TabControl>
-        <ProgressBar x:Name="Progress"  Width="50"/>
+        <ProgressBar x:Name="Progress"  />
 
     </DockPanel>
 </UserControl>
