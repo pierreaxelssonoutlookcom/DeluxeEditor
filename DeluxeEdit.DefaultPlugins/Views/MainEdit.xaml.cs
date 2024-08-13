@@ -63,9 +63,9 @@ namespace DeluxeEdit.DefaultPlugins.Views
        private  void OnEvent(object sender, CustomEventArgs  e)
         {
             if (e.Type == EventType.EditFile)
-                EditFile(e.Path);
+                EditFile(e.Data);
             else if (e.Type ==EventType.NewFile)
-                NewFile(e.Path);
+                NewFile(e.Data);
 
             
        }
