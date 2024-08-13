@@ -22,14 +22,12 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
             if (CurrentType.HasValue && EditFile != null)
             {
                 if (OldEditFile != EditFile || OldType!=CurrentType)
-
-
+                    Changed.Invoke(this, new CustomEventArgs { Type = CurrentType.Value, Data = EditFile });
 
                 OldType = CurrentType;
                 OldEditFile = EditFile;
             }
-        }
-        
+        }        
             
         public EventData()
         {
