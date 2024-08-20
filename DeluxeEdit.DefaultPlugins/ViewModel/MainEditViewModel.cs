@@ -4,6 +4,7 @@ using DeluxeEdit.DefaultPlugins.ViewModel;
 using Extensions;
 using Model;
 using Model.Interface;
+using MS.WindowsAPICodePack.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DefaultPlugins.ViewModel
 {
-    public class MainEditViewModel
+    public partial class MainEditViewModel
     {
         private ProgressBar progressBar;
         private TabControl tabFiles;
@@ -31,6 +32,7 @@ namespace DefaultPlugins.ViewModel
         private static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
 
         public object ShowM { get; internal set; }
+        private long? lastFileLength;
 
         public MainEditViewModel(TabControl tab, ProgressBar bar, TextBlock   progressText,TextBlock statusText)
         {
@@ -116,15 +118,6 @@ namespace DefaultPlugins.ViewModel
  
         }
 
-        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            var bar = (sender as ProgressBar);
-            Duration duration = new Duration(TimeSpan.FromSeconds(20));
-            var myDoubleAnimation = new DoubleAnimation();
-
-            bar.BeginAnimation(ProgressBar.ValueProperty, myDoubleAnimation);
-           // e.NewValue
-        }
 
         public async Task<MyEditFile?> LoadFile()
         {
@@ -142,9 +135,17 @@ namespace DefaultPlugins.ViewModel
             openPlugin.OpenEncoding = action.Encoding;
             var combo = AddMyContols(result.Header);
             var progress = new Progress<long>(value => progressBar.Value = value);
+            var parameter = new ActionParameter(result.Path);
 
 
-            result.Content = await openPlugin.Perform(new ActionParameter(result.Path), progress);
+;
+
+
+
+
+
+             lastFileLength= openPlugin.GetFileLeLength(parameter);
+            result.Content = await openPlugin.Perform(parameter, progress);
 
             combo.Text.Text = result.Content;
             MyEditFiles.Add(result);
@@ -167,33 +168,6 @@ namespace DefaultPlugins.ViewModel
                 await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, split), null);
             }
 
-        }
-        private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            var keyeddata = KeyDown();
-            if (keyeddata == null) e.Handled = false;
-            else
-            {
-
-
-                e.Handled = true;
-            }
-        }
-
-        public async Task<MyEditFile?> KeyDown()
-        {
-            //done:cast enum from int
-            MyEditFile? result = null;
-            bool keysOkProceed = false;
-            var matchCount = openPlugin.Configuration.KeyCommand.Keys
-                .Cast<System.Windows.Input.Key>()
-                .Count(p => System.Windows.Input.Keyboard.IsKeyDown(p));
-
-            keysOkProceed = matchCount == openPlugin.Configuration.KeyCommand.Keys.Count && openPlugin.Configuration.KeyCommand.Keys.Count > 0;
-            if (keysOkProceed) result = await LoadFile();
-
-
-            return result;
         }
     }
 }

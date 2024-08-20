@@ -33,6 +33,7 @@
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
 	  <Compile Include="ViewModel\EventData.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
+	  <Compile Include="ViewModel\MainEditViewModelEEvents.cs" />
 	  <Compile Include="ViewModel\MenuBuilder.cs" />
 	  <Compile Include="ViewModel\NewFileViewModel.cs" />
 	  <Compile Include="ViewModel\PluginsViewModel.cs" />

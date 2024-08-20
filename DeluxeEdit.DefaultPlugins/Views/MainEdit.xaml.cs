@@ -31,6 +31,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
             text.Text = path.Content;
 
 
+
         }
         private void NewFile(MyEditFile path)
 
