@@ -16,26 +16,9 @@ namespace DefaultPlugins
 {
     public class FileSaveAsPlugin : FileSavePlugin
     {
-        public new bool ParameterIsSelectedText { get; set; } = true;
+        public new bool ParameterIsSelectedText { get; set; } = false;
 
 
-        public object CreateControl(bool showToo)
-        {
-            object view = new MainEdit();
-            Window win = null;
-            var result = view;
-            if (showToo)
-            {
-                win = new Window();
-                result = win;
-
-                win.Content = view;
-                win.Show();
-
-            }
-
-            return result;
-        }
 
 
 
@@ -60,7 +43,8 @@ namespace DefaultPlugins
         private StreamWriter? writer;
 
         public bool AsReaOnly { get; set; }
-        public Encoding? OpenEncoding { get; set; } = null;        public string Id { get; set; } = "FileSaveAslugin";
+        public Encoding? OpenEncoding { get; set; } = null;        
+        public string Id { get; set; } = "FileSaveAsPlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
@@ -76,8 +60,28 @@ namespace DefaultPlugins
             Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save As";
+            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.LeftShift ,Key.S };
+
             Version = Version.Parse(VersionString);
         }
+        public object CreateControl(bool showToo)
+        {
+            object view = new MainEdit();
+            Window win = null;
+            var result = view;
+            if (showToo)
+            {
+                win = new Window();
+                result = win;
+
+                win.Content = view;
+                win.Show();
+
+            }
+
+            return result;
+        }
+
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
             string oldDir = @"c:\";

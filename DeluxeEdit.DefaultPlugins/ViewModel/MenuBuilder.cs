@@ -20,7 +20,8 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
            var result = GetMenuHeaders(plugins);
 
             foreach (var item in result) 
-                item.MenuItems.AddRange(GetMenuItems(item, plugins));
+                item.MenuItems.AddRange(
+                    GetMenuItemsForHeader(item.Header, plugins));
 
 
 
@@ -37,12 +38,16 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
             return result;
         }
 
-        public List<CustomMenuItem> GetMenuItems(CustomMenu item, IEnumerable<INamedActionPlugin> plugins)
+        public List<CustomMenuItem> GetMenuItemsForHeader(string header, IEnumerable<INamedActionPlugin> plugins)
         {
-            var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent() && item.Header == p.Configuration.ShowInMenu)
-                .Select(p => 
-                new CustomMenuItem { Title = $"{p.Configuration.ShowInMenuItem} ({p.Configuration.KeyCommand.ToString()})"    , Plugin = p })
+            if (header == null) throw new ArgumentNullException("header");
+            var withMenu = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent());
+            var myItemss = withMenu.Where(p => p.Configuration.ShowInMenu == header);
+            var result = myItemss.Select(p =>
+
+                new CustomMenuItem { Title = $" ({p.Configuration.ShowInMenuItem} {p.Configuration.KeyCommand.Keys.ToString()}) ", Plugin = p })
                 .ToList();
+
             return result;
         }
 
