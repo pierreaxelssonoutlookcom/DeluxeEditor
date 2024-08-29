@@ -40,12 +40,9 @@ namespace DeluxeEdit.DefaultPlugins.ViewModel
 
         public List<CustomMenuItem> GetMenuItemsForHeader(string header, IEnumerable<INamedActionPlugin> plugins)
         {
-            if (header == null) throw new ArgumentNullException("header");
-            var withMenu = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent());
-            var myItemss = withMenu.Where(p => p.Configuration.ShowInMenu == header);
-            var result = myItemss.Select(p =>
-
-                new CustomMenuItem { Title = $" ({p.Configuration.ShowInMenuItem} {p.Configuration.KeyCommand.Keys.ToString()}) ", Plugin = p })
+            var withMenu = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent()).ToList();
+            var myItemss = withMenu.Where(p => p.Configuration.ShowInMenu == header).ToList();
+            var result = myItemss.Select(p => new CustomMenuItem { Title = $" ({p.Configuration.ShowInMenuItem} {p.Configuration.KeyCommand}) ", Plugin = p })
                 .ToList();
 
             return result;

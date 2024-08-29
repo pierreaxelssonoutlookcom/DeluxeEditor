@@ -32,23 +32,24 @@ namespace DefaultPlugins
      
 
 
-        public ConfigurationOptions Configuration { get; set; }
+        public ConfigurationOptions Configuration { get; set; }= new ConfigurationOptions();
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
 
         public UrlEncodePlugin()
         {
-            Configuration = new ConfigurationOptions();
-            Configuration.ShowInMenu = "Plugins";
-            Configuration.ShowInMenuItem = "UrlEncode";
-
-
-
-            Version = Version.Parse(VersionString);
-
+            SetConfiiguration();
 
 
         }
+        public void SetConfiiguration()
+        {
+            Configuration.ShowInMenu = "Plugins";
+            Configuration.ShowInMenuItem = "UrlEncode";
+            Version = Version.Parse(VersionString);
+
+        }
+
         public object CreateControl(bool showToo)
         {
             return "";

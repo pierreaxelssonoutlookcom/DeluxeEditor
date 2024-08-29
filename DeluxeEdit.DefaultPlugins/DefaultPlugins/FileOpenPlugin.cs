@@ -44,8 +44,8 @@ namespace DefaultPlugins
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
             
-        public ConfigurationOptions Configuration { get; set; }
-        public string Path { get; set; } = "";
+        public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
+       public string Path { get; set; } = "";
         public long GetFileLeLength(ActionParameter parameter)
          {
             if (reader == null)
@@ -92,16 +92,16 @@ namespace DefaultPlugins
         }
 
 
-
-        public FileOpenPlugin()
+        public void SetConfig()
         {
-          //  OpenEncoding = Encoding.UTF8; m 
-            Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Open"; ;
-            Configuration.KeyCommand.Keys =  new List<Key> { Key.LeftCtrl, Key.O };
-            Version =   Version.Parse(VersionString);
+            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.O };
+            Version = Version.Parse(VersionString);
         }
+        public FileOpenPlugin()
+        {
+            SetConfig();        }
         public static FileOpenPlugin CastNative(INamedActionPlugin item)
         { 
             if (item is FileOpenPlugin)

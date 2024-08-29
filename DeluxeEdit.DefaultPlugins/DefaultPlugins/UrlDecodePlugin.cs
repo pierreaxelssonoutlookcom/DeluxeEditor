@@ -35,23 +35,25 @@ namespace DefaultPlugins
         public char[] MyKeyCommand { get; set; } = new char[0];
         public string Id { get; set; } = "UrlDecodePlugin";
         public string Titel { get; set; } =  "Url Declode";
-        public ConfigurationOptions Configuration { get; set; }
+        public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
 
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
         public UrlDecodePlugin()
         {
-            Configuration = new ConfigurationOptions();
-           Version = VersionString.HasContent() ? Version.Parse(VersionString) : null;
+            SetConfig();
 
-            if (Configuration != null)
 
-            {
-                Configuration.ShowInMenu = "Plugins";
-                Configuration.ShowInMenuItem = "UrlDecode";
-
-            }         
         }
+        public void SetConfig()
+        {
+            Version = VersionString.HasContent() ? Version.Parse(VersionString) : null;
+
+            Configuration.ShowInMenu = "Plugins";
+            Configuration.ShowInMenuItem = "UrlDecode";
+
+        }
+
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
             var result = HttpUtility.UrlDecode( parameter.Parameter,  Encoding.UTF8);

@@ -22,17 +22,19 @@ namespace Shared
             LoadFiles();
 
         }
-         
+
         public static List<PluginItem> GetPluginsLocal()
         {
             var files = PluginManager.LoadFiles();
-            var result= new List<PluginItem>();
-            foreach( var f in files)
-             { 
-                 var items= f.MatchingTypes.Select(p=> f.LocalPath.CreatePluginItem(p));
+            var result = new List<PluginItem>();
+            foreach (var f in files)
+            {
+                var items = f.MatchingTypes.Select(p => f.LocalPath.CreatePluginItem(p));
                 result.AddRange(items);
             }
             return result;
+
+
         }
         public static List<PluginFile> LoadFiles()
         {

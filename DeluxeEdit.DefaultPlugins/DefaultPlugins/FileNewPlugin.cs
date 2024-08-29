@@ -48,17 +48,22 @@ namespace DefaultPlugins
  
 
         public FileNewPlugin()
-        { 
-            Configuration.ShowInMenu = "File";
-            Configuration.ShowInMenuItem = "New"; 
-            Configuration.KeyCommand.Keys =  new List<Key> { Key.LeftCtrl, Key.N };
-            Version = Version.Parse(VersionString);
+        {
+            SetConfig();
         }
         public object CreateControl(bool showToo)
         {
             var result = new MainEdit();
 
             return result;
+        }
+       public  void SetConfig()
+        {
+            Configuration.ShowInMenu = "File";
+            Configuration.ShowInMenuItem = "New";
+            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.N };
+            Version = Version.Parse(VersionString);
+
         }
 
         public EncodingPath? GuiAction(INamedActionPlugin instance)

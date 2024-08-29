@@ -49,20 +49,24 @@ namespace DefaultPlugins
         public int SortOrder { get; set; }
 
 
-        public ConfigurationOptions Configuration { get; set; }
+        public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
 
+        public void SetConfig()
+        {
+            Configuration.ShowInMenu = "File";
+            Configuration.ShowInMenuItem = "SaveAs";
+            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftShift, Key.LeftCtrl, Key.S };
 
+            Version = Version.Parse(VersionString);
+
+
+
+        }
 
         public FileSaveAsPlugin()
         {
-            //  OpenEncoding = Encoding.UTF8;
-            Configuration = new ConfigurationOptions();
-            Configuration.ShowInMenu = "File";
-            Configuration.ShowInMenuItem = "Save As";
-            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.LeftShift ,Key.S };
-
-            Version = Version.Parse(VersionString);
+            SetConfig(); 
         }
         public object CreateControl(bool showToo)
         {

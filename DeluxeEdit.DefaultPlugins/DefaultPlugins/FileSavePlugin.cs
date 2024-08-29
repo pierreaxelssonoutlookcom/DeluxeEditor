@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using CustomFileApiFile;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
+using MS.WindowsAPICodePack.Internal;
 using System.Threading.Tasks;
 
 namespace DefaultPlugins
@@ -52,20 +53,22 @@ namespace DefaultPlugins
         public int SortOrder { get; set; }
 
 
-        public ConfigurationOptions Configuration { get; set; }
+        public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
 
 
-
-        public FileSavePlugin()
+        public void SetConfig()
         {
-            //  OpenEncoding = Encoding.UTF8;
-            Configuration = new ConfigurationOptions();
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save";
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.S };
             Version = Version.Parse(VersionString);
+
         }
+
+        public FileSavePlugin()
+        {
+            SetConfig();       }
         public object CreateControl(bool showToo)
         {
             object view = new MainEdit();
