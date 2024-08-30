@@ -115,12 +115,12 @@ namespace DefaultPlugins
             return result;
         }
 
-        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
         { 
             if (parameter == null) throw new ArgumentNullException();
             Parameter= parameter;
 
-            var lines = await ReadAllPortion(progresss);         
+            var lines = await ReadAllPortion(progress);         
            return String.Join(Environment.NewLine, lines);
 
         }

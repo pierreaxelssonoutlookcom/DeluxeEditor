@@ -38,11 +38,11 @@ namespace DefaultPlugins
 
         public UrlEncodePlugin()
         {
-            SetConfiiguration();
+            SetConfig();
 
 
         }
-        public void SetConfiiguration()
+        public void SetConfig()
         {
             Configuration.ShowInMenu = "Plugins";
             Configuration.ShowInMenuItem = "UrlEncode";
