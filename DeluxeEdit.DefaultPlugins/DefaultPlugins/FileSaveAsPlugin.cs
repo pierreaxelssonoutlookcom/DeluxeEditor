@@ -54,6 +54,7 @@ namespace DefaultPlugins
 
         public void SetConfig()
         {
+
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "SaveAs";
         //    Configuration.KeyCommand.Keys = new List<Key> { Key.LeftShift, Key.LeftCtrl, Key.S };
