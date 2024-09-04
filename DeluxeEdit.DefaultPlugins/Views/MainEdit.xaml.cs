@@ -48,12 +48,12 @@ namespace DeluxeEdit.DefaultPlugins.Views
         }
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-           // newViewModel.AddNewTextControlAndSubscribe("newfile.txt");
-            var customMenu = editViewModel.GetMenu();
+           // newViewModel.AddNewTextControlAndSubscr
     
             var builder = new MenuBuilder();
+            var menu = builder.BuildMenu();
 
-            builder.ShowMenu(this.MainMenu, customMenu);
+             builder.ShowMenu(this.MainMenu, menu);
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;
 
