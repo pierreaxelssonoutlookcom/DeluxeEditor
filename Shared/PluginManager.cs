@@ -18,11 +18,12 @@ namespace Shared
 
         static PluginManager()
         {
-            pluginPath = 
-            pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
+            pluginPath = "C:\\gitroot\\personal\\DeluxeEdit\\DeluxeEdit\\bin\\Debug\\net8.0-windows";
+//            pluginPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\\DeluxeEdit\\plugins";
             LoadFiles();
 
         }
+
 
         public static List<PluginItem> GetPluginsLocal()
         {
@@ -30,7 +31,7 @@ namespace Shared
             var result = new List<PluginItem>();
             foreach (var f in files)
             {
-                var items = f.MatchingTypes.Where(p => p.Name.EndsWith("Plugin") && p.Name != "INamedActionPlugin")
+                var items = f.MatchingTypes.Where(p => p.Name.EndsWith("Plugin") && p.Name.StartsWith("I") ==false)
                     .Select(p => f.LocalPath.CreatePluginItem(p));
 
                 result.AddRange(items);
