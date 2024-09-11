@@ -31,8 +31,7 @@ namespace Shared
             var result = new List<PluginItem>();
             foreach (var f in files)
             {
-                var items = f.MatchingTypes.Where(p => p.Name.EndsWith("Plugin") && p.Name.StartsWith("I") ==false)
-                    .Select(p => f.LocalPath.CreatePluginItem(p));
+                var items = f.MatchingTypes.Select(p => f.LocalPath.CreatePluginItem(p)).ToList();
 
                 result.AddRange(items);
             }
@@ -42,7 +41,7 @@ namespace Shared
         }
         public static List<PluginFile> LoadFiles()
         {
-            var result = Directory.GetFiles(pluginPath, "*.dll")
+            var result = Directory.GetFiles(pluginPath, "*lugins*.dll")
                 .Select(p => LoadPluginFile(p))
                 .ToList();
 
@@ -78,7 +77,9 @@ namespace Shared
                 SourceFiles.Add(ourSource);
             }
             ourSource.MatchingTypes = ourSource.Assembly.GetTypes()
-                .Where(p => p.ToString().EndsWith("Plugin"))
+                .Where(p => p.Name.ToString().EndsWith("Plugin"))
+        
+                
                 .ToList();
 
 
