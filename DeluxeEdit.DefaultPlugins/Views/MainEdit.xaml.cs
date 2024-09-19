@@ -53,7 +53,7 @@ namespace DeluxeEdit.DefaultPlugins.Views
             var builder = new MenuBuilder();
             var menu = builder.BuildMenu();
 
-             builder.ShowMenu(this.MainMenu, menu);
+            builder.ShowMenu(this.MainMenu, menu);
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;
 
