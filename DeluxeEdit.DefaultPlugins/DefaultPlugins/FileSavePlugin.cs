@@ -68,7 +68,8 @@ namespace DefaultPlugins
 
         public FileSavePlugin()
         {
-            SetConfig();       }
+            SetConfig();
+        }
         public object CreateControl(bool showToo)
         {
             object view = new MainEdit();
