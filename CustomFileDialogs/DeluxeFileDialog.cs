@@ -1,12 +1,10 @@
-﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CustomFileApiFile;
+using Model;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+ulong CustomFileApiFile;
 
-namespace CustomFileApiFile
+namespace CustomFileDialogs
 {
      public class DeluxeFileDialog
     {

@@ -4,7 +4,6 @@ using DeluxeEdit.DefaultPlugins.ViewModel;
 using Extensions;
 using Model;
 using Model.Interface;
-using MS.WindowsAPICodePack.Internal;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,11 +11,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media.Animation;
-using static System.Net.Mime.MediaTypeNames;
-
-
 
 namespace DefaultPlugins.ViewModel
 {
@@ -159,6 +153,17 @@ namespace DefaultPlugins.ViewModel
 
         }
         public async void SaveFile()
+        {
+            var text = MyEditFiles.Current.Text as TextBox;
+            if (text != null)
+            {
+
+                var split = text.Text.Split(Environment.NewLine).ToList();
+                await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, split), null);
+            }
+
+        }
+        public async void SaveAsFile()
         {
             var text = MyEditFiles.Current.Text as TextBox;
             if (text != null)
