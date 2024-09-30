@@ -91,6 +91,13 @@ namespace CustomFileApiFile
         {
             InitializeComponent();
         }
+        public FileDialogControlBase(string? initialDirectory = null)
+        {
+            FileDlgInitialDirectory = !String.IsNullOrEmpty(initialDirectory) ? initialDirectory : "";
+            InitializeComponent();
+            if (cmbEncoding != null) cmbEncoding.Items.AddRange(System.Text.Encoding.GetEncodings().Select(p => p.Name).ToArray());
+        }
+
         #endregion
 
         #region Properties
