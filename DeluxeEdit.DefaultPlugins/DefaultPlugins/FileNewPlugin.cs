@@ -1,9 +1,5 @@
 ﻿using Model;
 using Model.Interface;
-using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Threading.Tasks;
 
@@ -22,12 +18,7 @@ namespace DefaultPlugins
         public long FileSize { get; set; }
         public long BytesRead { get; set; }
 
-        public ActionParameter? Parameter { get; set; }    
-            
-
-
-
-        //todo; we might have to implement setcontext for plugins   
+        public ActionParameter? Parameter { get; set; } = new ActionParameter();
        
         public bool Enabled { get; set; }
 
@@ -51,9 +42,7 @@ namespace DefaultPlugins
         }
         public object CreateControl(bool showToo)
         {
-            var result = new MainEdit();
-
-            return result;
+            return new objec();  
         }
        public  void SetConfig()
         {
@@ -74,7 +63,7 @@ namespace DefaultPlugins
             return result;
         }
 
-        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {
             return null;
         }
@@ -84,7 +73,7 @@ namespace DefaultPlugins
 
 
 
-        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
         {
             return String.Empty;
         }

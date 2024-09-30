@@ -17,11 +17,7 @@ namespace DefaultPlugins
         public long FileSize { get; set; }
         public long BytesRead { get; set; }
 
-        public ActionParameter? Parameter { get; set; }
-
-
-    
-        //todo; we might have to implement setcontext for plugins   
+        public ActionParameter? Parameter { get; set; } =new ActionParameter();
 
         public bool Enabled { get; set; }
 
@@ -98,9 +94,9 @@ namespace DefaultPlugins
             else
                 return null;
         }
-        public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
+        public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {
-            var result = await ReadAllPortion(progresss);
+            var result = await ReadAllPortion(progress);
             return result;
         }
 
@@ -114,7 +110,7 @@ namespace DefaultPlugins
 
         }
 
-        public async Task<List<string>> ReadAllPortion(IProgress<long> progresss ) 
+        public async Task<List<string>> ReadAllPortion(IProgress<long> progress ) 
         {
             var result = new List<string>();
             var total = new List<string>();
@@ -127,7 +123,7 @@ namespace DefaultPlugins
             }
            
             
-            while ((result = await ReadPortion(progresss)) != null)
+            while ((result = await ReadPortion(progress )) != null)
 
             {
                 total.AddRange(result); 

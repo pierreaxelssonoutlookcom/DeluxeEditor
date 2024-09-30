@@ -33,17 +33,9 @@ namespace DefaultPlugins
 
         public ActionParameter? Parameter { get; set; }
 
-        
-
         public  Stream InputStream {  get; set; }
-        //todo; we might have to implement setcontext for plugins   
-
+ 
         public bool Enabled { get; set; }
-        //done:make dynamic
-      
-
-
-
         private StreamWriter? writer;
 
         public bool AsReaOnly { get; set; }
@@ -137,11 +129,18 @@ namespace DefaultPlugins
 
             return "";
 
+
         }
-        public void WritesAllPortions(IProgress<long> progresss)
+        public void WritesAllPortions(IProgress<long> progress)
         {
+            if (Parameter == null) throw new ArgumentNullException();
+
+            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
+            if (writer == null) { }
             if (writer == null)
             {
+                if (Parameter == null) throw new ArgumentNullException();
+
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
                 InputStream = mmf.CreateViewStream();
                 writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
@@ -149,8 +148,7 @@ namespace DefaultPlugins
             for (int i = 0; i < Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
             {
                 var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
-                WritePortion(batch, progresss);
-
+                WritePortion(batch, progress);
             }
 
 
@@ -158,9 +156,15 @@ namespace DefaultPlugins
         }
 
 
-        public async void WritePortion(List<string> indata, IProgress<long> progress
-            )
+        public async void WritePortion(List<string> indata, IProgress<long> progress)
         {
+            if (Parameter == null) throw new ArgumentNullException();
+
+            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
+
+
+
+
             if (writer == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
@@ -169,20 +173,21 @@ namespace DefaultPlugins
             }
 
 
-            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-            int lineCount= await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
-          if (progress != null) progress.Report(lineCount);
-                
+            int lineCount = await writer.WriteLinesMax(indata, SystemConstants.ReadPortionBufferSizeLines);
+            if (progress != null) progress.Report(lineCount);
+
             await writer.FlushAsync();
 
         }
 
+
+
+
     }
 
 
-
-
-
 }
+
+    
 
  

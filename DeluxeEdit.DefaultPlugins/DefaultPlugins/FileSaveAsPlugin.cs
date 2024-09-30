@@ -30,14 +30,9 @@ namespace DefaultPlugins
  
         public ActionParameter? Parameter { get; set; } = new ActionParameter(); 
 
-
-
         public Stream? InputStream { get; set; } = null;
-        //todo; we might have to implement setcontext for plugins   
 
         public bool Enabled { get; set; } 
-        //done:make dynamic
-
 
 
 
@@ -134,7 +129,7 @@ namespace DefaultPlugins
 
             return String.Empty;
         }
-        public void WritesAllPortions(IProgress<long> progresss)
+        public void WritesAllPortions(IProgress<long> progress)
         {
             if (Parameter == null) throw new ArgumentNullException();
 
@@ -151,7 +146,7 @@ namespace DefaultPlugins
             for (int i = 0; i < Parameter.InData.Count / SystemConstants.ReadPortionBufferSizeLines; i++)
             {
                 var batch = Parameter.InData.Take(SystemConstants.ReadPortionBufferSizeLines).ToList();
-                WritePortion(batch, progresss);
+                WritePortion(batch, progress);
 }
 
 
