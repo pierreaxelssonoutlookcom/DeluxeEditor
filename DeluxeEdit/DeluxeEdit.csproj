@@ -15,8 +15,10 @@
 
 	  <PackageReference Include="NuGet.Packaging" Version="6.9.1" />
 	  <PackageReference Include="System.IO.Packaging" Version="8.0.0" />
+  </ItemGroup>
 
-	  <ProjectReference Include="..\DeluxeEdit.DefaultPlugins\DeluxeEdit.DefaultPlugins.csproj" />
+
+  <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
