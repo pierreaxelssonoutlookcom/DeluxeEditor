@@ -9,7 +9,7 @@ namespace Model
         public string Content { get; set; } = "";
         public string Header { get; set; } = "";
         public bool  IsNewFile { get; set; } 
-        public TextBox Text { get; set; }
+        public TextBox? Text { get; set; }
         public TabControl? Tab { get; set; }
     }
 

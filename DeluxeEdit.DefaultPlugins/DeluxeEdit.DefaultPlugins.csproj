@@ -25,7 +25,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="AssemblyInfo1.cs" />
 	  <Compile Include="DefaultPlugins\FileNewPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSaveAsPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
@@ -55,6 +54,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\CustomFileApi'\CustomFileApi'.csproj" />
 	  <ProjectReference Include="..\DeluxeEdit,Exensions\DeluxeEdit.Exensions.csproj" />
+	  <ProjectReference Include="..\Exensions\Exensions.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
 	  <ProjectReference Include="..\Shared\Shared.csproj" />
 	</ItemGroup>
