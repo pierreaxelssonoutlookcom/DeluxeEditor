@@ -25,12 +25,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Include="AssemblyInfo1.cs" />
 	  <Compile Include="DefaultPlugins\FileNewPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSaveAsPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
 	  <Compile Include="AllPlugins.cs" />
 	  <Compile Include="MainWindow.xaml.cs" />
-	  <Compile Include="Model\ComboControl.cs" />
+	  <Compile Include="DefaultPlugins\Model\ComboControl.cs" />
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
@@ -53,9 +54,10 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\CustomFileApi'\CustomFileApi'.csproj" />
-	  <ProjectReference Include="..\DeluxeEdit\DeluxeEdit.csproj" />
+	  <ProjectReference Include="..\CustomFileApi\CustomFileApi.csproj" />
 	  <ProjectReference Include="..\Exensions\Exensions.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
+	  <ProjectReference Include="..\Shared\Shared.csproj" />
 	</ItemGroup>
 
 </Project>

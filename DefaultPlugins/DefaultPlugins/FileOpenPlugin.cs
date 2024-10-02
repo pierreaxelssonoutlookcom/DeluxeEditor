@@ -1,6 +1,16 @@
 ﻿using Model;
 using Model.Interface;
 using DeluxeEdit.DefaultPlugins.Views;
+using System;
+using System.IO.MemoryMappedFiles;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Shared;
+using Extensions;
+using CustomFileApiFile;
+using System.Windows;
 
 namespace DefaultPlugins
 {

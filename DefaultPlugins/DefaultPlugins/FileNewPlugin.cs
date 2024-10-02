@@ -2,6 +2,11 @@
 using Model.Interface;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Threading.Tasks;
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.IO;
+using CustomFileApiFile;
 
 namespace DefaultPlugins
 {
@@ -42,7 +47,7 @@ namespace DefaultPlugins
         }
         public object CreateControl(bool showToo)
         {
-            return new objec();  
+            return new object();  
         }
        public  void SetConfig()
         {

@@ -11,8 +11,8 @@ using System.Collections.Generic;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
 using System.Threading.Tasks;
-using CustomFileDialogs;
 using System.Reflection.Metadata;
+using CustomFileApiFile;
 
 namespace DefaultPlugins
 {

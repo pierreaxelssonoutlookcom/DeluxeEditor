@@ -37,4 +37,6 @@ namespace CustomFileApiFile
             }
 
             return result;
-        } }}
+        }
+        } 
+    }

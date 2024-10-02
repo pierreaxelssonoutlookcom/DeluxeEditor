@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
-using CustomFileApiFile;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
 using MS.WindowsAPICodePack.Internal;
