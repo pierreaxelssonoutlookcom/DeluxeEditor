@@ -53,8 +53,7 @@
 	  <PackageReference Include="WPF-UI" Version="3.0.4" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\CustomFileApi'\CustomFileApi'.csproj" />
-	  <ProjectReference Include="..\CustomFileApi\CustomFileApi.csproj" />
+	  <ProjectReference Include="..\ApiNew\CustomFileApi.csproj" />
 	  <ProjectReference Include="..\Exensions\Exensions.csproj" />
 	  <ProjectReference Include="..\Model\Model.csproj" />
 	  <ProjectReference Include="..\Shared\Shared.csproj" />

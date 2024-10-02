@@ -20,7 +20,7 @@ namespace DefaultPlugins
         public string VersionString { get; set; } = "0.2";
 
 
-        public long FileSize { get; set; }
+        public long FileSize { get; set; } = 0;
         public long BytesRead { get; set; }
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
