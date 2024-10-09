@@ -30,11 +30,13 @@ using System.Windows.Forms;
 namespace CustomFileApiFile
 {
     public static class Extensions
+
+
     {
         #region extension Methods
         public static DialogResult ShowDialog(this System.Windows.Forms.FileDialog fdlg, FileDialogControlBase ctrl, IWin32Window owner) //where T : FileDialogControlBase, new()
         {
-//            ctrl.FileDlgType = (fdlg is SaveFileDialog) ? FileDialogType.SaveFileDlg : FileDialogType.OpenFileDlg;
+         ctrl.FileDlgType = ctrl.FileDlgType == FileDialogType.SaveFileDlg ? FileDialogType.SaveFileDlg:  FileDialogType.OpenFileDlg;
             if (ctrl.ShowDialogExt(fdlg, owner) == DialogResult.OK)
                 return DialogResult.OK;
             else

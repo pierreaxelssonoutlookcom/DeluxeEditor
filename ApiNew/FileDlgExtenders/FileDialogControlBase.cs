@@ -1,4 +1,4 @@
-//  Copyright (c) 2006, Gustavo Franco
+//  Copyright (c) 2006, GuFileDlgTypestavo Franco
 //  Copyright © Decebal Mihailescu 2007-2010
 
 //  Email:  gustavo_franco@hotmail.com
@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 namespace CustomFileApiFile
 {
     #region Base class
@@ -30,6 +31,7 @@ namespace CustomFileApiFile
     public partial class FileDialogControlBase : UserControl//, IMessageFilter
     {
         public string DialogText = "Open";
+        public string SelectButtonText = "OK";
 
         public string? WantedEncoding {
             get { return cmbEncoding.SelectedText; }
@@ -67,7 +69,7 @@ namespace CustomFileApiFile
         private AddonWindowLocation _StartLocation = AddonWindowLocation.Right;
         private FolderViewMode _DefaultViewMode = FolderViewMode.Default;
         IntPtr _hFileDialogHandle = IntPtr.Zero;
-        FileDialogType _FileDlgType;
+        FileDialogType _FileDlgType = FileDialogType.SaveFileDlg;
         string _InitialDirectory = string.Empty;
         string _Filter = "All files (*.*)|*.*";
         string _DefaultExt = "jpg";
@@ -94,6 +96,7 @@ namespace CustomFileApiFile
             FileDlgInitialDirectory = !String.IsNullOrEmpty(initialDirectory) ? initialDirectory : "";
             InitializeComponent();
             if (cmbEncoding != null) cmbEncoding.Items.AddRange(System.Text.Encoding.GetEncodings().Select(p => p.Name).ToArray());
+            
         }
 
         #endregion
@@ -277,14 +280,20 @@ namespace CustomFileApiFile
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            
             if (!DesignMode)
             {
                 if (MSDialog != null)
                 {
+
+                    //Controls.Add(new Button { Text = "OK" });
+                    
                     MSDialog.FileOk += new CancelEventHandler(FileDialogControlBase_ClosingDialog);
                     MSDialog.Disposed += new EventHandler(FileDialogControlBase_DialogDisposed);
                     MSDialog.HelpRequest += new EventHandler(FileDialogControlBase_HelpRequest);
                     FileDlgEnableOkBtn = _EnableOkBtn;//that's design time value
+                    NativeMethods.EnableWindow(_hOKButton, true);
+
                     NativeMethods.SetWindowText(new HandleRef(_dlgWrapper, _dlgWrapper.Handle), DialogText);
                     //will work only for open dialog, save dialog will be overriden internally by windows
                     NativeMethods.SetWindowText(new HandleRef(this, _hOKButton), DialogText);//SetDlgItemText fails too 
@@ -422,6 +431,7 @@ namespace CustomFileApiFile
         }
         private void InitMSDialog()
         {
+            
             MSDialog.InitialDirectory = _InitialDirectory.Length == 0 ? Path.GetDirectoryName(Application.ExecutablePath) : _InitialDirectory;
             MSDialog.AddExtension = _AddExtension;
             MSDialog.Filter = _Filter;
@@ -435,6 +445,8 @@ namespace CustomFileApiFile
         }
         public DialogResult ShowDialog(IWin32Window owner)
         {
+
+
             DialogResult returnDialogResult = DialogResult.Cancel;
             if (this.IsDisposed)
                 return returnDialogResult;
