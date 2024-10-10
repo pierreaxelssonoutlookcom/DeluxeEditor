@@ -43,9 +43,11 @@ namespace CustomFileApiFile
             // 
             Controls.Add(cmbEncoding);
             Controls.Add(Encoding);
+
             Name = "FileDialogControlBase";
             Size = new System.Drawing.Size(555, 385);
-            Load += FileDialogControlBase_Load;
+            //Load += new FileDialogControlBase;
+
             ResumeLayout(false);
             PerformLayout();
         }

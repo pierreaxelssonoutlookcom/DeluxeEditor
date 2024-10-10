@@ -280,29 +280,23 @@ namespace CustomFileApiFile
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
             if (!DesignMode)
             {
                 if (MSDialog != null)
                 {
-
-                    //Controls.Add(new Button { Text = "OK" });
-                    
                     MSDialog.FileOk += new CancelEventHandler(FileDialogControlBase_ClosingDialog);
                     MSDialog.Disposed += new EventHandler(FileDialogControlBase_DialogDisposed);
                     MSDialog.HelpRequest += new EventHandler(FileDialogControlBase_HelpRequest);
                     FileDlgEnableOkBtn = _EnableOkBtn;//that's design time value
-                    NativeMethods.EnableWindow(_hOKButton, true);
-
-                    NativeMethods.SetWindowText(new HandleRef(_dlgWrapper, _dlgWrapper.Handle), DialogText);
+                    NativeMethods.SetWindowText(new HandleRef(_dlgWrapper, _dlgWrapper.Handle), _Caption);
                     //will work only for open dialog, save dialog will be overriden internally by windows
-                    NativeMethods.SetWindowText(new HandleRef(this, _hOKButton), DialogText);//SetDlgItemText fails too 
-                    bool res = NativeMethods.SetDlgItemText(NativeMethods.GetParent(Handle), (int)ControlsId.ButtonOk, DialogText);
+                    NativeMethods.SetWindowText(new HandleRef(this, _hOKButton), _OKCaption);//SetDlgItemText fails too 
+                    //bool res = NativeMethods.SetDlgItemText(NativeMethods.GetParent(Handle), (int)ControlsId.ButtonOk, FileDlgOkCaption);
                 }
             }
         }
 
-        public void SortViewByColumn(int index)
+                public void SortViewByColumn(int index)
         {
             try
             {
@@ -560,7 +554,8 @@ namespace CustomFileApiFile
 
         }
 
-        private void FileDialogControlBase_Load(object sender, EventArgs e)
+        private void FileDialogControlBase_
+            (object sender, EventArgs e)
         {
 
         }

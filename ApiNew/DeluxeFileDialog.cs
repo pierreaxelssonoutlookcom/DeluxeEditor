@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace CustomFileApiFile
 {
     public class DeluxeFileDialog
@@ -10,7 +9,7 @@ namespace CustomFileApiFile
         public EncodingPath? ShowFileOpenDialog(string? initDir = null)
         {
             EncodingPath? result = null;
-            using var dialog = new FileDialogControlBase(initDir);
+            using var dialog = new FileDialogControlBase(initDir) { FileDlgType = FileDialogType.SaveFileDlg };
             var dummyForm = new Form();
             var dialogResult = dialog.ShowDialog(dummyForm);
 
