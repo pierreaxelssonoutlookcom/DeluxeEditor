@@ -293,9 +293,9 @@ namespace CustomFileApiFile
                     MSDialog.Disposed += new EventHandler(FileDialogControlBase_DialogDisposed);
                     MSDialog.HelpRequest += new EventHandler(FileDialogControlBase_HelpRequest);
                     FileDlgEnableOkBtn = _EnableOkBtn;//that's design time value
-                    NativeMethods.SetWindowText(new HandleRef(_dlgWrapper, _dlgWrapper.Handle), _Caption);
+                    NativeMethods.SetWindowText(new HandleRef(_dlgWrapper, _dlgWrapper.Handle), DialogTitle);
                     //will work only for open dialog, save dialog will be overriden internally by windows
-                    NativeMethods.SetWindowText(new HandleRef(this, _hOKButton), _OKCaption);//SetDlgItemText fails too 
+                    NativeMethods.SetWindowText(new HandleRef(this, _hOKButton), DialogTitle);//SetDlgItemText fails too 
                     //bool res = NativeMethods.SetDlgItemText(NativeMethods.GetParent(Handle), (int)ControlsId.ButtonOk, FileDlgOkCaption);
                 }
             }
