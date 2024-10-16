@@ -186,30 +186,31 @@ namespace DefaultPlugins.ViewModel
 
         public void ChangeTab(TabItem item)
         {
+            if (item == null) throw new NullReferenceException();
+
             MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header == item.Header);
 
         }
         public async void SaveFile()
         {
-            var text = MyEditFiles.Current.Text;
-            if (text != null)
-            {
+            if (MyEditFiles.Current == null || MyEditFiles.Current.Text == null) throw new NullReferenceException();
+         
 
-                var split = text.Text.Split(Environment.NewLine).ToList();
-                await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, split), null);
-            }
+            await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), null);
 
         }
         public async void SaveAsFile()
         {
+
+            if (MyEditFiles.Current == null || MyEditFiles.Current.Text==null) throw new NullReferenceException();
+
+
             var action = openPlugin.GuiAction(openPlugin);
             //if user cancelled pat
             //h is empty 
             if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
-            var text = MyEditFiles.Current.Text;
 
-            var split = text.Text.Split(Environment.NewLine).ToList();
-            await saveAsPlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, text.Text), null);
+            await saveAsPlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), null);
 
 
         } 
