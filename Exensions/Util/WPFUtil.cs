@@ -1,9 +1,6 @@
-﻿using System.Security.Cryptography.Pkcs;
-using System.Security.Cryptography.Xml;
-using System.Windows.Controls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.Windows.Controls;
 
-namespace DeluxeEdit.DefaultPlugins
+namespace Exensions.Util
 {
 
     public  static class WPFUtil
@@ -11,7 +8,7 @@ namespace DeluxeEdit.DefaultPlugins
         public const nint Minus1 = -1;
 
 
-        public static void AddOrUpddateTab(string header, TabControl control, object contentControl)
+        public static TabItem AddOrUpddateTab(string header, TabControl control, object contentControl)
         {
             TabItem? item = null;
             var index = IndexOfText(control.Items, header);
@@ -31,6 +28,7 @@ namespace DeluxeEdit.DefaultPlugins
             }
             item.Header= header;
             item.Content= contentControl;
+            return item;
         }
 
 

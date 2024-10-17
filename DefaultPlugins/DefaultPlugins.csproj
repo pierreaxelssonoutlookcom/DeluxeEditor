@@ -39,11 +39,10 @@
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
 	  <Compile Include="ViewModel\MainEditViewModelEEvents.cs" />
 	  <Compile Include="ViewModel\MenuBuilder.cs" />
-	  <Compile Include="Views\NewFileViewModel.cs" />
+	  <Compile Include="ViewModel\NewFileViewModel.cs" />
 	  <Compile Include="ViewModel\PluginsViewModel.cs" />
 	  <Compile Include="Views\MainEdit.xaml.cs" />
 	  <Compile Include="Views\Plugins.xaml.cs" />
-	  <Compile Include="WPFUtil.cs" />
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />

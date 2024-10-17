@@ -27,42 +27,17 @@ namespace DefaultPlugins.ViewModel
             currentTab = tab;
         }
 
-        public ComboControl AddMyContols(string filename)
-        {
-            var result = new ComboControl();
-
-            result.Text = new TextBox();
-
-            result.Text.Name = filename.Replace(".", "");
-            result.Text.AcceptsReturn = true;
-            result.Text.KeyDown += Text_KeyDown;
-
-            result.ProgressBar = new ProgressBar();
-            result.ProgressBar.Name = "progress" + filename.Replace(".", "");
-            result.Panel = new StackPanel();
-            result.Panel.Name = "panel" + filename.Replace(".", "");
-            result.Panel.Orientation = Orientation.Vertical; ;
-            result.Panel.Children.Add(result.ProgressBar);
-            result.Panel.Children.Add(result.Text);
-            WPFUtil.AddOrUpddateTab(filename, currentTab, result.Panel);
-            // currentTab.Items.Add(resul
-
-            return result;
-
-        }
-
-
 
 
 
         public MyEditFile GetNewFile()
         {
-               var result = new MyEditFile { Header = "newfile.txt", Content = "", IsNewFile=true };
-            var combos= AddMyContols("newfile.txt");
-            MyEditFiles.Files.Add(new MyEditFile { Header = result.Header });
-            result.Text = combos.Text;
+               var result = new MyEditFile {  Path= "newfile.txt", Header = "newfile.txt", Content = "", IsNewFile=true };
+    //        var combos= AddMyContols("newfile.txt");
+ //           MyEditFiles.Files.Add(new MyEditFile { Header = result.Header });
+            //result.Text = combos.Text;
 
-            MyEditFiles.Add(result);
+//            MyEditFiles.Add(result);
                
 
 

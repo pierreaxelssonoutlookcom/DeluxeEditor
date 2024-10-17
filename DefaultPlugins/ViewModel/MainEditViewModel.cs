@@ -1,9 +1,11 @@
 ﻿using DefaultPlugins.Model;
 using DeluxeEdit.DefaultPlugins;
 using DeluxeEdit.DefaultPlugins.ViewModel;
+using Exensions.Util;
 using Extensions;
 using Model;
 using Model.Interface;
+using MS.WindowsAPICodePack.Internal;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace DefaultPlugins.ViewModel
 {
@@ -64,6 +67,10 @@ namespace DefaultPlugins.ViewModel
         public void NewFile()
         {
             var file = newFileViewModel.GetNewFile();
+            MyEditFiles.Add(file);
+            AddMyContols(file.Path);
+            //WPFUtil.AddOrUpddateTab(name, tabFiles, result.Panel);
+
 
 
             file.Text.Text = file.Content;
@@ -71,14 +78,6 @@ namespace DefaultPlugins.ViewModel
 
 
         }
-
-        /*
-        public List<CustomMenu> GetMenu()
-        {
-            return MainMenu;
-            *
-        }
-        */
 
         public void SetViewData(CustomMenuItem item)
         {
@@ -128,7 +127,8 @@ namespace DefaultPlugins.ViewModel
         public ComboControl AddMyContols(string path)
         {
             var result = new ComboControl();
-            var name = new FileInfo(path).Name;
+            bool isNewFle=!File.Exists(path);
+            var name = isNewFle ? path :  new FileInfo(path).Name ;
 
             result.Text = new TextBox();
 
