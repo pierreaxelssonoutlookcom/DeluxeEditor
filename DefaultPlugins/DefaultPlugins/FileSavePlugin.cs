@@ -5,36 +5,37 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Controls;
 using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using DeluxeEdit.DefaultPlugins.Views;
 using System.Windows;
-using MS.WindowsAPICodePack.Internal;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using CustomFileApiFile;
 
 namespace DefaultPlugins
 {
     public class FileSavePlugin : INamedActionPlugin
     {
-        public  bool  ParameterIsSelectedText { get; set; } = false;
+        public bool ParameterIsSelectedText { get; set; } = false;
 
 
 
 
         public string VersionString { get; set; } = "0.2";
 
-        public Version Version { get; set; }
+        public Version Version { get; set; } = new Version();
 
-        public long FileSize { get; set; }
-        public long BytesWritten { get; set; }
 
-        public ActionParameter? Parameter { get; set; }
+        public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
-        public  Stream InputStream {  get; set; }
- 
+        public Stream? InputStream { get; set; } = null;
+
         public bool Enabled { get; set; }
+
+
+
         private StreamWriter? writer;
 
         public bool AsReaOnly { get; set; }
@@ -53,7 +54,7 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save";
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.S };
-            Version = Version.Parse(VersionString);
+            Version = Version.Parse(VersionString ?? "0.0");
 
         }
 
@@ -64,7 +65,7 @@ namespace DefaultPlugins
         public object CreateControl(bool showToo)
         {
             object view = new MainEdit();
-            Window win = null;
+            Window? win = null;
             var result = view;
             if (showToo)
             {
@@ -79,56 +80,35 @@ namespace DefaultPlugins
             return result;
         }
 
-        public static FileSavePlugin CastNative(INamedActionPlugin item)
-        {
-            if (item is FileSavePlugin && item != null)
-                return item as FileSavePlugin;
-            else
-                return null;
-
-
-        }
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
-            return null;
 
+            string oldDir = @"c:\";
+            if (Parameter != null)
+                oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
+            var dialog = new DeluxeFileDialog();
+
+
+            var result = dialog.ShowFileSaveDialog(oldDir);
+            return result;
         }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {
-            FileSize = File.Exists(Parameter.Parameter) ? new FileInfo(Parameter.Parameter).Length : 0;
-
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
 
             WritesAllPortions(progress);
-            return null;
-
+            var result = await Task.FromResult(new List<string> { });
+            return result;
         }
 
 
-        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress )
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
         {
-              Parameter = parameter;  
-            FileSize = File.Exists(parameter.Parameter)? new FileInfo(parameter.Parameter).Length: 0;
-            
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                InputStream= mmf.CreateViewStream();
-                writer = OpenEncoding == null ?  new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
+            var result = await Task.FromResult(new List<string> { });
 
             WritesAllPortions(progress);
-                    
-               
-
-            return "";
 
 
+            return String.Empty;
         }
         public void WritesAllPortions(IProgress<long> progress)
         {
@@ -179,14 +159,11 @@ namespace DefaultPlugins
 
         }
 
-
-
-
     }
+
+
+
 
 
 }
 
-    
-
- 

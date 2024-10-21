@@ -20,10 +20,10 @@ namespace DefaultPlugins
         }
 
 
-        public Version Version { get; set; }
+        public Version Version { get; set; } = new Version();
         public string VersionString { get; set; } = "0.2";
 
-        public ActionParameter Parameter { get; set; }
+        public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
 
 
@@ -46,8 +46,8 @@ namespace DefaultPlugins
 
         }
         public void SetConfig()
-        {
-            Version = VersionString.HasContent() ? Version.Parse(VersionString) : null;
+        { 
+                Version = Version.Parse(VersionString ?? "0.0");
 
             Configuration.ShowInMenu = "Plugins";
             Configuration.ShowInMenuItem = "UrlDecode";
@@ -56,11 +56,20 @@ namespace DefaultPlugins
 
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
+            if (parameter == null) throw new ArgumentNullException();
+
+            var dummy = await Task.FromResult(new List<string> { });
+
+
             var result = HttpUtility.UrlDecode( parameter.Parameter,  Encoding.UTF8);
             return result;
         }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
+            if (Parameter == null) throw new ArgumentNullException();
+
+            var dummy = await Task.FromResult(new List<string> { });
+
             var result = HttpUtility.UrlDecode(Parameter.Parameter, Encoding.UTF8);
             return new List<string> { result };
 

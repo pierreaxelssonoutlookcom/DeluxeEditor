@@ -36,7 +36,7 @@ namespace DefaultPlugins
                     myType = typeof(FileNewPlugin);
                     break;
                 case PluginType.Hex:
-                    myType = typeof(HexPluugin);
+                    myType = typeof(HexPlugin);
                     break;
 
             }
@@ -62,7 +62,7 @@ namespace DefaultPlugins
         public static T InvokePlugin<T>(Type type) where T : class
         {
             var obj = PluginManager.CreateObject(type);
-            T result = default(T);
+            T? result = default(T);
 
             if (obj != null && obj is T)
                 result = obj as T;
@@ -131,7 +131,7 @@ namespace DefaultPlugins
                     myType = typeof(FileNewPlugin);
                     break;
                 case PluginType.Hex:
-                    myType = typeof(HexPluugin);
+                    myType = typeof(HexPlugin);
                     break;
 
             }

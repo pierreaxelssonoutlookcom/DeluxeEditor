@@ -1,60 +1,55 @@
 ﻿using Model;
 using Model.Interface;
-using DeluxeEdit.DefaultPlugins.Views;
-using System.Threading.Tasks;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using System.IO;
-using CustomFileApiFile;
 using Shared;
-using System.IO.MemoryMappedFiles;
+using System;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Extensions;
+using System.IO.MemoryMappedFiles;
+using System.Collections.Generic;
+using DeluxeEdit.DefaultPlugins.Views;
+using System.Windows;
+using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using CustomFileApiFile;
 
 namespace DefaultPlugins
 {
     public class FileNewPlugin : INamedActionPlugin
     {
-
         public bool ParameterIsSelectedText { get; set; } = false;
 
 
-        public Version Version { get; set; } = new Version();
+
+
         public string VersionString { get; set; } = "0.2";
 
+        public Version Version { get; set; } = new Version();
 
-        public long FileSize { get; set; } = 0;
-        public long BytesRead { get; set; }
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
-       
+
+        public Stream? InputStream { get; set; } = null;
+
         public bool Enabled { get; set; }
+
+
+
+        private StreamWriter? writer;
 
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "FileNewPlugin";
+        public string Id { get; set; } = "FileSavePlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
-        public Stream? InputStream { get; set; } = null;
 
-        public List<string> ContentBuffer { get; set; } = new List<string>();
-        public ConfigurationOptions Configuration { get; set; }= new ConfigurationOptions();
+
+        public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
 
-        private  StreamWriter writer;
 
- 
-
-        public FileNewPlugin()
-        {
-            SetConfig();
-        }
-        public object CreateControl(bool showToo)
-        {
-            return new object();  
-        }
-       public  void SetConfig()
+        public void SetConfig()
         {
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "New";
@@ -63,24 +58,58 @@ namespace DefaultPlugins
 
         }
 
-        public EncodingPath? GuiAction(INamedActionPlugin instance)
+        public FileNewPlugin()
         {
-            string oldDir = @"c:\";
+            SetConfig();
+        }
+        public object CreateControl(bool showToo)
+        {
+            object view = new MainEdit();
+            Window? win = null;
+            var result = view;
+            if (showToo)
+            {
+                win = new Window();
+                result = win;
 
-            if (Parameter != null) oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
-            var dialog = new DeluxeFileDialog();
-            var result = dialog.ShowFileOpenDialog(oldDir);
+                win.Content = view;
+                win.Show();
+
+            }
+
             return result;
         }
 
+        public EncodingPath? GuiAction(INamedActionPlugin instance)
+        {
+
+            string oldDir = @"c:\";
+            if (Parameter != null)
+                oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
+            var dialog = new DeluxeFileDialog();
+
+
+            var result = dialog.ShowFileSaveDialog(oldDir);
+            return result;
+        }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {
+
             WritesAllPortions(progress);
-            return new List<string>();
-
-
+            var result = await Task.FromResult(new List<string> { });
+            return result;
         }
 
+
+        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
+        {
+            var result = await Task.FromResult(new List<string> { });
+
+            WritesAllPortions(progress);
+
+
+            return String.Empty;
+        }
         public void WritesAllPortions(IProgress<long> progress)
         {
             if (Parameter == null) throw new ArgumentNullException();
@@ -130,20 +159,11 @@ namespace DefaultPlugins
 
         }
 
-
-
-
-
-        public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
-        {
-            WritesAllPortions(progress);
-            return String.Empty; 
-        }
-
-
-    
     }
 
 
 
+
+
 }
+

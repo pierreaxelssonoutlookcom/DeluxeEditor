@@ -27,7 +27,7 @@
 	<ItemGroup>
 	  <Compile Include="AssemblyInfo1.cs" />
 	  <Compile Include="DefaultPlugins\FileNewPlugin.cs" />
-	  <Compile Include="DefaultPlugins\HexPluugin.cs" />
+	  <Compile Include="DefaultPlugins\HexPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSaveAsPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
 	  <Compile Include="AllPlugins.cs" />

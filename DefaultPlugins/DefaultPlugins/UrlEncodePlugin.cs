@@ -19,7 +19,7 @@ namespace DefaultPlugins
 
         public string VersionString { get; set; } = "0.2";
 
-        public ActionParameter Parameter { get; set; } = new ActionParameter();
+        public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
         public EncodingPath? GuiAction(INamedActionPlugin instance) { return null; }
 
@@ -62,6 +62,9 @@ namespace DefaultPlugins
 
         public async Task<IEnumerable<string>> Perform(IProgress<long> progresss)
         {
+            if (Parameter == null) throw new ArgumentNullException();
+            var dummy = await Task.FromResult(new List<string> { });
+
             var result = HttpUtility.UrlEncode(Parameter.Parameter, Encoding.UTF8);
             return new List<string> { result };
 
@@ -74,6 +77,11 @@ namespace DefaultPlugins
 
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progresss)
         {
+            if (parameter == null) throw new ArgumentNullException();
+            var dummy = await Task.FromResult(new List<string> { });
+
+
+
             var result = HttpUtility.UrlEncode(parameter.Parameter, Encoding.UTF8);
             return result;
         }

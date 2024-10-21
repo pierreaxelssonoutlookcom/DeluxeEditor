@@ -94,35 +94,16 @@ namespace DefaultPlugins
         }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {
-            if (Parameter == null) throw new ArgumentNullException(); 
-            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
 
             WritesAllPortions(progress);
-            var result = new List<string>();
+            var result=await Task.FromResult(new List<string> { });
             return result;
         }
 
 
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
         {
-            if (parameter == null) throw new ArgumentNullException();
-
-            Parameter = parameter;
-            if (!File.Exists(parameter.Parameter)) throw new FileNotFoundException(parameter.Parameter);
-             
-            if (writer == null)
-            {
-                using var mmf = MemoryMappedFile.CreateFromFile(parameter.Parameter);
-                InputStream = mmf.CreateViewStream();
-                writer = OpenEncoding == null ? new StreamWriter(InputStream) : new StreamWriter(InputStream, OpenEncoding);
-            }
+            var result = await Task.FromResult(new List<string> { });
 
             WritesAllPortions(progress);
 
