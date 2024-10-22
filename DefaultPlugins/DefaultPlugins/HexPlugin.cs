@@ -11,6 +11,8 @@ using Shared;
 using Extensions;
 using CustomFileApiFile;
 using System.Windows;
+using DefaultPlugins.Views;
+using System.Linq;
 
 namespace DefaultPlugins
 {
@@ -54,7 +56,7 @@ namespace DefaultPlugins
 
         public object CreateControl(bool showToo)
         {
-            object view = new MainEdit();
+            object view = new Hex();
             var result = view;
             if (showToo)
             {
@@ -73,7 +75,7 @@ namespace DefaultPlugins
         public void SetConfig()
         {
             Configuration.ShowInMenu = "File";
-            Configuration.ShowInMenuItem = "Open"; ;
+            Configuration.ShowInMenuItem = "Hex"; ;
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.O };
             Version = Version.Parse(VersionString);
         }
@@ -110,10 +112,12 @@ namespace DefaultPlugins
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
                 MýStream = mmf.CreateViewStream();
+
+                
                 reader = OpenEncoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, OpenEncoding);
             }
             if (MýStream == null) throw new ArgumentNullException();
-
+           
 
             while ((result = await ReadPortion(progress)) != null)
 
@@ -135,22 +139,26 @@ namespace DefaultPlugins
 
             if (MýStream == null) throw new ArgumentNullException();
 
-
-
+            var oldBuffer = new byte[SystemConstants.ReadBufferSizeBytes];
+            var readCount = await MýStream.ReadAsync(oldBuffer);
+            var buffer = new byte[readCount];
+            oldBuffer.CopyTo(buffer, 0);
+            var result = new List<string>();
+            var sb= new StringBuilder();
+            foreach (byte b in buffer) sb.AppendFormat("{0:x2}", b);
+            result.Add (sb.ToString());
 
             //todo:how do I share file data between different plugins
-            if (Parameter == null) throw new ArgumentNullException();
-            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
 
-            var result = await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
-
-            if (progress != null)
+        //    var result = await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
+            
+              if (progress != null)
                 progress.Report(MýStream.Position);
 
 
             return result;
-
-
+        
+           
 
 
         }

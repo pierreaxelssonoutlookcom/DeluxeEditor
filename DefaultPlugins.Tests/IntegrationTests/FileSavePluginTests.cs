@@ -15,7 +15,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
         public async void FileSavePluginTest()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
+            var plugin = AllPlugins.InvokePlugin<FileSavePlugin>(PluginType.FileOpen);
 
             var expected = "ninjaåäÖ\r\n";
             File.AppendAllLines(TestFile,new List<string> { "ninjaåäÖ" },  Encoding.UTF8);
@@ -41,7 +41,7 @@ namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
         [Fact]
          public async void FileSavePluginTestSimple()
         {
-            var plugin = AllPlugins.InvokePlugin(PluginType.FileSaveAs) as FileSavePlugin;
+            var plugin = AllPlugins.InvokePlugin<FileSavePlugin>(PluginType.FileOpen);
 
             var expected = "ninja" + Environment.NewLine;
             File.AppendAllLines(TestFile, new List<string> { "ninja" }, Encoding.UTF8);

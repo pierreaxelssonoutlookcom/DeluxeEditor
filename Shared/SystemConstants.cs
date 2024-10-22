@@ -9,5 +9,6 @@ namespace Shared
         public static Char ControlKey = (char)136;
         public static int ReadPortionBufferSizeLines = 8;
         public static int ReadBufferSizeLines = 32;
+        public static int ReadBufferSizeBytes = 32*1024;
     }
 }
