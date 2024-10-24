@@ -57,7 +57,7 @@ namespace Shared
  
         public  static INamedActionPlugin CreateObject(Type t)
         {
-            object item = Activator.CreateInstance(t);
+            object? item = Activator.CreateInstance(t);
             var newItemCasted = item is INamedActionPlugin ? item as INamedActionPlugin : null; ;
             if (newItemCasted == null) throw new NullReferenceException();
 
@@ -73,7 +73,7 @@ namespace Shared
         {
             //done:could be multiple plugis in the same, FILE
 
-            var ourSource = SourceFiles.FirstOrDefault(p => String.Equals(p.LocalPath, path, StringComparison.InvariantCultureIgnoreCase));
+            PluginFile? ourSource = SourceFiles.FirstOrDefault(p => String.Equals(p.LocalPath, path, StringComparison.InvariantCultureIgnoreCase));
 
             if (ourSource == null)
             {
@@ -82,22 +82,26 @@ namespace Shared
 
                 SourceFiles.Add(ourSource);
             }
-            ourSource.MatchingTypes = ourSource.Assembly.GetTypes()
+            else if (ourSource.Assembly != null)
+            {
+                ourSource.MatchingTypes = ourSource.Assembly.GetTypes()
                 .Where(p => p.Name.ToString().EndsWith("Plugin"))
-        
-                
+
+
                 .ToList();
 
 
-
+            }
             return ourSource;
         }
         public static void UnLoadPluginFile(string path)
         {
-            var match = SourceFiles.FirstOrDefault(p => String.Equals(path, p.LocalPath, StringComparison.CurrentCultureIgnoreCase));
-            if (match != null)
+             
+            
+            if (AppDomain.CurrentDomain != null)
             {
-                var asm = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(p => path.SameFileName(p.GetName().CodeBase));
+                AppDomain.Unload(AppDomain.CurrentDomain);
+
             }
         }
     }                                                               

@@ -117,7 +117,7 @@ namespace DefaultPlugins
 
 
             long fileSize = new FileInfo(Parameter.Parameter).Length;
-            for (int i = 0; i < fileSize / SystemConstants.ReadBufferSizeBytes + 1; i++)
+            for (int i = 0; i <= fileSize / SystemConstants.ReadBufferSizeBytes; i++)
             {
                 var result = await ReadPortion(progress);
                 if (result != null)
@@ -152,6 +152,8 @@ namespace DefaultPlugins
             var readCount = await reader.ReadBlockAsync(buffer, 0, buffer.Length);
 
             var blockRead=new string(buffer.Take(readCount).ToArray());
+            int indexOfNUL=blockRead.IndexOf('\0');
+            blockRead=blockRead.SubstringPos(0, indexOfNUL - 1);         
             var result = blockRead.Split(Environment.NewLine).ToList();
 
 

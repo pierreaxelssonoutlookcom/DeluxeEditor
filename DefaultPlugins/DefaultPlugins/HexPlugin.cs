@@ -119,7 +119,7 @@ namespace DefaultPlugins
             if (MýStream == null) throw new ArgumentNullException();
 
             long fileSize = new FileInfo(Parameter.Parameter).Length;
-            for (int i = 0; i < fileSize/ SystemConstants.ReadBufferSizeBytes+1; i++)
+            for (int i = 0; i <= fileSize/ SystemConstants.ReadBufferSizeBytes; i++)
             {
                 var result = await ReadPortion(progress);
                 if (result != null)
