@@ -25,6 +25,7 @@ namespace DefaultPlugins
         public string VersionString { get; set; } = "0.2";
 
 
+
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
         public bool Enabled { get; set; }

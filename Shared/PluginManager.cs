@@ -21,7 +21,7 @@ namespace Shared
 
         }
 
-
+        
         public static List<PluginItem> GetPluginsLocal()
         {
             var files = PluginManager.LoadFiles();
@@ -45,7 +45,7 @@ namespace Shared
 
 
             var result = Directory.GetFiles(path, expression)
-            .Select(p => LoadPluginFile(p))
+            .Select(p => RefreshPluginFile(p))
             .ToList();
 
             return result;
@@ -64,16 +64,11 @@ namespace Shared
             return newItemCasted;
         }
 
-        public static void UnLoadPluginFile(string path)
-        {
-
-            throw new NotImplementedException(); 
-        }
        
 
 
 
-        public static PluginFile LoadPluginFile(string path)
+        public static PluginFile RefreshPluginFile(string path)
         {
             //done:could be multiple plugis in the same, FILE
 

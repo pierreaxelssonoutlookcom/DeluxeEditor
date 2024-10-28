@@ -10,10 +10,10 @@ namespace ViewModel
 {
     public partial class MainEditViewModel
     {
-        private void OnEvent(object sender, CustomEventArgs e)
+        private async  void OnEvent(object sender, CustomEventArgs e)
         {
             if (e.Type == EventType.EditFile)
-                LoadFile();
+                await LoadFile();
             else if (e.Type == EventType.NewFile)
                 NewFile();
 
