@@ -16,8 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NuGet.Packaging" Version="6.9.1" />
-		<PackageReference Include="System.IO.Packaging" Version="8.0.0" />
+		<PackageReference Include="NuGet.Packaging" Version="6.11.1" />
 
 		<EmbeddedResource Remove="Misc\**" />
 	  <None Remove="Misc\**" />
@@ -35,9 +34,9 @@
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
+	  <Compile Include="ViewModel\MainEditViewModelEvents.cs" />
 	  <Compile Include="ViewModel\EventData.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />
-	  <Compile Include="ViewModel\MainEditViewModelEEvents.cs" />
 	  <Compile Include="ViewModel\MenuBuilder.cs" />
 	  <Compile Include="ViewModel\NewFileViewModel.cs" />
 	  <Compile Include="ViewModel\PluginsViewModel.cs" />
@@ -46,11 +45,9 @@
 	  <Compile Include="Views\Plugins.xaml.cs" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
 	  <PackageReference Include="Microsoft.Win32" Version="2.0.1" />
 	  <PackageReference Include="System.Net.Http" Version="4.3.4" />
 	  <PackageReference Include="System.Reflection" Version="4.3.0" />
-	  <PackageReference Include="WPF-UI" Version="3.0.4" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\ApiNew\CustomFileApi.csproj" />

@@ -10,7 +10,7 @@ namespace ViewModel
 {
     public partial class MainEditViewModel
     {
-        private async  void OnEvent(object? snder, CustomEventArgs e)
+        private async void OnEvent(object? snder, CustomEventArgs e)
         {
             if (e.Type == EventType.EditFile)
                 await LoadFile();
@@ -22,11 +22,11 @@ namespace ViewModel
 
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-         //   if (!lastFileLength.HasValue) return;
+            //   if (!lastFileLength.HasValue) return;
 
             var percent = e.NewValue;
             progressText.Text = $"{percent}%%";
-            
+
         }
         private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -58,7 +58,7 @@ namespace ViewModel
                         result = await LoadFile();
                     else if (plugin is FileSavePlugin)
                         SaveFile();
-                    else if (plugin is FileSaveAsPlugin  )
+                    else if (plugin is FileSaveAsPlugin)
                         SaveAsFile();
                     else if (plugin is FileNewPlugin)
                         NewFile();
