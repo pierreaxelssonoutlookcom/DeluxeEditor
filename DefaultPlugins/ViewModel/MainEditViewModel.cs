@@ -50,7 +50,8 @@ namespace ViewModel
             var file = newFileViewModel.GetNewFile();
             MyEditFiles.Add(file);
             var text=AddMyContols(file.Path);
-            WPFUtil.AddOrUpddateTab(file.Header, tabFiles,text);
+            var myTab=WPFUtil.AddOrUpddateTab(file.Header, tabFiles,text);
+            ChangeTab(myTab);
 
 
 
