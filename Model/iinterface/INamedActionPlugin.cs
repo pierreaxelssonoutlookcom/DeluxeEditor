@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Model.Interface
+﻿
+namespace Model
 {
 
     
@@ -17,10 +14,10 @@ namespace Model.Interface
         bool Enabled { get; set; }
         Version Version { get; set; }
 
-         string VersionString { get; set; }
+        const string VersionString = "";
 
 
-        string Id { get; set; }
+        Type Id { get; set; }
         string Titel { get; set; }
 
         ActionParameter?  Parameter { get; set; }

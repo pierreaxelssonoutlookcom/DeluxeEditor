@@ -2,7 +2,6 @@
 using Exensions.Util;
 using Extensions;
 using Model;
-using Model.Interface;
 using Shared;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Xml.Linq;
 
 namespace ViewModel
 {

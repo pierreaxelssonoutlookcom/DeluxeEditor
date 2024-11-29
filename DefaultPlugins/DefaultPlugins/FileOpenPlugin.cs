@@ -1,5 +1,4 @@
 ﻿using Model;
-using Model.Interface;
 using Views;
 using System;
 using System.IO.MemoryMappedFiles;
@@ -12,18 +11,17 @@ using Extensions;
 using CustomFileApiFile;
 using System.Windows;
 using System.Linq;
-using NuGet.Packaging;
 
 namespace DefaultPlugins
 {
     public class FileOpenPlugin : INamedActionPlugin
     {
+        public const string VersionString = "0.2";
 
         public bool ParameterIsSelectedText { get; set; } = false;
 
 
-        public Version Version { get; set; } = new Version();
-        public string VersionString { get; set; } = "0.2";
+        public Version Version { get; set; } = new Version(VersionString);
 
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
@@ -34,14 +32,14 @@ namespace DefaultPlugins
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "FileOpenPlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
-        
-  
+        public Type Id { get; set; } = typeof(FileOpenPlugin);
+
+
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
             string oldDir = @"c:\";
@@ -77,7 +75,6 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Open"; ;
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.O };
-            Version = Version.Parse(VersionString);
         }
         public FileOpenPlugin()
         {

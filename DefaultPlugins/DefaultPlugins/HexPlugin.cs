@@ -1,5 +1,4 @@
 ﻿using Model;
-using Model.Interface;
 using Views;
 using System;
 using System.IO.MemoryMappedFiles;
@@ -8,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Shared;
-using Extensions;
-using CustomFileApiFile;
 using System.Windows;
 using System.Linq;
 
@@ -19,11 +16,11 @@ namespace DefaultPlugins
     {
 
         public bool ParameterIsSelectedText { get; set; } = false;
+        public const string VersionString = "0.2";
 
 
-        public Version Version { get; set; } = new Version();
-        public string VersionString { get; set; } = "0.2";
-
+        public Version Version { get; set; } = new Version(VersionString);
+     
 
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
@@ -34,22 +31,17 @@ namespace DefaultPlugins
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "FileOpenPlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
 
+        public Type Id { get; set; } = typeof(HexPlugin);
 
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
-            string oldDir = @"c:\";
-
-            //if (Parameter != null) oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
-            var dialog = new DeluxeFileDialog();
-            var result = dialog.ShowFileOpenDialog(oldDir);
-            return result;
+            throw new NotImplementedException();
         }
 
 

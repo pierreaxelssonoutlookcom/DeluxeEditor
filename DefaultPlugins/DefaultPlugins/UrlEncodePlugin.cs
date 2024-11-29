@@ -1,5 +1,4 @@
-﻿using Model.Interface;
-using Model;
+﻿using Model;
 using System;
 using System.Web;
 using System.Text;
@@ -11,13 +10,14 @@ namespace DefaultPlugins
 {
     public class UrlEncodePlugin :  INamedActionPlugin
     {
+        public const string VersionString = "0.2";
+
         public bool ParameterIsSelectedText { get; set; } = true;
 
 
-        public Version Version { get; set; }= new Version();
+        public Version Version { get; set; }= new Version(VersionString);
 
 
-        public string VersionString { get; set; } = "0.2";
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
@@ -27,9 +27,9 @@ namespace DefaultPlugins
 
         public char[] MyKeyCommand { get; set; } = new char[0];
 
-        public string Id { get; set; } = "UrlEncodePlugin";
         public string Titel { get; set; } = "Url encode";
-     
+
+        public Type Id { get; set; } = typeof(UrlEncodePlugin);
 
 
         public ConfigurationOptions Configuration { get; set; }= new ConfigurationOptions();

@@ -1,5 +1,4 @@
 ﻿using Model;
-using Model.Interface;
 using Shared;
 using System;
 using System.IO;
@@ -10,20 +9,16 @@ using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using System.Windows;
 using System.Threading.Tasks;
-using CustomFileApiFile;
 
 namespace DefaultPlugins
 {
     public class FileSavePlugin : INamedActionPlugin
     {
+        public const string VersionString = "0.2";
+
         public bool ParameterIsSelectedText { get; set; } = false;
 
-
-
-
-        public string VersionString { get; set; } = "0.2";
-
-        public Version Version { get; set; } = new Version();
+        public Version Version { get; set; } = new Version(VersionString);
 
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
@@ -38,13 +33,13 @@ namespace DefaultPlugins
 
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "FileSavePlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
+        public Type Id { get; set; } = typeof(FileSavePlugin);
 
 
         public void SetConfig()
@@ -52,7 +47,6 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save";
             Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.S };
-            Version = Version.Parse(VersionString ?? "0.0");
 
         }
 
@@ -67,15 +61,7 @@ namespace DefaultPlugins
 
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
-
-            string oldDir = @"c:\";
-            if (Parameter != null)
-                oldDir = new DirectoryInfo(Parameter.Parameter).FullName;
-            var dialog = new DeluxeFileDialog();
-
-
-            var result = dialog.ShowFileSaveDialog(oldDir);
-            return result;
+            throw new NotImplementedException();
         }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
         {

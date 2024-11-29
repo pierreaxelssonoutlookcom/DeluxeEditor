@@ -1,16 +1,15 @@
-﻿using Model.Interface;
-using Model;
+﻿using Model;
 using System;
 using System.Text;
 using System.Web;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Extensions;
 
 namespace DefaultPlugins
 {
     public class UrlDecodePlugin : INamedActionPlugin
     {
+        public const string VersionString = "0.2";
 
         public bool ParameterIsSelectedText { get; set; } = true;
 
@@ -19,9 +18,7 @@ namespace DefaultPlugins
             return String.Empty;
         }
 
-
-        public Version Version { get; set; } = new Version();
-        public string VersionString { get; set; } = "0.2";
+        public Version Version { get; set; } = new Version(VersionString);
 
         public ActionParameter? Parameter { get; set; } = new ActionParameter();
 
@@ -32,8 +29,7 @@ namespace DefaultPlugins
             return null;
         }
         public bool Enabled { get; set; }
-        public char[] MyKeyCommand { get; set; } = new char[0];
-        public string Id { get; set; } = "UrlDecodePlugin";
+        public Type Id { get; set; } =typeof(UrlDecodePlugin);
         public string Titel { get; set; } =  "Url Declode";
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
 

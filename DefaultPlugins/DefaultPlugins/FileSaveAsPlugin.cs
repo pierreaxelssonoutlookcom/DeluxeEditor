@@ -1,5 +1,4 @@
 ﻿using Model;
-using Model.Interface;
 using Shared;
 using System;
 using System.IO;
@@ -8,25 +7,24 @@ using System.Text;
 using Extensions;
 using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
-using System.Windows;
 using System.Threading.Tasks;
-using System.Reflection.Metadata;
 using CustomFileApiFile;
 
 namespace DefaultPlugins
 {
     public class FileSaveAsPlugin : INamedActionPlugin
     {
+        public const string VersionString = "0.2";
+
         public bool ParameterIsSelectedText { get; set; } = false;
 
 
 
 
-        public  string VersionString { get; set; } = "0.2";
 
-        public Version Version { get; set; }= new Version();
+        public Version Version { get; set; } = new Version(VersionString);
 
- 
+
         public ActionParameter? Parameter { get; set; } = new ActionParameter(); 
 
         public Stream? InputStream { get; set; } = null;
@@ -39,13 +37,13 @@ namespace DefaultPlugins
 
         public bool AsReaOnly { get; set; }
         public Encoding? OpenEncoding { get; set; }
-        public string Id { get; set; } = "FileSavePlugin";
         public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
+        public Type Id { get; set; } = typeof(FileSaveAsPlugin);
 
 
         public void SetConfig()
@@ -53,7 +51,6 @@ namespace DefaultPlugins
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Save As";
             Configuration.KeyCommand.Keys = new List<Key> {  Key.LeftShift, Key.LeftCtrl, Key.S };
-            Version=Version.Parse(VersionString ?? "0.0" );
 
         }
 
