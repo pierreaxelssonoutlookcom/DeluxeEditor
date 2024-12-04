@@ -1,5 +1,5 @@
 ﻿using DefaultPlugins;
-using Exensions.Util;
+using Extensions.Util;
 using Extensions;
 using Model;
 using Shared;
@@ -121,7 +121,7 @@ namespace ViewModel
 
         }
 
-        public TextBox AddMyContols(string path)
+        public TextBox AddMyControls(string path)
         {
             bool isNewFle=!File.Exists(path);
             var name = isNewFle ? path :  new FileInfo(path).Name ;
@@ -134,7 +134,7 @@ namespace ViewModel
 
             progressBar.ValueChanged += ProgressBar_ValueChanged;
 
-            WPFUtil.AddOrUpddateTab(name, tabFiles, text);
+            WPFUtil.AddOrUpdateTab(name, tabFiles, text);
 
             return text;
 
@@ -157,7 +157,7 @@ namespace ViewModel
             var parameter = new ActionParameter(result.Path);
             parameter.Encoding=action.Encoding;
             result.Encoding = action.Encoding;
-            var text=AddMyContols(result.Header);
+            var text=AddMyControls(result.Header);
             var progress =          new Progress<long>(value => progressBar.Value = value);
             
 
