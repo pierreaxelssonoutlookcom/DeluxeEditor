@@ -18,9 +18,7 @@ namespace Model
 
 
         Type Id { get; set; }
-        string Titel { get; set; }
-
-        ActionParameter?  Parameter { get; set; }
+        ActionParameter  Parameter { get; set; }
 
 
         Task<string> Perform(ActionParameter parameter, IProgress<long> progresss);

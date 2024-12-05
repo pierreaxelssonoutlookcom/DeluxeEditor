@@ -6,12 +6,12 @@ namespace Model
 {
     public class PluginItem
     {
-        public Type MyType { get; set; } = typeof(PluginItem);
+        public Type PluginType { get; set; } = typeof(PluginItem);
 
-        public string Id { get; set; } = "";
-        public Version? Version { get; set; }
+        public string Id { get; set; } = String.Empty;
+        public Version FileVersion { get; set; }= new Version();
         public bool Enabled { get; set; }
-        public string DerivedSourcePath { get; set; } = "";
+        public string FilePath { get; set; } = String.Empty;
 
         public PluginItem()
         {

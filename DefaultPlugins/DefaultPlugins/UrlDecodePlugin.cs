@@ -20,7 +20,7 @@ namespace DefaultPlugins
 
         public Version Version { get; set; } = new Version(VersionString);
 
-        public ActionParameter? Parameter { get; set; } = new ActionParameter();
+        public ActionParameter Parameter { get; set; } = new ActionParameter();
 
 
 
@@ -30,7 +30,6 @@ namespace DefaultPlugins
         }
         public bool Enabled { get; set; }
         public Type Id { get; set; } =typeof(UrlDecodePlugin);
-        public string Titel { get; set; } =  "Url Declode";
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
 
         public string Path { get; set; } = "";

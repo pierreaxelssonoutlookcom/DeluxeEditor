@@ -19,7 +19,7 @@ namespace DefaultPlugins
 
 
 
-        public ActionParameter? Parameter { get; set; } = new ActionParameter();
+        public ActionParameter Parameter { get; set; } = new ActionParameter();
 
         public EncodingPath? GuiAction(INamedActionPlugin instance) { return null; }
 
@@ -27,8 +27,7 @@ namespace DefaultPlugins
 
         public char[] MyKeyCommand { get; set; } = new char[0];
 
-        public string Titel { get; set; } = "Url encode";
-
+ 
         public Type Id { get; set; } = typeof(UrlEncodePlugin);
 
 

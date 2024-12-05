@@ -24,9 +24,9 @@ namespace Shared
         {
             var files = PluginManager.LoadFiles();
             var result = new List<PluginItem>();
-            foreach (var f in files)
+            foreach (var file in files)
             {
-                var items = f.MatchingTypes.Select(p => f.LocalPath.CreatePluginItem(p)).ToList();
+                var items = file.MatchingTypes.Select(p => file.LocalPath.CreatePluginItem(file.Version ,p)).ToList();
 
                 result.AddRange(items);
             }

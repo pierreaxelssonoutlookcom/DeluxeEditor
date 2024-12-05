@@ -3,7 +3,7 @@ using System.Text;
 using DefaultPlugins;
 using Model;
 using Xunit;
-
+ 
 namespace DeluxeEdit.DefaultPlugins.Tests.IntegrationTests
 {
     public class FileOpenPluginTests

@@ -21,7 +21,7 @@ namespace DefaultPlugins
         public Version Version { get; set; } = new Version(VersionString);
 
 
-        public ActionParameter? Parameter { get; set; } = new ActionParameter();
+        public ActionParameter Parameter { get; set; } = new ActionParameter();
 
         public Stream? InputStream { get; set; } = null;
 
@@ -32,7 +32,6 @@ namespace DefaultPlugins
         private StreamWriter? writer;
 
         public bool AsReaOnly { get; set; }
-        public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
 

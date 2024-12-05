@@ -7,12 +7,13 @@ namespace Extensions
 
     public static class StringExtenssions
     {
-        public static PluginItem CreatePluginItem(this string path, Type item)
+        public static PluginItem CreatePluginItem(this string path,Version fileVersion, Type pluginType)
         {
             var result = new PluginItem();
-            result.DerivedSourcePath = path;
-            result.Id = item.ToString();
-            result.Version = item.Assembly.GetName().Version;
+            result.FilePath = path;
+            result.PluginType = pluginType;
+            result.Id = pluginType.Name;
+            result.FileVersion = fileVersion;
             return result;
         }
 

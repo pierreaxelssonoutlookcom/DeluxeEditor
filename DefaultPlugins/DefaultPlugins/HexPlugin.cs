@@ -24,19 +24,18 @@ namespace DefaultPlugins
      
 
 
-        public ActionParameter? Parameter { get; set; } = new ActionParameter();
+        public ActionParameter Parameter { get; set; } = new ActionParameter();
 
         public bool Enabled { get; set; }
 
         private MemoryMappedViewStream? MýStream = null;
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }=true;
-        public Encoding? OpenEncoding { get; set; }
-        public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
         public string Path { get; set; } = "";
+       public string Title ="A plugin where you can view file as hexadecimal format";
 
         public Type Id { get; set; } = typeof(HexPlugin);
 
@@ -113,7 +112,7 @@ namespace DefaultPlugins
                 MýStream = mmf.CreateViewStream();
 
                 
-                reader = OpenEncoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, OpenEncoding);
+                reader = Parameter.Encoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream,Parameter.Encoding);
             }
             if (MýStream == null) throw new ArgumentNullException();
 
@@ -137,7 +136,7 @@ namespace DefaultPlugins
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
                 MýStream = mmf.CreateViewStream();
-                reader = OpenEncoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, OpenEncoding);
+                reader = Parameter.Encoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, Parameter.Encoding);
             }
 
             if (MýStream == null) throw new ArgumentNullException();

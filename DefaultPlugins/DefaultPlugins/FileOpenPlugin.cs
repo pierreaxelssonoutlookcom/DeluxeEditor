@@ -24,7 +24,7 @@ namespace DefaultPlugins
         public Version Version { get; set; } = new Version(VersionString);
 
 
-        public ActionParameter? Parameter { get; set; } = new ActionParameter();
+        public ActionParameter Parameter { get; set; } = new ActionParameter();
 
         public bool Enabled { get; set; }
 
@@ -32,7 +32,6 @@ namespace DefaultPlugins
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }
     //    public Encoding? OpenEncoding { get; set; }
-        public string Titel { get; set; } = "";
         public int SortOrder { get; set; }
 
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
