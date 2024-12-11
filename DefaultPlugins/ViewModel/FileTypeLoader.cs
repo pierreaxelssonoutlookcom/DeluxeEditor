@@ -17,17 +17,32 @@ namespace ViewModel
     public class FileTypeLoader
     {
         private HighlightingManager man;
+        public static List<FileTypeItem> AllFileTypes { get; set; }= new List<FileTypeItem>();
+        public static string CurrentPath { get; set; }=String.Empty;
+
 
         public FileTypeLoader()
         {
             man = new HighlightingManager();
-         }
 
-        public List<FileTypeItem> LoadFileTypes()
+        }
+
+        public void LoadCurrent(string path)
         {
-          var names = Enum.GetNames(typeof(FileType));
+
+
+            var text = new TextEditor();
+            text.SyntaxHighlighting = man.GetDefinitionByExtension(path);
+            CurrentPath = path; 
+        }
+        public void LoadFileTypes(string path)
+        {
+            LoadCurrent(path);
+
+
+            var names = Enum.GetNames(typeof(FileType));
             
-            var result=names.Select(p => Enum.Parse<FileType>(p)).Select(p =>
+            AllFileTypes=names.Select(p => Enum.Parse<FileType>(p)).Select(p =>
             new FileTypeItem { 
                 FileExtension = WPFUtil.FileTypeToExtension(p), 
                 FileType = p, 
@@ -36,7 +51,6 @@ namespace ViewModel
 
             
 
-            return result;
         }
 
 

@@ -28,8 +28,7 @@ namespace ViewModel
 
 
         private List<INamedActionPlugin> relevantPlugins;
-        private FileTypeLoader fileTypes;
-        private List<FileTypeItem> allFileTypes;
+        private FileTypeLoader fileTypesLoader;
 
         public MainEditViewModel(TabControl tab, ProgressBar bar, TextBlock progressText, TextBlock statusText)
         {
@@ -48,8 +47,7 @@ namespace ViewModel
             relevantPlugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal())
                 .Where(p => p.Configuration.KeyCommand.Keys.Count > 0).ToList();
 
-            fileTypes = new FileTypeLoader();
-             allFileTypes= fileTypes.LoadFileTypes();
+            fileTypesLoader = new FileTypeLoader();
         }
        
 
@@ -133,8 +131,8 @@ namespace ViewModel
             var name = isNewFle ? path :  new FileInfo(path).Name ;
             var text = new TextEditor();
 
-
-
+    
+            fileTypesLoader.LoadFileTypes(path);
 
 
             text.Name = name.Replace(".", "");
@@ -168,7 +166,8 @@ namespace ViewModel
             var parameter = new ActionParameter(result.Path);
             parameter.Encoding=action.Encoding;
             result.Encoding = action.Encoding;
-            var text=AddMyControls(result.Header);
+
+            var text=AddMyControls(result.Path);
             var progress =          new Progress<long>(value => progressBar.Value = value);
             
 
