@@ -129,21 +129,20 @@ namespace ViewModel
         {
             bool isNewFle=!File.Exists(path);
             var name = isNewFle ? path :  new FileInfo(path).Name ;
-            var text = new TextEditor();
 
     
             fileTypesLoader.LoadFileTypes(path);
 
 
-            text.Name = name.Replace(".", "");
-//            text.AcceptsReturn = true;
-            text.KeyDown += Text_KeyDown;
+            fileTypesLoader.CurrentText.Name = name.Replace(".", "");
+            //            text.AcceptsReturn = true;
+            fileTypesLoader.CurrentText.KeyDown += Text_KeyDown;
 
             progressBar.ValueChanged += ProgressBar_ValueChanged;
 
-            WPFUtil.AddOrUpdateTab(name, tabFiles, text);
+            WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentText);
 
-            return text;
+            return fileTypesLoader.CurrentText;
 
         }
 

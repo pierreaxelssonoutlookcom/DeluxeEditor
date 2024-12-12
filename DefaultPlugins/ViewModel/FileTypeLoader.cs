@@ -19,7 +19,7 @@ namespace ViewModel
         private HighlightingManager man;
         public static List<FileTypeItem> AllFileTypes { get; set; }= new List<FileTypeItem>();
         public static string CurrentPath { get; set; }=String.Empty;
-
+        public TextEditor CurrentText { get; private set; }=new TextEditor();
 
         public FileTypeLoader()
         {
@@ -31,8 +31,8 @@ namespace ViewModel
         {
 
 
-            var text = new TextEditor();
-            text.SyntaxHighlighting = man.GetDefinitionByExtension(path);
+            CurrentText  = new TextEditor();
+            CurrentText.SyntaxHighlighting = man.GetDefinitionByExtension(path);
             CurrentPath = path; 
         }
         public void LoadFileTypes(string path)
