@@ -65,7 +65,10 @@ namespace DefaultPlugins
                 if (obj is T)
                     result= obj as T;
             }
-            return result;
+            if (result != null)
+                return result;
+             else 
+                throw new NullReferenceException();
 
         }
 
