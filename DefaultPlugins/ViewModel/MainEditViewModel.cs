@@ -131,8 +131,7 @@ namespace ViewModel
             var name = isNewFle ? path :  new FileInfo(path).Name ;
 
     
-            fileTypesLoader.LoadFileTypes(path);
-
+            fileTypesLoader.LoadCurrent(path);
 
             fileTypesLoader.CurrentText.Name = name.Replace(".", "");
             //            text.AcceptsReturn = true;

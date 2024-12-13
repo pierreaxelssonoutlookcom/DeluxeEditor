@@ -1,29 +1,23 @@
 ﻿using Model;
 using System.Collections.Generic;
 using System.Linq;
-using Extensions;
-using DefaultPlugins;
-using Shared;
-using System.Windows.Controls;
 using Extensions.Util;
-using System.Reflection.Metadata;
 using System;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ViewModel
 {
     public class FileTypeLoader
     {
-        private HighlightingManager man;
-        public static List<FileTypeItem> AllFileTypes { get; set; }= new List<FileTypeItem>();
+        private HighlightingManager manager;
+        public static List<FileTypeItem> AllFileTypes { get; set; }= LoadFileTypes();
         public static string CurrentPath { get; set; }=String.Empty;
         public TextEditor CurrentText { get; private set; }=new TextEditor();
 
         public FileTypeLoader()
         {
-            man = new HighlightingManager();
+            manager = new HighlightingManager();
 
         }
 
@@ -31,24 +25,23 @@ namespace ViewModel
         {
 
 
-            CurrentText  = new TextEditor();
-            CurrentText.SyntaxHighlighting = man.GetDefinitionByExtension(path);
+            CurrentText = new TextEditor();
+            CurrentText.SyntaxHighlighting = manager.GetDefinitionByExtension(path);
             CurrentPath = path; 
         }
-        public void LoadFileTypes(string path)
+        public static  List<FileTypeItem> LoadFileTypes()
         {
-            LoadCurrent(path);
-
+            var manager = new HighlightingManager();
 
             var names = Enum.GetNames(typeof(FileType));
             
-            AllFileTypes=names.Select(p => Enum.Parse<FileType>(p)).Select(p =>
+            var result=names.Select(p => Enum.Parse<FileType>(p)).Select(p =>
             new FileTypeItem { 
                 FileExtension = WPFUtil.FileTypeToExtension(p), 
                 FileType = p, 
-                Definition=man.GetDefinitionByExtension(WPFUtil.FileTypeToExtension(p)) }
+                Definition=manager.GetDefinitionByExtension(WPFUtil.FileTypeToExtension(p)) }
              ).ToList();
-
+            return result;
             
 
         }

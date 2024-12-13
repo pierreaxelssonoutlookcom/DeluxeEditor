@@ -20,13 +20,17 @@ namespace ViewModel
             var result = GetMenuHeaders(plugins);
 
             foreach (var item in result)
-                item.MenuItems.AddRange(
-                    GetMenuItemsForHeader(item.Header, plugins));
+            {
+                item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
+                item.MenuItems.AddRange(GetMenuItemsForFileTypes("View"));
+
+            }
 
 
 
             return result;
         }
+
 
         public List<CustomMenu> GetMenuHeaders(IEnumerable<INamedActionPlugin> plugins)
         {
@@ -34,6 +38,7 @@ namespace ViewModel
             var result = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent())
                 .Select(p => p.Configuration.ShowInMenu).Distinct()
             .Select(p => new CustomMenu { Header = p }).ToList();
+            result.Add( new CustomMenu { Header = "View" });
 
             return result;
         }
@@ -41,12 +46,19 @@ namespace ViewModel
         public List<CustomMenuItem> GetMenuItemsForHeader(string header, IEnumerable<INamedActionPlugin> plugins)
         {
             var withMenu = plugins.Where(p => p.Configuration.ShowInMenu.HasContent() && p.Configuration.ShowInMenuItem.HasContent()).ToList();
-            var myItemss = withMenu.Where(p => p.Configuration.ShowInMenu == header).ToList();
-            var test = myItemss.Select(p => p.Configuration.ShowInMenuItem).ToList();
-            var result = myItemss
+            var myItems = withMenu.Where(p => p.Configuration.ShowInMenu == header).ToList();
+            var test = myItems.Select(p => p.Configuration.ShowInMenuItem).ToList();
+            var result = myItems
                 .Select(p => new CustomMenuItem { Title = $"{p.Configuration.ShowInMenuItem} ({p.Configuration.KeyCommand})", Plugin = p })
                 .ToList();
 
+            return result;
+        }
+        public List<CustomMenuItem> GetMenuItemsForFileTypes(string header)
+        {
+
+            var result = FileTypeLoader.AllFileTypes.Select(p => 
+           new CustomMenuItem { Title = $"{p.FileType.ToString()} ({p.FileExtension})" } ).ToList(); 
             return result;
         }
 
@@ -85,7 +97,7 @@ namespace ViewModel
 
 
 
-
+            
 
 
         }
