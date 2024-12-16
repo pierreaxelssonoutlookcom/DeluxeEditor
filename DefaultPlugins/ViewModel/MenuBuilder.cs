@@ -58,7 +58,7 @@ namespace ViewModel
         {
 
             var result = FileTypeLoader.AllFileTypes.Select(p => 
-           new CustomMenuItem { Title = $"{p.FileType.ToString()} ({p.FileExtension})" } ).ToList(); 
+           new CustomMenuItem { Title = $"As {p.FileType.ToString()} ({p.FileExtension})" } ).ToList(); 
             return result;
         }
 

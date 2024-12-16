@@ -1,16 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
-	</PropertyGroup>
-
-	<ItemGroup>
-    <PackageReference Include="NuGet.Packaging" Version="6.11.1" />
-  </ItemGroup>
+  <PropertyGroup>
+	  <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Exensions\Exensions.csproj" />

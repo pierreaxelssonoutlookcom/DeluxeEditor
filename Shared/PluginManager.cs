@@ -8,7 +8,8 @@ namespace Shared
 {
     public class PluginManager
     {
-        private static string pluginPath { get; set; } = "C:\\gitroot\\personal\\DeluxeEdit\\DeluxeEdit\\bin\\Debug\\net8.0-windows\\*Plugins**.dll";
+        private static string pluginPath { get; set; } =
+            @"C:\gitroot\personal\DeluxeEdit\DeluxeEdit\bin\Debug\net9.0-windows10.0.26100.0\*Plugins**.dll";
         public static List<INamedActionPlugin> Instances = new List<INamedActionPlugin>();
         public static List<PluginFile> SourceFiles = new List<PluginFile>();
 
