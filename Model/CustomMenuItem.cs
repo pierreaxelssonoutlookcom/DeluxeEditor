@@ -3,6 +3,8 @@
 
     public class CustomMenuItem
     {
+        public Func<Task<object>, object>? MenuActon { get; set; }
+
         public INamedActionPlugin? Plugin { get; set; }= null;
         public Type? MyType { get; set; }
 

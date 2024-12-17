@@ -24,6 +24,7 @@ namespace ViewModel
         private INamedActionPlugin saveAsPlugin;
         private INamedActionPlugin savePlugin;
         private HexPlugin hexPlugin;
+        private EventData viewData;
         private static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
 
 
@@ -41,7 +42,7 @@ namespace ViewModel
             saveAsPlugin = AllPlugins.InvokePlugin<FileSaveAsPlugin>(PluginType.FileSaveAs);
             savePlugin = AllPlugins.InvokePlugin<FileSavePlugin>(PluginType.FileSave);
             hexPlugin  = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
-            var viewData = new EventData();
+            viewData = new EventData();
 
             viewData.Subscibe(OnEvent);
             relevantPlugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal())
@@ -51,7 +52,7 @@ namespace ViewModel
         }
        
 
-        public void NewFile()
+        public MyEditFile NewFile()
         {
             var file = newFileViewModel.GetNewFile();
             MyEditFiles.Add(file);
@@ -61,8 +62,7 @@ namespace ViewModel
 
 
 
-          if (file!=null && file.Text!=null) file.Text.Text = file.Content;
-
+               return file;
 
 
         }
@@ -70,7 +70,6 @@ namespace ViewModel
         {
             string result = "";
             var header=item!=null && item.Header!=null ? item.Header.ToString() : String.Empty;
-            var publisher = new EventData();
             var progress = new Progress<long>(value => progressBar.Value = value);
 
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems)
@@ -80,13 +79,11 @@ namespace ViewModel
             else if (myMenuItem.Plugin is FileOpenPlugin)
             {
                 var data = await LoadFile();
-                if (data != null)
-                publisher.PublishEditFile(data);
             }
             else if (myMenuItem.Plugin is FileSavePlugin)
-                SaveFile();
+                await SaveFile();
             else if (myMenuItem.Plugin is FileSaveAsPlugin)
-                SaveAsFile();
+                await SaveAsFile();
             else if (myMenuItem.Plugin is HexPlugin)
                 HexView();
             else if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
@@ -99,7 +96,7 @@ namespace ViewModel
 
 
         }
-        public async void HexView()
+        public async Task<MyEditFile>  HexView()
         {
             if (MyEditFiles.Current == null || MyEditFiles.Current.Text == null) throw new NullReferenceException();
  
@@ -112,9 +109,10 @@ namespace ViewModel
 
             //            lastFileLength = openPlugin.GetFileLeLength(parameter);
             var hexOutput = await hexPlugin.Perform(parameter, progress);
-//            text.IsReadOnly = true;
+            //            text.IsReadOnly = true;
 
-  //          text.AppendText(hexOutput.ToString());
+            //          text.AppendText(hexOutput.ToString());
+            return MyEditFiles.Current;
         }
 
         public void ScrollTo(double newValue)
@@ -171,6 +169,8 @@ namespace ViewModel
 
 //            lastFileLength = openPlugin.GetFileLeLength(parameter);
             result.Content = await openPlugin.Perform(parameter, progress);
+            
+            viewData.PublishEditFile(result);
 
             text.AppendText(result.Content);
             MyEditFiles.Add(result);
@@ -186,19 +186,21 @@ namespace ViewModel
             MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header == header                       );
 
         }
-        public async void SaveFile()
+        public async Task<MyEditFile?> SaveFile()
         {
             if (MyEditFiles.Current == null || MyEditFiles.Current.Text == null) throw new NullReferenceException();
-            
-            var progress = new Progress<long>(value => progressBar.Value = value);
+
+                    var progress = new Progress<long>(value => progressBar.Value = value);
             bool fileExist = File.Exists(MyEditFiles.Current.Path);
             if (fileExist)
                 await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), progress);
             else
-                 SaveAsFile();
+                   await SaveAsFile();
+
+            return null;
 
         }
-        public async void SaveAsFile()
+        public async Task<MyEditFile?> SaveAsFile()
         {
 
             if (MyEditFiles.Current == null || MyEditFiles.Current.Text==null) throw new NullReferenceException();
@@ -211,9 +213,9 @@ namespace ViewModel
             if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
 
             await saveAsPlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), progress);
-
-
-        } 
+            return null;
+   
+        }
     }
 }
 
