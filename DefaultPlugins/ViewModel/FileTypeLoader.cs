@@ -18,8 +18,15 @@ namespace ViewModel
         public FileTypeLoader()
         {
             manager = new HighlightingManager();
-
         }
+        public static FileTypeItem? ParseFileItem(string menuTitle)
+        {
+            var result = FileTypeLoader.AllFileTypes.FirstOrDefault(p => p.ToString() == menuTitle && menuTitle.StartsWith("As "));
+            return result;
+        }
+
+
+
 
         public void LoadCurrent(string path)
         {
@@ -29,6 +36,7 @@ namespace ViewModel
             CurrentText.SyntaxHighlighting = manager.GetDefinitionByExtension(path);
             CurrentPath = path; 
         }
+         
         public static  List<FileTypeItem> LoadFileTypes()
         {
             var manager = new HighlightingManager();

@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Linq;
 using ViewModel;
 
 namespace DefaultPlugins.ViewModel
@@ -11,7 +12,9 @@ namespace DefaultPlugins.ViewModel
             {
                 this.model=model;
             }
-            public void SetMenuAction(CustomMenuItem item)
+
+
+        public void SetMenuAction(CustomMenuItem item)
             {
                 if (item !=null && model!=null && item.Plugin is FileNewPlugin)
                     item.MenuActon = () => model.NewFile();

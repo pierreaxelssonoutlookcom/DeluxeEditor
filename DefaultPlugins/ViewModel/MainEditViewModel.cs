@@ -66,24 +66,27 @@ namespace ViewModel
 
 
         }
-        public void CheckForViewAs()
-        { 
-
+        public FileTypeItem? ExecuteViewAs(string menuTitle)
+        {
+            var result = FileTypeLoader.ParseFileItem(menuTitle);
+            return result;
         }
+
         public async Task<string> DoCommand(MenuItem item, string SelectedText)
         {
             string result = "";
             var header=item!=null && item.Header!=null ? item.Header.ToString() : String.Empty;
             var progress = new Progress<long>(value => progressBar.Value = value);
-
+            
             var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems)
                 .Single(p => p != null && p.Title!=null && p.Title ==header);
-
+            //CheckForViewAs(myMenuItem.Title)
             var actions = new SetupMenuActions(this);
             actions.SetMenuAction(myMenuItem);
             if (myMenuItem.MenuActon != null)
                 await myMenuItem.MenuActon.Invoke();
-
+            else
+                ExecuteViewAs(myMenuItem.Title);
 
             if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
                 result = await myMenuItem.Plugin.Perform(new ActionParameter(SelectedText), progress);
@@ -102,11 +105,14 @@ namespace ViewModel
  
             statusText.Text = $"Hex View:{MyEditFiles.Current.Path}";
             
-            var text = AddMyControl(MyEditFiles.Current.Header);
             var progress = new Progress<long>(value => progressBar.Value = value);
             var parameter = new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Encoding);
             var hexOutput = await hexPlugin.Perform(parameter, progress);
+
+            result.Path = hexOutput;
             result.Content = hexOutput;
+            AddMyControl(result.Path);
+
             return result ;
         }
 

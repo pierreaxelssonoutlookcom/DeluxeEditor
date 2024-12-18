@@ -54,11 +54,11 @@ namespace ViewModel
 
             return result;
         }
-        public List<CustomMenuItem> GetMenuItemsForFileTypes(string header)
+       public List<CustomMenuItem> GetMenuItemsForFileTypes(string header)
         {
 
             var result = FileTypeLoader.AllFileTypes.Select(p => 
-           new CustomMenuItem { Title = $"As {p.FileType.ToString()} ({p.FileExtension})" } ).ToList(); 
+           new CustomMenuItem { Title = p.ToString()} ).ToList(); 
             return result;
         }
 
