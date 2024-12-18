@@ -86,14 +86,15 @@ namespace ViewModel
             if (myMenuItem.MenuActon != null)
                 await myMenuItem.MenuActon.Invoke();
             else
-                ExecuteViewAs(myMenuItem.Title);
+            {
+                var viewasResult= ExecuteViewAs(myMenuItem.Title);
 
-            if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
-                result = await myMenuItem.Plugin.Perform(new ActionParameter(SelectedText), progress);
-            else if (myMenuItem!=null && myMenuItem.Plugin!=null && myMenuItem.Plugin.Parameter != null)
-                result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, progress);
+                if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
+                    result = await myMenuItem.Plugin.Perform(new ActionParameter(SelectedText), progress);
+                else if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.Parameter != null)
+                    result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, progress);
 
-
+            }
             return result;
 
 
@@ -159,21 +160,18 @@ namespace ViewModel
             result = new MyEditFile();
 
             result.Path = action.Path;
-            result.Header = new FileInfo(result.Path).Name;
-            var parameter = new ActionParameter(result.Path);
-            parameter.Encoding=action.Encoding;
-            result.Encoding = action.Encoding;
-
-            var text=AddMyControl(result.Path);
+            var parameter = new ActionParameter(action.Path, action.Encoding);
+  
+            var text=AddMyControl(action.Path);
             var progress =          new Progress<long>(value => progressBar.Value = value);
             
 
 //            lastFileLength = openPlugin.GetFileLeLength(parameter);
             result.Content = await openPlugin.Perform(parameter, progress);
             
-            viewData.PublishEditFile(result);
+//            viewData.PublishEditFile(result);
 
-            text.AppendText(result.Content);
+            text.Text =result.Content;
             MyEditFiles.Add(result);
 
             return result;

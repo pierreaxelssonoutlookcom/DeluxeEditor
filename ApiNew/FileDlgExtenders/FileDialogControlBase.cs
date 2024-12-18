@@ -39,7 +39,7 @@ namespace CustomFileApiFile
         public string SelectButtonText = "OK";
 
         public string? WantedEncoding {
-            get { return cmbEncoding.SelectedText; }
+            get { return cmbEncoding.SelectedItem!=null ? cmbEncoding.SelectedText: null; }
         }
 
         #region Delegates

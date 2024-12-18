@@ -89,7 +89,6 @@ namespace DefaultPlugins
 
         public async Task<string> Perform(ActionParameter parameter, IProgress<long> progress)
         { 
-            if (parameter == null) throw new ArgumentNullException();
             Parameter= parameter;
 
             var lines = await ReadAllPortion(progress);         
@@ -100,6 +99,7 @@ namespace DefaultPlugins
         public async Task<List<string>> ReadAllPortion(IProgress<long> progress ) 
         {
             if (Parameter == null) throw new ArgumentNullException();
+            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
 
             var total = new List<string>();
 
