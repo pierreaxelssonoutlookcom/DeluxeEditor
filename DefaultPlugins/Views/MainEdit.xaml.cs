@@ -24,10 +24,10 @@ namespace Views
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            var menu = editViewModel.GetMenu();
+            
             var builder = new MenuBuilder();
 
-            builder.ShowMenu(this.MainMenu, menu);
+            builder.ShowMenu(this.MainMenu, MenuBuilder.MainMenu);
 
             foreach (MenuItem item in MainMenu.Items)
                 item.Click += MenuItem_Click;

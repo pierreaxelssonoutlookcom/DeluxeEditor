@@ -1,7 +1,9 @@
-﻿namespace Model
+﻿using System.Windows.Controls;
+
+namespace Model
 {
 
-    public class CustomMenuItem
+    public class CustomMenuItem: MenuItem
     {
         public Func<Task<MyEditFile?>>? MenuActon { get; set; }
 

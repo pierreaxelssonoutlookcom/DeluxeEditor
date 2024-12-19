@@ -27,8 +27,7 @@ namespace ViewModel
         private INamedActionPlugin savePlugin;
         private HexPlugin hexPlugin;
         private EventData viewData;
-        private static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
-
+      
 
         private List<INamedActionPlugin> relevantPlugins;
         private FileTypeLoader fileTypesLoader;
@@ -54,10 +53,6 @@ namespace ViewModel
             fileTypesLoader = new FileTypeLoader();
         }
 
-        public List<CustomMenu> GetMenu()
-        {
-            return MainMenu;
-        }
         public async Task<MyEditFile?> NewFile()
         {
             var file = newFileViewModel.GetNewFile();
@@ -83,7 +78,7 @@ namespace ViewModel
             var header=item!=null && item.Header!=null ? item.Header.ToString() : String.Empty;
             var progress = new Progress<long>(value => progressBar.Value = value);
             
-            var myMenuItem = MainEditViewModel.MainMenu.SelectMany(p => p.MenuItems)
+            var myMenuItem = MenuBuilder.MainMenu.SelectMany(p => p.MenuItems)
                 .Single(p => p != null && p.Title!=null && p.Title ==header);
             //CheckForViewAs(myMenuItem.Title)
             var actions = new SetupMenuActions(this);

@@ -14,6 +14,7 @@ namespace ViewModel
     public class MenuBuilder
     {
 
+        public static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
         public List<CustomMenu> BuildMenu()
         {
             var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
@@ -22,7 +23,7 @@ namespace ViewModel
             foreach (var item in result)
             {
                 item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
-                item.MenuItems.AddRange(GetMenuItemsForFileTypes("View"));
+                if (item.Header== "View") item.MenuItems.AddRange(GetMenuItemsForFileTypes());
 
             }
 
@@ -54,7 +55,7 @@ namespace ViewModel
 
             return result;
         }
-       public List<CustomMenuItem> GetMenuItemsForFileTypes(string header)
+       public List<CustomMenuItem> GetMenuItemsForFileTypes()
         {
 
             var result = FileTypeLoader.AllFileTypes.Select(p => 
