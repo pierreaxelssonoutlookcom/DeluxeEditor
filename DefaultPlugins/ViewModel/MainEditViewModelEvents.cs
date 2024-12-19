@@ -16,7 +16,7 @@ namespace ViewModel
             if (e.Type == EventType.EditFile)
                 await LoadFile();
             else if (e.Type == EventType.NewFile)
-                NewFile();
+                await NewFile();
 
 
         }
@@ -29,6 +29,12 @@ namespace ViewModel
             progressText.Text = $"{percent}%%";
 
         }
+        private void TabFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var casted = tabFiles.SelectedItem != null && tabFiles.SelectedItem is TabItem ? tabFiles.SelectedItem as TabItem : null;
+            if (casted != null) ChangeTab(casted);
+        }
+
         private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var keyeddata = KeyDown();
@@ -58,13 +64,13 @@ namespace ViewModel
                     if (plugin is FileOpenPlugin)
                         result = await LoadFile();
                     else if (plugin is FileSavePlugin)
-                        SaveFile();
+                        await SaveFile();
                     else if (plugin is FileSaveAsPlugin)
-                        SaveAsFile();
+                       await SaveAsFile();
                     else if (plugin is FileNewPlugin)
-                        NewFile();
+                        await NewFile();
                     else if (plugin is HexPlugin)
-                        HexView();
+                        await HexView();
 
 
                 }

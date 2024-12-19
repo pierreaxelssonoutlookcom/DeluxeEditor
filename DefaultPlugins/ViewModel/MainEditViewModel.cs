@@ -13,6 +13,7 @@ using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
 using DefaultPlugins.ViewModel;
+using System.Formats.Tar;
 namespace ViewModel
 {
     public partial class MainEditViewModel
@@ -36,6 +37,7 @@ namespace ViewModel
         {
             this.progressBar = bar;
             tabFiles = tab;
+            tabFiles.SelectionChanged += TabFiles_SelectionChanged;
             this.progressText = progressText;
             this.statusText = statusText;
             newFileViewModel = new NewFileViewModel(tab);
@@ -51,8 +53,11 @@ namespace ViewModel
 
             fileTypesLoader = new FileTypeLoader();
         }
-       
 
+        public List<CustomMenu> GetMenu()
+        {
+            return MainMenu;
+        }
         public async Task<MyEditFile?> NewFile()
         {
             var file = newFileViewModel.GetNewFile();
@@ -72,7 +77,7 @@ namespace ViewModel
             return result;
         }
 
-        public async Task<string> DoCommand(MenuItem item, string SelectedText)
+        public async Task<string> DoCommand(MenuItem item)
         {
             string result = "";
             var header=item!=null && item.Header!=null ? item.Header.ToString() : String.Empty;
@@ -87,10 +92,12 @@ namespace ViewModel
                 await myMenuItem.MenuActon.Invoke();
             else
             {
-                var viewasResult= ExecuteViewAs(myMenuItem.Title);
+                string selectedText  =      fileTypesLoader.CurrentText!=null? fileTypesLoader.CurrentText.SelectedText: String.Empty;
 
-                if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && SelectedText.HasContent())
-                    result = await myMenuItem.Plugin.Perform(new ActionParameter(SelectedText), progress);
+                var viewasResult = ExecuteViewAs(myMenuItem.Title);
+
+                if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && selectedText.HasContent())
+                    result = await myMenuItem.Plugin.Perform(new ActionParameter(selectedText), progress);
                 else if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.Parameter != null)
                     result = await myMenuItem.Plugin.Perform(myMenuItem.Plugin.Parameter, progress);
 
@@ -132,11 +139,12 @@ namespace ViewModel
 
     
             fileTypesLoader.LoadCurrent(path);
-
+           
             fileTypesLoader.CurrentText.Name = name.Replace(".", "");
-            //            text.AcceptsReturn = true;
+            //fileTypesLoader.CurrentText.re = true;
             fileTypesLoader.CurrentText.KeyDown += Text_KeyDown;
-
+            fileTypesLoader.CurrentText.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+            fileTypesLoader.CurrentText.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             progressBar.ValueChanged += ProgressBar_ValueChanged;
 
             WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentText);
