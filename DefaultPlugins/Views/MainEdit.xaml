@@ -29,14 +29,13 @@
 
 
         </StatusBar>
-        <TabControl Name="TabFiles"   MinHeight="500" MinWidth="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
+        <TabControl Name="TabFiles"   MinHeight="500" MinWidth="500" Width="100">
             </TabControl>
 
 
 
 
         <ProgressBar x:Name="Progress" Height="1" Width="100"  />
-            <WebBrowser x:Name="Web" Width="100"/>
+           
     </DockPanel>
 </UserControl>

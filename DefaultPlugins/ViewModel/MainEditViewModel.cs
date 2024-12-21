@@ -14,6 +14,8 @@ using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
 using DefaultPlugins.ViewModel;
 using System.Formats.Tar;
+using System.Windows;
+using System.Windows.Threading;
 namespace ViewModel
 {
     public partial class MainEditViewModel
@@ -57,7 +59,7 @@ namespace ViewModel
         {
             var file = newFileViewModel.GetNewFile();
             MyEditFiles.Add(file);
-            var text=AddMyControl(file.Path);
+            var text=AddMyControls(file.Path);
             var myTab=WPFUtil.AddOrUpdateTab(file.Header, tabFiles,text);
             if (myTab!=null) ChangeTab(myTab);
 
@@ -114,7 +116,7 @@ namespace ViewModel
 
             result.Path = hexOutput;
             result.Content = hexOutput;
-            AddMyControl(result.Path);
+            AddMyControls(result.Path);
 
             return result ;
         }
@@ -127,22 +129,24 @@ namespace ViewModel
 
         }
 
-        public TextEditor AddMyControl(string path)
+        public TextEditor AddMyControls(string path)
         {
             bool isNewFle=!File.Exists(path);
             var name = isNewFle ? path :  new FileInfo(path).Name ;
 
     
             fileTypesLoader.LoadCurrent(path);
-           
+
+
             fileTypesLoader.CurrentText.Name = name.Replace(".", "");
-            //fileTypesLoader.CurrentText.re = true;
+            fileTypesLoader.CurrentText.Visibility = Visibility.Visible;
             fileTypesLoader.CurrentText.KeyDown += Text_KeyDown;
             fileTypesLoader.CurrentText.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
             fileTypesLoader.CurrentText.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             progressBar.ValueChanged += ProgressBar_ValueChanged;
 
-            WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentText);
+            var tab=WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentText);
+            ChangeTab(tab);
 
             return fileTypesLoader.CurrentText;
 
@@ -167,15 +171,19 @@ namespace ViewModel
             result.Path = action.Path;
             result.Content = await openPlugin.Perform(parameter, progress);
 
-            var text = AddMyControl(action.Path);
-
+            var text = AddMyControls(action.Path);
+            text.Text = result.Content;
+            
             //            viewData.PublishEditFile(result);
 
-            text.AppendText(result.Content);
-            MyEditFiles.Add(result);
+            WPFUtil.RefreshUI(tabFiles);
 
+            // Application.DoEvents();
+            MyEditFiles.Add(result);
+            
             return result;
         }
+
 
         public void ChangeTab(TabItem item)
         {

@@ -45,7 +45,7 @@ namespace ViewModel
             {
                 var mapped = WPFUtil.MapExtensionToMain(path);
                 if (mapped != null)
-                    suggestededDefinition=manager.GetDefinitionByExtension(mapped);
+                    suggestededDefinition=manager.GetDefinitionByExtension("dummy"+mapped);
 
             }
             

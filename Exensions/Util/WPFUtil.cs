@@ -1,25 +1,22 @@
 ﻿using Model;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Extensions.Util
 {
 
     public  static class WPFUtil
     {
-        public const nint Minus1 = -1;
-        public static FileType? MapExtensionToFileType(string path)
+
+        private static Action EmptyDelegate = delegate () { };
+        
+
+        public static void RefreshUI(UIElement uiElement)
         {
-            FileType? result = null;
-            var file = new FileInfo(path);
-            var extensionsToTestForXml = new List<string> { ".config", ".csproj", ".xml" };
-
-            var success = extensionsToTestForXml.Any(p => file.Extension.EndsWith(p, StringComparison.OrdinalIgnoreCase));
-            if (success) result = FileType.XML;
-
-            return result;
+            uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
-
         public static string? MapExtensionToMain(string path)
         {
             string? result = null;
@@ -95,8 +92,19 @@ namespace Extensions.Util
             if (item != null)
             {
                 item.Header = header;
+
                 item.Content = contentControl;
+             //   item.MinHeight = 500;
+
+            //    item.MinWidth = 500;
+                item.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+            item.VerticalContentAlignment = System.Windows.VerticalAlignment.Stretch;
+
+            item.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Stretch;
+            item.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+
             }
+
             return item;
         }
 
@@ -126,7 +134,7 @@ namespace Extensions.Util
                     [i] is TabItem)
                 {
                     var t = collection[i] as TabItem;
-                      if (t != null) header = t.Header.ToString();
+                      if (t != null && t.Header!=null) header = t.Header.ToString();
 
 
                 }
