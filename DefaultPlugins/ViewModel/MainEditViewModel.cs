@@ -137,7 +137,7 @@ namespace ViewModel
     
             fileTypesLoader.LoadCurrent(path);
 
-
+            fileTypesLoader.CurrentText.Focus() ;
             fileTypesLoader.CurrentText.Name = name.Replace(".", "");
             fileTypesLoader.CurrentText.Visibility = Visibility.Visible;
             fileTypesLoader.CurrentText.KeyDown += Text_KeyDown;
@@ -146,7 +146,7 @@ namespace ViewModel
             progressBar.ValueChanged += ProgressBar_ValueChanged;
 
             var tab=WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentText);
-            ChangeTab(tab);
+            if(tab!=null) ChangeTab(tab);
 
             return fileTypesLoader.CurrentText;
 
@@ -165,7 +165,7 @@ namespace ViewModel
             statusText.Text = $" File: {action.Path}";
             var parameter = new ActionParameter(action.Path, action.Encoding);
   
-            var progress =          new Progress<long>(value => progressBar.Value = value);
+             var progress =          new Progress<long>(value => progressBar.Value = value);
 
             var result = new MyEditFile();
             result.Path = action.Path;
@@ -176,7 +176,7 @@ namespace ViewModel
             
             //            viewData.PublishEditFile(result);
 
-            WPFUtil.RefreshUI(tabFiles);
+          //  WPFUtil.RefreshUI(tabFiles);
 
             // Application.DoEvents();
             MyEditFiles.Add(result);
@@ -188,6 +188,7 @@ namespace ViewModel
         public void ChangeTab(TabItem item)
         {
             if (item == null) throw new NullReferenceException();
+            tabFiles.SelectedItem=item;
             var header = item != null && item.Header != null ? item.Header.ToString() : String.Empty;
 
             MyEditFiles.Current = MyEditFiles.Files.FirstOrDefault(p => p.Header == header                       );
