@@ -6,17 +6,8 @@
             
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded"
               mc:Ignorable="d" >
-      <DockPanel>
-        <Menu Name="MainMenu" DockPanel.Dock="Top">
-
-            <MenuItem Header="Plugins">
-                <MenuItem Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    />
-
-            </MenuItem>
-
-
-        </Menu>
-        <StatusBar VerticalAlignment="Bottom">
+    <DockPanel>
+        <StatusBar VerticalAlignment="Bottom"  DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <TextBlock Name="StatusText"> Status::</TextBlock>
             </StatusBarItem>
@@ -29,13 +20,27 @@
 
 
         </StatusBar>
-        <TabControl Name="TabFiles"   MinHeight="500" MinWidth="500" Width="100">
+
+        <ListBox VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Menu Name="MainMenu">
+
+            <MenuItem Header="Plugins">
+                <MenuItem Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    />
+
+            </MenuItem>
+
+
+        </Menu>
+.       <TabControl Name="TabFiles"   MinHeight="500" MinWidth="500" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <TabItem Header="CCCCCCCC" />
             </TabControl>
 
 
 
+        <ProgressBar x:Name="Progress" Height="1" Width="100"   />
 
-        <ProgressBar x:Name="Progress" Height="1" Width="100"  />
-           
+
+    </ListBox>
     </DockPanel>
+
 </UserControl>
