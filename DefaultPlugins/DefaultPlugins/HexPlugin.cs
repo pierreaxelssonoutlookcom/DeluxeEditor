@@ -28,7 +28,7 @@ namespace DefaultPlugins
 
         public bool Enabled { get; set; }
 
-        private MemoryMappedViewStream? MýStream = null;
+        private MemoryMappedViewStream? myStream = null;
         private StreamReader? reader;
         public bool AsReaOnly { get; set; }=true;
         public int SortOrder { get; set; }
@@ -112,12 +112,12 @@ namespace DefaultPlugins
                 if (reader == null)
                 {
                     using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                    MýStream = mmf.CreateViewStream();
+                    myStream = mmf.CreateViewStream();
 
 
-                    reader = Parameter.Encoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, Parameter.Encoding);
+                    reader = Parameter.Encoding == null ? reader = new StreamReader(myStream, true) : new StreamReader(myStream, Parameter.Encoding);
                 }
-                if (MýStream == null) throw new ArgumentNullException();
+                if (myStream == null) throw new ArgumentNullException();
 
                 long fileSize = new FileInfo(Parameter.Parameter).Length;
                 for (int i = 0; i <= fileSize / SystemConstants.ReadBufferSizeBytes; i++)
@@ -129,12 +129,19 @@ namespace DefaultPlugins
                 }
             }
             finally
-            {
-                if (reader != null) reader.Close();
-                if (MýStream != null) MýStream.Close();
+            { 
+                if (reader != null)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                if (myStream != null)
+                {
+                    myStream.Close();
+                    myStream = null;
+                }
             }
 
-            
             return total;
         }
         public async Task<List<string>?> ReadPortion(IProgress<long> progress)
@@ -146,14 +153,14 @@ namespace DefaultPlugins
             if (reader == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                MýStream = mmf.CreateViewStream();
-                reader = Parameter.Encoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, Parameter.Encoding);
+                myStream = mmf.CreateViewStream();
+                reader = Parameter.Encoding == null ? reader = new StreamReader(myStream, true) : new StreamReader(myStream, Parameter.Encoding);
             }
 
-            if (MýStream == null) throw new ArgumentNullException();
+            if (myStream == null) throw new ArgumentNullException();
 
             var oldBuffer = new byte[SystemConstants.ReadBufferSizeBytes];
-            var readCount = await MýStream.ReadAsync(oldBuffer);
+            var readCount = await myStream.ReadAsync(oldBuffer);
             var buffer = oldBuffer.Take(readCount).ToArray();
 
             var result = new List<string>();
@@ -171,7 +178,7 @@ namespace DefaultPlugins
             result.Add(myOutput);
             //todo:how do I share file data between different plugins
             if (progress != null)
-                progress.Report(MýStream.Position);
+                progress.Report(myStream.Position);
 
 
             return result;

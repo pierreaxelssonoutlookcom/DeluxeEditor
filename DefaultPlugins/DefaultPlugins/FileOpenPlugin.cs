@@ -28,8 +28,8 @@ namespace DefaultPlugins
 
         public bool Enabled { get; set; }
 
-        private MemoryMappedViewStream? MýStream = null;
-        private StreamReader? reader;
+        private MemoryMappedViewStream? myStream = null;
+        private StreamReader? reader=null;
         public bool AsReaOnly { get; set; }
     //    public Encoding? OpenEncoding { get; set; }
         public int SortOrder { get; set; }
@@ -101,25 +101,40 @@ namespace DefaultPlugins
  
             var total = new List<string>();
             try
-            { 
-                           if (Parameter == null) throw new ArgumentNullException();
-            if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
-
-
-
-            long fileSize = new FileInfo(Parameter.Parameter).Length;
-            for (int i = 0; i <= fileSize / SystemConstants.ReadBufferSizeBytes; i++)
             {
-                var result = await ReadPortion(progress);
-                if (result != null)
-                    total.AddRange(result);
+                if (Parameter == null) throw new ArgumentNullException();
+                if (!File.Exists(Parameter.Parameter)) throw new FileNotFoundException(Parameter.Parameter);
 
-            }
+                if (reader == null)
+                {
+                    using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
+                    myStream = mmf.CreateViewStream();
+                    reader = Parameter.Encoding == null ? reader = new StreamReader(myStream, true) : new StreamReader(myStream, Parameter.Encoding);
+                }
+
+
+                long fileSize = new FileInfo(Parameter.Parameter).Length;
+
+                for (int i = 0; i <= fileSize / SystemConstants.ReadBufferSizeBytes; i++)
+                {
+                    var result = await ReadPortion(progress);
+                    if (result != null)
+                        total.AddRange(result);
+
+                }
             }
             finally
             {
-                if (reader != null) reader.Close();
-                if (MýStream != null) MýStream.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                    reader = null;
+                }
+                if (myStream != null)
+                {
+                    myStream.Close();
+                    myStream= null;
+                 }  
             }
 
 
@@ -134,11 +149,11 @@ namespace DefaultPlugins
             if (reader == null)
             {
                 using var mmf = MemoryMappedFile.CreateFromFile(Parameter.Parameter);
-                MýStream = mmf.CreateViewStream();
-                reader = Parameter.Encoding == null ? reader = new StreamReader(MýStream, true) : new StreamReader(MýStream, Parameter.Encoding);
+                myStream = mmf.CreateViewStream();
+                reader = Parameter.Encoding == null ? reader = new StreamReader(myStream, true) : new StreamReader(myStream, Parameter.Encoding);
             }
 
-            if (MýStream == null) throw new ArgumentNullException();
+            if (myStream == null) throw new ArgumentNullException();
 
 
 
@@ -159,7 +174,7 @@ namespace DefaultPlugins
             //     var result =  await reader.ReadLinesMax(SystemConstants.ReadBufferSizeLines);
 
             if (progress != null )
-                progress.Report(MýStream.Position);
+                progress.Report(myStream.Position);
 
 
             return result;

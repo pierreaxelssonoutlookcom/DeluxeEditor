@@ -105,8 +105,16 @@ namespace DefaultPlugins
             }
             finally
             {
-                if (writer != null) writer.Close();
-                if (InputStream != null) InputStream.Close();
+                if (writer != null)
+                {
+                    writer.Close();
+                    writer = null;
+                }
+                if (InputStream != null)
+                {
+                    InputStream.Close();
+                    InputStream = null;
+                }
             }
 
 
