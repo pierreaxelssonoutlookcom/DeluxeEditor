@@ -17,6 +17,8 @@ using System.Formats.Tar;
 using System.Windows;
 using System.Windows.Threading;
 using ICSharpCode.AvalonEdit.Document;
+using System.Xml.Linq;
+using System.Windows.Shapes;
 
 namespace ViewModel
 {
@@ -69,6 +71,7 @@ namespace ViewModel
             return file;
 
 
+
         }
         public FileTypeItem? ExecuteViewAs(string menuTitle)
         {
@@ -91,7 +94,7 @@ namespace ViewModel
                 await myMenuItem.MenuActon.Invoke();
             else
             {
-                string selectedText  =      fileTypesLoader.CurrentText!=null? fileTypesLoader.CurrentText.SelectedText: String.Empty;
+                string selectedText = fileTypesLoader.CurrentText != null ? fileTypesLoader.CurrentText.SelectedText : String.Empty;
 
                 var viewasResult = ExecuteViewAs(myMenuItem.Title);
 
@@ -118,9 +121,9 @@ namespace ViewModel
 
             result.Path = MyEditFiles.Current.Path;
             result.Content = hexOutput;
-            var text=     AddMyControls(result.Path);
-            text.Text = hexOutput;   
-
+            var text=     AddMyControls(result.Path, "hex:");
+            text.Text = hexOutput;
+            
 
             return result ;
         }
@@ -133,7 +136,7 @@ namespace ViewModel
 
         }
 
-        public TextEditor AddMyControls(string path)
+        public TextEditor AddMyControls(string path, string? overrideTabNamePrefix=null)
         {
             bool isNewFle=!File.Exists(path);
             var name = isNewFle ? path :  new FileInfo(path).Name ;
@@ -148,8 +151,8 @@ namespace ViewModel
             fileTypesLoader.CurrentText.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
             fileTypesLoader.CurrentText.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             progressBar.ValueChanged += ProgressBar_ValueChanged;
-
-            var tab=WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentTextArea);
+            name=$"{overrideTabNamePrefix}{name}";
+                    var tab=WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentTextArea);
             ChangeTab(tab);
 
             return fileTypesLoader.CurrentText;
