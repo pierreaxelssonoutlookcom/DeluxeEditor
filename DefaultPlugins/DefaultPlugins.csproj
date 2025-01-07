@@ -35,6 +35,7 @@
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
+	  <Compile Include="ViewModel\LoadFile.cs" />
 	  <Compile Include="ViewModel\MainEditViewModelEvents.cs" />
 	  <Compile Include="ViewModel\EventData.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />

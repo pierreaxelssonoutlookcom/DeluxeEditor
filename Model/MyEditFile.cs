@@ -15,7 +15,7 @@ namespace Model
         public string Header { get; set; } = string.Empty;
         public bool  IsNewFile { get; set; }
         public TextEditor Text { get; set; } = new TextEditor();
-        public TextArea? Area{ get; set; } = new TextEditor().TextArea;
+        public TextArea Area{ get; set; } = new TextEditor().TextArea;
         public TabControl? Tab { get; set; }
  
 

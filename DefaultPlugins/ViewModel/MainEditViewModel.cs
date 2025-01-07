@@ -28,7 +28,7 @@ namespace ViewModel
         private TabControl tabFiles;
         private TextBlock progressText, statusText;
         private NewFileViewModel newFileViewModel;
-        private FileOpenPlugin openPlugin;
+        private LoadFile loadFile;
         private INamedActionPlugin saveAsPlugin;
         private INamedActionPlugin savePlugin;
         private HexPlugin hexPlugin;
@@ -46,7 +46,8 @@ namespace ViewModel
             this.progressText = progressText;
             this.statusText = statusText;
             newFileViewModel = new NewFileViewModel(tab);
-            openPlugin = AllPlugins.InvokePlugin<FileOpenPlugin>(PluginType.FileOpen);
+
+            this.loadFile = new LoadFile(this, bar, tab);
             saveAsPlugin = AllPlugins.InvokePlugin<FileSaveAsPlugin>(PluginType.FileSaveAs);
             savePlugin = AllPlugins.InvokePlugin<FileSavePlugin>(PluginType.FileSave);
             hexPlugin  = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
@@ -72,6 +73,10 @@ namespace ViewModel
 
 
 
+        }public void SetStatusText(string statusText)
+        {
+            this.statusText.Text = statusText;
+            
         }
         public FileTypeItem? ExecuteViewAs(string menuTitle)
         {
@@ -88,7 +93,7 @@ namespace ViewModel
             var myMenuItem = MenuBuilder.MainMenu.SelectMany(p => p.MenuItems)
                 .Single(p => p != null && p.Title!=null && p.Title ==header);
             //CheckForViewAs(myMenuItem.Title)
-            var actions = new SetupMenuActions(this);
+            var actions = new SetupMenuActions(this, tabFiles, progressBar);
             actions.SetMenuAction(myMenuItem);
             if (myMenuItem.MenuActon != null)
                 await myMenuItem.MenuActon.Invoke();
@@ -157,36 +162,6 @@ namespace ViewModel
             return text;
 
         }
-        public async Task<MyEditFile?> LoadFile()
-        {
-
-            var action = openPlugin.GuiAction(openPlugin);
-            //if user cancelled path is empty 
-            if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
-
-            statusText.Text = $" File: {action.Path}";
-            var parameter = new ActionParameter(action.Path, action.Encoding);
-  
-             var progress =          new Progress<long>(value => progressBar.Value = value);
-
-            var result = new MyEditFile();
-            result.Path = action.Path;
-            result.Content = await openPlugin.Perform(parameter, progress);
-
-            var text = AddMyControls(action.Path);
-            result.Area = fileTypesLoader.CurrentArea;
-            text.Text=result.Content;
-            
-            
-            //            viewData.PublishEditFile(result);
-
-          // 1111111111 WPFUtil.RefreshUI(tabFiles);
-
-            // Application.DoEvents();
-            MyEditFiles.Add(result);
-            
-            return result;
-        }
 
 
         public void ChangeTab(TabItem item)
@@ -219,7 +194,7 @@ namespace ViewModel
             var progress = new Progress<long>(value => progressBar.Value = value);
 
 
-            var action = openPlugin.GuiAction(openPlugin);
+            var action = saveAsPlugin.GuiAction(saveAsPlugin);
             //if user cancelled pat
             //h is empty 
             if (action == null || !action.Path.HasContent()) throw new NullReferenceException();

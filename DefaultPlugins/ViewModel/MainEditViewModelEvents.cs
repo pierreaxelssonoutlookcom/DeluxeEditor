@@ -14,14 +14,14 @@ namespace ViewModel
         private async void OnEvent(object? sender, CustomEventArgs e)
         {
             if (e.Type == EventType.EditFile)
-                await LoadFile();
+                await loadFile.Load();
             else if (e.Type == EventType.NewFile)
                 await NewFile();
 
 
         }
 
-        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        public void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             //   if (!lastFileLength.HasValue) return;
 
@@ -35,7 +35,7 @@ namespace ViewModel
             if (casted != null) ChangeTab(casted);
         }
 
-        private void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        public  void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var keyeddata = KeyDown();
             if (keyeddata == null) e.Handled = false;
@@ -58,11 +58,11 @@ namespace ViewModel
                     .Cast<System.Windows.Input.Key>()
                     .Count(p => System.Windows.Input.Keyboard.IsKeyDown(p));
 
-                keysOkProceed = matchCount == plugin.Configuration.KeyCommand.Keys.Count && openPlugin.Configuration.KeyCommand.Keys.Count > 0;
+                keysOkProceed = matchCount == plugin.Configuration.KeyCommand.Keys.Count;
                 if (keysOkProceed)
                 {
                     if (plugin is FileOpenPlugin)
-                        result = await LoadFile();
+                        result = await loadFile.Load();
                     else if (plugin is FileSavePlugin)
                         await SaveFile();
                     else if (plugin is FileSaveAsPlugin)
