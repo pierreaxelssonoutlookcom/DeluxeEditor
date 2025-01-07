@@ -64,9 +64,9 @@ namespace ViewModel
                     if (plugin is FileOpenPlugin)
                         result = await loadFile.Load();
                     else if (plugin is FileSavePlugin)
-                        await SaveFile();
+                        await saveFile.Save();
                     else if (plugin is FileSaveAsPlugin)
-                       await SaveAsFile();
+                       await saveFile.SaveAs();
                     else if (plugin is FileNewPlugin)
                         await NewFile();
                     else if (plugin is HexPlugin)

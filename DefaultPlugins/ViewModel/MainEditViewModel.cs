@@ -19,6 +19,7 @@ using System.Windows.Threading;
 using ICSharpCode.AvalonEdit.Document;
 using System.Xml.Linq;
 using System.Windows.Shapes;
+using DefaultPlugins.ViewModel.MainActions;
 
 namespace ViewModel
 {
@@ -29,8 +30,7 @@ namespace ViewModel
         private TextBlock progressText, statusText;
         private NewFileViewModel newFileViewModel;
         private LoadFile loadFile;
-        private INamedActionPlugin saveAsPlugin;
-        private INamedActionPlugin savePlugin;
+        private SaveFile saveFile;
         private HexPlugin hexPlugin;
         private EventData viewData;
       
@@ -48,9 +48,9 @@ namespace ViewModel
             newFileViewModel = new NewFileViewModel(tab);
 
             this.loadFile = new LoadFile(this, bar, tab);
-            saveAsPlugin = AllPlugins.InvokePlugin<FileSaveAsPlugin>(PluginType.FileSaveAs);
-            savePlugin = AllPlugins.InvokePlugin<FileSavePlugin>(PluginType.FileSave);
-            hexPlugin  = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
+            this.saveFile = new SaveFile(this, this.progressBar);
+
+            hexPlugin = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
             viewData = new EventData();
 
             viewData.Subscibe(OnEvent);
@@ -172,36 +172,6 @@ namespace ViewModel
 
             MyEditFiles.Current = MyEditFiles.Files.First(p => p.Header == header );
 
-        }
-        public async Task<MyEditFile?> SaveFile()
-        {
-            if (MyEditFiles.Current == null || MyEditFiles.Current.Text == null) throw new NullReferenceException();
-
-                    var progress = new Progress<long>(value => progressBar.Value = value);
-            bool fileExist = File.Exists(MyEditFiles.Current.Path);
-            if (fileExist)
-                await savePlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), progress);
-            else
-                   await SaveAsFile();
-
-            return null;
-
-        }
-        public async Task<MyEditFile?> SaveAsFile()
-        {
-
-            if (MyEditFiles.Current == null || MyEditFiles.Current.Text==null) throw new NullReferenceException();
-            var progress = new Progress<long>(value => progressBar.Value = value);
-
-
-            var action = saveAsPlugin.GuiAction(saveAsPlugin);
-            //if user cancelled pat
-            //h is empty 
-            if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
-
-            await saveAsPlugin.Perform(new ActionParameter(MyEditFiles.Current.Path, MyEditFiles.Current.Text.Text), progress);
-            return null;
-   
         }
     }
 }

@@ -9,10 +9,12 @@ using System.Formats.Tar;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-namespace DefaultPlugins.ViewModel
+using DefaultPlugins;
+
+namespace ViewModel
 {
 
-    public  class LoadFile
+    public class LoadFile
     {
         private FileOpenPlugin openPlugin;
         private FileTypeLoader fileTypeLoader;
@@ -22,8 +24,8 @@ namespace DefaultPlugins.ViewModel
 
         public LoadFile(MainEditViewModel model, ProgressBar progressBar, TabControl tab)
         {
-            this.tabFiles=tab;
-            this.model=model;
+            tabFiles = tab;
+            this.model = model;
             this.progressBar = progressBar;
 
             fileTypeLoader = new FileTypeLoader();
@@ -36,7 +38,7 @@ namespace DefaultPlugins.ViewModel
             //if user cancelled path is empty 
             if (action == null || !action.Path.HasContent()) throw new NullReferenceException();
 
-            model.SetStatusText($" File: {action.Path}");        
+            model.SetStatusText($" File: {action.Path}");
             var parameter = new ActionParameter(action.Path, action.Encoding);
 
             var progress = new Progress<long>(value => progressBar.Value = value);
@@ -44,7 +46,7 @@ namespace DefaultPlugins.ViewModel
             var result = new MyEditFile();
             result.Path = action.Path;
             result.Content = await openPlugin.Perform(parameter, progress);
-            
+
             var text = AddMyControls(action.Path);
             result.Area = fileTypeLoader.CurrentArea;
             text.Text = result.Content;
@@ -73,8 +75,8 @@ namespace DefaultPlugins.ViewModel
             text.Name = name.Replace(".", "");
             text.Visibility = Visibility.Visible;
             text.KeyDown += model.Text_KeyDown;
-            text.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-            text.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+            text.HorizontalAlignment = HorizontalAlignment.Stretch;
+            text.VerticalAlignment = VerticalAlignment.Stretch;
 
             name = $"{overrideTabNamePrefix}{name}";
             var tab = WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypeLoader.CurrentArea);
