@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.Editing;
 using System;
 using System.Text;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ namespace Model
         public string Header { get; set; } = string.Empty;
         public bool  IsNewFile { get; set; }
         public TextEditor Text { get; set; } = new TextEditor();
+        public TextArea? Area{ get; set; } = new TextEditor().TextArea;
         public TabControl? Tab { get; set; }
  
 

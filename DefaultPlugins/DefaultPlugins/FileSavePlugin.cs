@@ -115,7 +115,7 @@ namespace DefaultPlugins
                     InputStream.Close();
                     InputStream = null;
                 }
-            }
+            } 
 
         }
 

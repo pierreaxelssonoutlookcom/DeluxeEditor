@@ -16,7 +16,7 @@ namespace ViewModel
         public static List<FileTypeItem> AllFileTypes { get; set; }= LoadFileTypes();
         public static string CurrentPath { get; set; }=String.Empty;
         public TextEditor CurrentText { get; set; } = new TextEditor();
-        public TextArea CurrentTextArea { get; set; } = new TextEditor().TextArea;
+        public TextArea CurrentArea { get; set; } = new TextEditor().TextArea;  
 
         public FileTypeLoader()
         {
@@ -43,9 +43,9 @@ namespace ViewModel
 
 
             CurrentText = new TextEditor();
-            CurrentTextArea = CurrentText.TextArea;
-            CurrentTextArea.MinHeight = 500;
-            CurrentTextArea.MinWidth = 1000;
+            CurrentArea = CurrentText.TextArea;
+            CurrentArea.MinHeight = 500;
+            CurrentArea.MinWidth = 1000;
 
             //CurrentDocument= CurrentText.Document;
             CurrentText.IsReadOnly = false;
