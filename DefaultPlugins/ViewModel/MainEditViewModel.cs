@@ -92,33 +92,6 @@ namespace ViewModel
 
         }
 
-        public TextEditor AddMyControls(string path, string? overrideTabNamePrefix = null)
-        {
-            bool isNewFle = File.Exists(path) == false;
-            var name = isNewFle ? path : new FileInfo(path).Name;
-            TextEditor text;
-            if (isNewFle)
-                text=new TextEditor();
-            else 
-             {
-                    fileTypesLoader.LoadCurrent(path);
-                   text= fileTypesLoader.CurrentText;
-                fileTypesLoader.CurrentText.IsReadOnly = false;
-                fileTypesLoader.CurrentText.Name = name.Replace(".", "");
-                fileTypesLoader.CurrentText.Visibility = Visibility.Visible;
-                fileTypesLoader.CurrentText.KeyDown += Text_KeyDown;
-                fileTypesLoader.CurrentText.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-                fileTypesLoader.CurrentText.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-                progressBar.ValueChanged += ProgressBar_ValueChanged;
-            }
-            name = $"{overrideTabNamePrefix}{name}";
-            var tab = WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypesLoader.CurrentArea);
-            
-            ChangeTab(tab);
-            return text;
-
-        }
-
 
         public void ChangeTab(TabItem item)
         {
