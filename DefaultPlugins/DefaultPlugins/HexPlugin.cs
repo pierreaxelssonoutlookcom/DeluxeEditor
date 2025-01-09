@@ -10,6 +10,7 @@ using Shared;
 using System.Windows;
 using System.Linq;
 using CustomFileApiFile;
+using System.Windows.Input;
 
 namespace DefaultPlugins
 {
@@ -74,7 +75,7 @@ namespace DefaultPlugins
         {
             Configuration.ShowInMenu = "File";
             Configuration.ShowInMenuItem = "Hex View"; ;
-            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.O };
+            Configuration.KeyCommand.Keys = new List<Key> { Key.LeftCtrl, Key.H };
             Version = Version.Parse(VersionString);
         }
         public HexPlugin()

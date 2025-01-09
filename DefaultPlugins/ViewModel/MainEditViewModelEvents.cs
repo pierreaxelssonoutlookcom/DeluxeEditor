@@ -59,11 +59,11 @@ namespace ViewModel
             bool keysOkProceed = false;
             foreach (var plugin in relevantPlugins)
             {
-                var matchCount = plugin.Configuration.KeyCommand.Keys
-                    .Cast<System.Windows.Input.Key>()
-                    .Count(p => System.Windows.Input.Keyboard.IsKeyDown(p));
-
-                keysOkProceed = matchCount == plugin.Configuration.KeyCommand.Keys.Count;
+                var keys = plugin.Configuration.KeyCommand.Keys;
+                var matchCount = 
+                keys.Count(p => System.Windows.Input.Keyboard.IsKeyDown(p));
+                
+                keysOkProceed = (matchCount == keys.Count) && keys.Count>0;
                 if (keysOkProceed)
                 {
                     if (plugin is FileOpenPlugin)

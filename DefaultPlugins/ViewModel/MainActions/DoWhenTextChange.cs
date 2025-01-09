@@ -29,5 +29,10 @@ namespace ViewModel
                 }
             }
         }
-    }
+        public void ResetChange()
+        {
+            throw new NotImplementedException();
+        }
+        }
+
 }

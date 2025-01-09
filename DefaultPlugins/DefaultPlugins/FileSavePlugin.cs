@@ -9,6 +9,7 @@ using System.IO.MemoryMappedFiles;
 using System.Collections.Generic;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DefaultPlugins
 {

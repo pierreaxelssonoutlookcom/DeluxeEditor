@@ -11,6 +11,7 @@ using System.Linq;
 using Extensions;
 using CustomFileApiFile;
 using System.Windows;
+using System.Windows.Input;
 
 namespace DefaultPlugins
 {

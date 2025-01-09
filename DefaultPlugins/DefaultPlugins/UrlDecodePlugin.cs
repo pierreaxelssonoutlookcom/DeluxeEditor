@@ -10,28 +10,12 @@ namespace DefaultPlugins
     public class UrlDecodePlugin : INamedActionPlugin
     {
         public const string VersionString = "0.2";
-
-        public bool ParameterIsSelectedText { get; set; } = true;
-
-        public object CreateControl(bool showToo)
-        {
-            return String.Empty;
-        }
-
+              public bool ParameterIsSelectedText { get; set; } = true;
         public Version Version { get; set; } = new Version(VersionString);
-
         public ActionParameter Parameter { get; set; } = new ActionParameter();
-
-
-
-        public EncodingPath? GuiAction(INamedActionPlugin instance)
-        {
-            return null;
-        }
         public bool Enabled { get; set; }
         public Type Id { get; set; } =typeof(UrlDecodePlugin);
         public ConfigurationOptions Configuration { get; set; } = new ConfigurationOptions();
-
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
         public UrlDecodePlugin()
@@ -42,7 +26,6 @@ namespace DefaultPlugins
         }
         public void SetConfig()
         {
-            Version = new Version(VersionString);
             Configuration.ShowInMenu = "Plugins";
             Configuration.ShowInMenuItem = "UrlDecode";
 
@@ -70,6 +53,14 @@ namespace DefaultPlugins
 
         }
 
+        public object CreateControl(bool showToo)
+        {
+            return String.Empty;
+        }
+        public EncodingPath? GuiAction(INamedActionPlugin instance)
+        {
+            return null;
+        }
 
 
     }

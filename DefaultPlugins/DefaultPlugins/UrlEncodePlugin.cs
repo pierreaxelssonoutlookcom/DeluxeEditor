@@ -11,26 +11,12 @@ namespace DefaultPlugins
     public class UrlEncodePlugin :  INamedActionPlugin
     {
         public const string VersionString = "0.2";
-
         public bool ParameterIsSelectedText { get; set; } = true;
-
-
         public Version Version { get; set; }= new Version(VersionString);
-
-
-
         public ActionParameter Parameter { get; set; } = new ActionParameter();
-
-        public EncodingPath? GuiAction(INamedActionPlugin instance) { return null; }
-
         public bool Enabled { get; set; }
-
         public char[] MyKeyCommand { get; set; } = new char[0];
-
- 
         public Type Id { get; set; } = typeof(UrlEncodePlugin);
-
-
         public ConfigurationOptions Configuration { get; set; }= new ConfigurationOptions();
         public string Path { get; set; } = "";
         public string ClassName { get; set; } = "";
@@ -45,7 +31,7 @@ namespace DefaultPlugins
         {
             Configuration.ShowInMenu = "Plugins";
             Configuration.ShowInMenuItem = "UrlEncode";
-            Version = new Version(VersionString);
+            
 
         }
 
@@ -53,6 +39,8 @@ namespace DefaultPlugins
         {
             return "";
         }
+
+
 
 
 
@@ -83,6 +71,11 @@ namespace DefaultPlugins
 
             var result = HttpUtility.UrlEncode(parameter.Parameter, Encoding.UTF8);
             return result;
+        }
+
+        public EncodingPath? GuiAction(INamedActionPlugin instance)
+        {
+            return null;
         }
 
     }

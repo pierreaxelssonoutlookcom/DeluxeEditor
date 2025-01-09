@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CustomFileApiFile;
 using Windows.Storage.Streams;
+using System.Windows.Input;
 
 namespace DefaultPlugins
 {
