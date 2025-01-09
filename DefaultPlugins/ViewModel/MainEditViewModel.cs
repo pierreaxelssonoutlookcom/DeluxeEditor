@@ -20,6 +20,7 @@ namespace ViewModel
         private TabControl tabFiles;
         private TextBlock progressText, statusText;
         private NewFile newFile;
+        private DoWhenTextChange textChange;
         private LoadFile loadFile;
         private SaveFile saveFile;
         private HexView hex;
@@ -36,7 +37,7 @@ namespace ViewModel
             this.progressText = progressText;
             this.statusText = statusText;
             newFile = new NewFile(this, tab);
-
+            textChange=new DoWhenTextChange();
             this.loadFile = new LoadFile(this, bar, tab);
             this.saveFile = new SaveFile(this, this.progressBar);
             this.hex = new HexView(this, this.progressBar, this.tabFiles);

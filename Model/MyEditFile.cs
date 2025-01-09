@@ -16,8 +16,8 @@ namespace Model
         public bool  IsNewFile { get; set; }
         public TextEditor Text { get; set; } = new TextEditor();
         public TextArea Area{ get; set; } = new TextEditor().TextArea;
-        public TabControl? Tab { get; set; }
- 
+        public TabItem  Tab { get; set; } = new TabItem();
+        public bool TextHasChanged { get; set; } = false;
 
         public bool Equals(MyEditFile? other)
         {

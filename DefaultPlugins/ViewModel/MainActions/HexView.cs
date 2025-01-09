@@ -10,24 +10,19 @@ using System.Windows.Controls;
 
 namespace ViewModel
 {
-    internal class HexView
+    public class HexView: LoadFile
     {
-        private MainEditViewModel model;
-         private ProgressBar progressBar;
-        private FileTypeLoader fileTypeLoader;
         private HexPlugin hex;
-        private TabControl tabFiles;
-        public HexView(MainEditViewModel model, ProgressBar progressBar, TabControl tab)
+        public HexView(MainEditViewModel model, ProgressBar progressBar, TabControl tab): base(model, progressBar, tab)
         {
-            this.model = model;
-            this.tabFiles = tab;
-            this.progressBar = progressBar;
-            fileTypeLoader = new FileTypeLoader();
             hex = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
 
-
         }
-        public async Task<MyEditFile?> Load()
+        
+
+
+
+        public override async Task<MyEditFile?> Load()
         {
             var result = new MyEditFile();
             if (MyEditFiles.Current == null || MyEditFiles.Current.Text == null) throw new NullReferenceException();
@@ -41,42 +36,16 @@ namespace ViewModel
             result.Path = MyEditFiles.Current.Path;
             result.Content = hexOutput;
     
-            var text = AddMyControls(result.Path, "hex:");
-            result.Text = text;
+            var items  = AddMyControlsForExisting(result.Path, "hex:");
+            result.Text = items.Item1;
             result.Area = fileTypeLoader.CurrentArea;
 
-            text.Text = hexOutput;
+            items.Item1.Text = hexOutput;
+            result.Tab = items.Item2;
             MyEditFiles.Add(result);
 
 
             return result;
-        }
-        public TextEditor AddMyControls(string path, string? overrideTabNamePrefix = null)
-        {
-            bool isNewFle = File.Exists(path) == false;
-            var name = isNewFle ? path : new FileInfo(path).Name;
-            TextEditor text;
-            if (isNewFle)
-                text = new TextEditor();
-            else
-            {
-                fileTypeLoader.LoadCurrent(path);
-                text = fileTypeLoader.CurrentText;
-                progressBar.ValueChanged += model.ProgressBar_ValueChanged;
-            }
-            text.IsReadOnly = false;
-            text.Name = name.Replace(".", "");
-            text.Visibility = Visibility.Visible;
-            text.KeyDown += model.Text_KeyDown;
-            text.HorizontalAlignment = HorizontalAlignment.Stretch;
-            text.VerticalAlignment = VerticalAlignment.Stretch;
-
-            name = $"{overrideTabNamePrefix}{name}";
-            var tab = WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypeLoader.CurrentArea);
-
-            model.ChangeTab(tab);
-            return text;
-
         }
     }
 }

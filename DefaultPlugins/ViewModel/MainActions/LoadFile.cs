@@ -10,17 +10,19 @@ using System.Windows;
 using System.Windows.Controls;
 using DefaultPlugins;
 using ICSharpCode.AvalonEdit.Editing;
+using static System.Net.Mime.MediaTypeNames;
+using System.Linq;
 
 namespace ViewModel
 {
 
     public class LoadFile
     {
-        private FileOpenPlugin openPlugin;
-        private FileTypeLoader fileTypeLoader;
-        private TabControl tabFiles;
-        private MainEditViewModel model;
-        private ProgressBar progressBar;
+        public FileOpenPlugin openPlugin;
+        public FileTypeLoader fileTypeLoader;
+        public TabControl tabFiles;
+        public MainEditViewModel model;
+        public ProgressBar progressBar;
         public TextEditor? CurrentText { get; set; }
         public TextArea? CurrentArea { get; set; }
 
@@ -33,7 +35,7 @@ namespace ViewModel
             fileTypeLoader = new FileTypeLoader();
             openPlugin = AllPlugins.InvokePlugin<FileOpenPlugin>(PluginType.FileOpen);
         }
-        public async Task<MyEditFile?> Load()
+        public virtual async Task<MyEditFile?> Load()
         {
 
             var action = openPlugin.GuiAction(openPlugin);
@@ -42,51 +44,43 @@ namespace ViewModel
 
             model.SetStatusText($" File: {action.Path}");
             var parameter = new ActionParameter(action.Path, action.Encoding);
-            
+
             var progress = new Progress<long>(value => progressBar.Value = value);
 
             var result = new MyEditFile();
             result.Path = action.Path;
             result.Content = await openPlugin.Perform(parameter, progress);
 
-            var text = AddMyControls(action.Path);
+            var items = AddMyControlsForExisting(action.Path);
             result.Area = fileTypeLoader.CurrentArea;
-            result.Text = text;
-            text.Text = result.Content;
-            CurrentText = text;
+
+            result.Text = items.Item1;
+            items.Item1.Text = result.Content;
+            CurrentText = items.Item1;
             CurrentArea = fileTypeLoader.CurrentArea;
+            result.Tab = items.Item2;
             // Application.DoEvents();
             MyEditFiles.Add(result);
 
             return result;
         }
-        public TextEditor AddMyControls(string path, string? overrideTabNamePrefix = null)
+        public Tuple<TextEditor, TabItem> AddMyControlsForExisting(string path, string? overrideTabNamePrefix = null)
         {
-            bool isNewFle = File.Exists(path) == false;
-            var name = isNewFle ? path : new FileInfo(path).Name;
-            TextEditor text;
-            if (isNewFle)
-                text = new TextEditor();
-            else
-            {
-                fileTypeLoader.LoadCurrent(path);
-                text = fileTypeLoader.CurrentText;
-                progressBar.ValueChanged += model.ProgressBar_ValueChanged;
-            }
+            var name = new FileInfo(path).Name;
+            fileTypeLoader.LoadCurrent(path);
+            var text = fileTypeLoader.CurrentText;
             text.IsReadOnly = false;
             text.Name = name.Replace(".", "");
             text.Visibility = Visibility.Visible;
             text.KeyDown += model.Text_KeyDown;
+            text.TextChanged += model.Text_TextChanged;
             text.HorizontalAlignment = HorizontalAlignment.Stretch;
             text.VerticalAlignment = VerticalAlignment.Stretch;
-
             name = $"{overrideTabNamePrefix}{name}";
             var tab = WPFUtil.AddOrUpdateTab(name, tabFiles, fileTypeLoader.CurrentArea);
-
             model.ChangeTab(tab);
-            return text;
-
+            var result = new Tuple<TextEditor, TabItem>(text, tab);
+            return result;
         }
-
     }
-}
+} 

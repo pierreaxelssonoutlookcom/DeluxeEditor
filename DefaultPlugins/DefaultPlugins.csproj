@@ -37,6 +37,7 @@
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
 	  <Compile Include="ViewModel\EventData.cs" />
 	  <Compile Include="ViewModel\FileTypeLoader.cs" />
+	  <Compile Include="ViewModel\MainActions\DoWhenTextChange.cs" />
 	  <Compile Include="ViewModel\MainActions\HexView.cs" />
 	  <Compile Include="ViewModel\MainActions\LoadFile.cs" />
 	  <Compile Include="ViewModel\MainEditViewModel.cs" />

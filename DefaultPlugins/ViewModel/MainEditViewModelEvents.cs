@@ -1,4 +1,5 @@
 ﻿using DefaultPlugins;
+using ICSharpCode.AvalonEdit;
 using Model;
 using System;
 using System.Linq;
@@ -28,14 +29,18 @@ namespace ViewModel
             var percent = e.NewValue;
             progressText.Text = $"{percent}%%";
 
-        }
+        }   
         private void TabFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var casted = tabFiles.SelectedItem != null && tabFiles.SelectedItem is TabItem ? tabFiles.SelectedItem as TabItem : null;
             if (casted != null) ChangeTab(casted);
         }
-
-        public  void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        public void Text_TextChanged(object? sender, EventArgs e)
+        {
+            textChange.Load();
+   
+        }
+        public void Text_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var keyeddata = KeyDown();
             if (keyeddata == null) e.Handled = false;
