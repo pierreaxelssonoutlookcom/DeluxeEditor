@@ -24,7 +24,7 @@ namespace ViewModel
         private LoadFile loadFile;
         private SaveFile saveFile;
         private HexView hex;
-        private EventData viewData;
+  //      private EventData viewData;
       
 
         private List<INamedActionPlugin> relevantPlugins;
@@ -41,9 +41,9 @@ namespace ViewModel
             this.loadFile = new LoadFile(this, bar, tab);
             this.saveFile = new SaveFile(this, this.progressBar);
             this.hex = new HexView(this, this.progressBar, this.tabFiles);
-            viewData = new EventData();
+            //viewData = new EventData();
 
-            viewData.Subscibe(OnEvent);
+//            viewData.Subscibe(OnEvent);
             relevantPlugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal())
                 .Where(p => p.Configuration.KeyCommand.Keys.Count > 0).ToList();
 
