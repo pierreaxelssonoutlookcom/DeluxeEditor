@@ -46,6 +46,7 @@ namespace DefaultPlugins
         public string Path { get; set; } = "";
         public Type Id { get; set; } = typeof(FileSaveAsPlugin);
 
+        public static string? OldDirectory { get; set; }
 
         public void SetConfig()
         {
@@ -66,14 +67,12 @@ namespace DefaultPlugins
 
         public EncodingPath? GuiAction(INamedActionPlugin instance)
         {
+            var dialog = new DeluxeFileDialog();
+            var result = dialog.ShowFileSaveDialog(OldDirectory);
+            
+            if (result != null) OldDirectory = System.IO.Path.GetDirectoryName(result.Path);
 
-            string oldDir = @"c:\";
-            if (Parameter!=null)
-                oldDir= new DirectoryInfo(Parameter.Parameter).FullName;
-            var   dialog = new DeluxeFileDialog();
 
-
-            var result = dialog.ShowFileSaveDialog(oldDir);
             return result;
         }
         public async Task<IEnumerable<string>> Perform(IProgress<long> progress)
