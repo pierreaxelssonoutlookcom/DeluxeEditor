@@ -25,8 +25,8 @@ namespace ViewModel
         private LoadFile loadFile;
         private SaveFile saveFile;
         private HexView hex;
-        private ViewAs viewAsS;
-
+        private ViewAs viewÄs;
+        
         //      private EventData viewData;
 
 
@@ -43,9 +43,9 @@ namespace ViewModel
             this.loadFile = new LoadFile(this, bar, tab);
             this.saveFile = new SaveFile(this, this.progressBar);
             this.hex = new HexView(this, this.progressBar, this.tabFiles);
-            this.viewAsS = new ViewAs(viewAs);
-            this.viewAsS.Load();
-
+            this.viewÄs = new ViewAs(viewAs);
+            new MenuBuilder(viewÄs).BuildMenu();
+            
 //            viewData.Subscibe(OnEvent);
             relevantPlugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal())
                 .Where(p => p.Configuration.KeyCommand.Keys.Count > 0).ToList();
@@ -71,7 +71,7 @@ namespace ViewModel
             
             var myMenuItem = MenuBuilder.MainMenu.SelectMany(p => p.MenuItems)
                 .Single(p => p != null && p.Title!=null && p.Title ==header);
-            //CheckForViewAs(myMenuItem.Title)
+           
             var actions = new SetupMenuActions(this, tabFiles, progressBar);
             actions.SetMenuAction(myMenuItem);
             if (myMenuItem.MenuActon != null)
@@ -80,7 +80,6 @@ namespace ViewModel
             {
                 string selectedText = loadFile.CurrentText != null ? loadFile.CurrentText.SelectedText : String.Empty;
 
-                var viewasResult = ExecuteViewAs(myMenuItem);
 
                 if (myMenuItem != null && myMenuItem.Plugin != null && myMenuItem.Plugin.ParameterIsSelectedText && selectedText.HasContent())
                     result = await myMenuItem.Plugin.Perform(new ActionParameter(selectedText), progress);

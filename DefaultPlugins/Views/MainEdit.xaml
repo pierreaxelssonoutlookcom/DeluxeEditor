@@ -36,7 +36,7 @@
 
                 </MenuItem>
                 <MenuItem Header="View">
-                    <MenuItem Name="viewAs" Header="View As" Click="viewAs_Click" />
+                    <MenuItem Name="viewAs" Header="View As"  />
 
                 </MenuItem>
                   

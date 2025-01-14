@@ -21,6 +21,22 @@ namespace ViewModel
 
 
         }
+                    
+                
+       
+
+        
+
+        private async void MenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (e.Source is MenuItem)
+            {
+                var clicked = e.Source is MenuItem ? e.Source as MenuItem : null;
+
+                if (clicked != null) await DoCommand(clicked);
+
+            }
+        }
 
         public void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {

@@ -9,27 +9,36 @@ using System.Windows.Controls;
 using Extensions.Util;
 using System.Reflection.Metadata;
 using System;
+using DefaultPlugins.ViewModel.MainActions;
 
 namespace ViewModel
 {
     public class MenuBuilder
     {
-
-        public static List<CustomMenu> MainMenu = new MenuBuilder().BuildMenu();
-        public List<CustomMenu> BuildMenu()
+        public MenuBuilder(ViewAs viewAsModel )
         {
-            var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
-            var result = GetMenuHeaders(plugins);
+            this.viewAsModel=viewAsModel;
 
-            foreach (var item in result)
+
+        }
+        public static List<CustomMenu> MainMenu=new List<CustomMenu>();
+        private ViewAs viewAsModel;
+
+        public void  BuildMenu()
+        {
+
+            var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
+            var menu= GetMenuHeaders(plugins);
+
+            foreach (var item in menu)
             {
                 item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
- 
+        
             }
+            viewAsModel.Load();
 
 
-
-            return result;
+           MainMenu= menu;
         }
          
 
@@ -42,6 +51,15 @@ namespace ViewModel
    
             return result;
         }
+        public MenuItem LoadViewAs(ViewAs view)
+        {
+            return view.Load();
+        }               
+            
+         
+
+
+
 
         public List<CustomMenuItem> GetMenuItemsForHeader(string header, IEnumerable<INamedActionPlugin> plugins)
         {

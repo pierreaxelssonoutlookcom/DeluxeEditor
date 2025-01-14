@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using DefaultPlugins.ViewModel.MainActions;
+using Model;
 using System.Windows;
 using System.Windows.Controls;
 using ViewModel;
@@ -25,7 +26,8 @@ namespace Views
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             
-            var builder = new MenuBuilder();
+            var builder = new MenuBuilder(new ViewAs(viewAs ));
+            
             builder.ShowMenu(this.MainMenu, MenuBuilder.MainMenu);
 
             foreach (MenuItem item in MainMenu.Items)

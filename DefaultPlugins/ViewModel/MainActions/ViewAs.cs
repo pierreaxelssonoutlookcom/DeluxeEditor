@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using System.Xml.Serialization;
 using ViewModel;
 
 namespace DefaultPlugins.ViewModel.MainActions
@@ -24,20 +25,33 @@ namespace DefaultPlugins.ViewModel.MainActions
             return result;
         }
 
-        public void Load()
+        public MenuItem Load()
         {
             var menuItemTypes = GetMenuItemsForFileTypes();
-            menuItemTypes.ForEach(p => root.Items.Add(p.Title) );
+            menuItemTypes.ForEach(p => root.Items.Add(p.Title));
 
+            return root;
+            /*
+            foreach(var item in  menuItemTypes)
+            {
+                item.Click += FileTypeClick;
+            }
 
-
-
-
-
-
-
-
+            }
+            */
         }
+        private void FileTypeClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
 
         public void SetSelectedPath(string path)
         {
