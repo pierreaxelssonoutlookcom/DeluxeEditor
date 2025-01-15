@@ -25,7 +25,7 @@ namespace ViewModel
         private LoadFile loadFile;
         private SaveFile saveFile;
         private HexView hex;
-        private ViewAs viewÄs;
+        private ViewAs viewAs;
         
         //      private EventData viewData;
 
@@ -43,10 +43,9 @@ namespace ViewModel
             this.loadFile = new LoadFile(this, bar, tab);
             this.saveFile = new SaveFile(this, this.progressBar);
             this.hex = new HexView(this, this.progressBar, this.tabFiles);
-            this.viewÄs = new ViewAs(viewAs);
-            new MenuBuilder(viewÄs).BuildMenu();
+            this.viewAs = new ViewAs(viewAs);
+            new MenuBuilder(this.viewAs).BuildAndLoadMenu();
             
-//            viewData.Subscibe(OnEvent);
             relevantPlugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal())
                 .Where(p => p.Configuration.KeyCommand.Keys.Count > 0).ToList();
 
@@ -56,11 +55,6 @@ namespace ViewModel
         {
             this.statusText.Text = statusText;
             
-        }
-        public FileTypeItem? ExecuteViewAs(CustomMenuItem menuItem)
-        {
-            var type = menuItem.FileType;
-            throw new NotImplementedException();            
         }
      
         public async Task<string> DoCommand(MenuItem item)

@@ -24,21 +24,24 @@ namespace ViewModel
         public static List<CustomMenu> MainMenu=new List<CustomMenu>();
         private ViewAs viewAsModel;
 
-        public void  BuildMenu()
+        public void  BuildAndLoadMenu()
         {
 
-            var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
-            var menu= GetMenuHeaders(plugins);
-
-            foreach (var item in menu)
+            bool menuExist = MainMenu.Count > 0;
+            if (menuExist == false)
             {
-                item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
-        
+                var plugins = AllPlugins.InvokePlugins(PluginManager.GetPluginsLocal());
+                var menu = GetMenuHeaders(plugins);
+
+                foreach (var item in menu)
+                {
+                    item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
+
+                }
+                viewAsModel.Load();
+                MainMenu = menu;
+
             }
-            viewAsModel.Load();
-
-
-           MainMenu= menu;
         }
          
 
@@ -77,6 +80,7 @@ namespace ViewModel
 
         public void ShowMenu(Menu mainMenu, List<CustomMenu> customMenus)
         {
+            BuildAndLoadMenu();
             if (mainMenu == null) throw new ArgumentNullException();
 
             foreach (var item in customMenus)

@@ -25,12 +25,16 @@ namespace DefaultPlugins.ViewModel.MainActions
             return result;
         }
 
-        public MenuItem Load()
+        public CustomMenuItem Load()
         {
             var menuItemTypes = GetMenuItemsForFileTypes();
             menuItemTypes.ForEach(p => root.Items.Add(p.Title));
+            CustomMenuItem? result= null;
+            var output = System.Convert.ChangeType(root, typeof(CustomMenuItem));
+            result=output != null && output is CustomMenuItem  ? output as CustomMenuItem: null;
+            if (result == null) throw new NullReferenceException();
 
-            return root;
+            return result;
             /*
             foreach(var item in  menuItemTypes)
             {
