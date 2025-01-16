@@ -12,6 +12,7 @@ using DefaultPlugins;
 using ICSharpCode.AvalonEdit.Editing;
 using static System.Net.Mime.MediaTypeNames;
 using System.Linq;
+using DefaultPlugins.ViewModel.MainActions;
 
 namespace ViewModel
 {
@@ -23,15 +24,17 @@ namespace ViewModel
         public TabControl tabFiles;
         public MainEditViewModel model;
         public ProgressBar progressBar;
+        private ViewAs viewAsModel;
+
         public TextEditor? CurrentText { get; set; }
         public TextArea? CurrentArea { get; set; }
 
-        public LoadFile(MainEditViewModel model, ProgressBar progressBar, TabControl tab)
+        public LoadFile(MainEditViewModel model, ProgressBar progressBar, TabControl tab, ViewAs viewAsModel)
         {
             tabFiles = tab;
             this.model = model;
             this.progressBar = progressBar;
-
+            this.viewAsModel=viewAsModel;
             fileTypeLoader = new FileTypeLoader();
             openPlugin = AllPlugins.InvokePlugin<FileOpenPlugin>(PluginType.FileOpen);
         }
@@ -59,11 +62,13 @@ namespace ViewModel
             CurrentText = items.Item1;
             CurrentArea = fileTypeLoader.CurrentArea;
             result.Tab = items.Item2;
-            // Application.DoEvents();
+            viewAsModel.SetSelectedPath(result.Path);
             MyEditFiles.Add(result);
 
             return result;
         }
+
+
         public Tuple<TextEditor, TabItem> AddMyControlsForExisting(string path, string? overrideTabNamePrefix = null)
         {
             var name = new FileInfo(path).Name;

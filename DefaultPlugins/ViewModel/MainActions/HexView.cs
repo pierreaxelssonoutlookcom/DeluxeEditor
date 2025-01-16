@@ -1,4 +1,5 @@
 ﻿using DefaultPlugins;
+using DefaultPlugins.ViewModel.MainActions;
 using Extensions.Util;
 using ICSharpCode.AvalonEdit;
 using Model;
@@ -13,12 +14,14 @@ namespace ViewModel
     public class HexView: LoadFile
     {
         private HexPlugin hex;
-        public HexView(MainEditViewModel model, ProgressBar progressBar, TabControl tab): base(model, progressBar, tab)
+        private ViewAs viewAsModel;
+        public HexView(MainEditViewModel model, ProgressBar progressBar, TabControl tab, ViewAs viewAsModel): base(model, progressBar, tab, viewAsModel)
         {
             hex = AllPlugins.InvokePlugin<HexPlugin>(PluginType.Hex);
+            this.viewAsModel = viewAsModel;
 
         }
-        
+
 
 
 
@@ -42,8 +45,10 @@ namespace ViewModel
 
             items.Item1.Text = hexOutput;
             result.Tab = items.Item2;
-            MyEditFiles.Add(result);
 
+            viewAsModel.SetSelectedPath(result.Path);
+            MyEditFiles.Add(result);
+            
 
             return result;
         }

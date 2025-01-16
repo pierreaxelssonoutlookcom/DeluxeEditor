@@ -14,7 +14,7 @@ namespace Model
 
         public string Title { get; set; } = string.Empty;
         public ActionParameter Parameter { get; set; } = new ActionParameter();
-
+        public CheckBox? CheckBox { get; set; }
         public CustomMenuItem(): base()
         {
             

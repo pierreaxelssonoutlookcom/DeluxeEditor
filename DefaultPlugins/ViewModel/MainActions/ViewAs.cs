@@ -12,7 +12,7 @@ namespace DefaultPlugins.ViewModel.MainActions
     public class ViewAs
     {
         private MenuItem root;
-
+        private List<CustomMenuItem> MenuItemsForFileTypes= new List<CustomMenuItem>();
         public ViewAs(MenuItem menu)
         {
             this.root = menu;
@@ -21,14 +21,15 @@ namespace DefaultPlugins.ViewModel.MainActions
         public List<CustomMenuItem> GetMenuItemsForFileTypes()
         {
             var result = FileTypeLoader.AllFileTypes.Select(p =>
-            new CustomMenuItem { Title = p.ToString(), FileType = p.FileType, IsCheckable = true, IsChecked=true }).ToList();
+            new CustomMenuItem { Title = p.ToString(), FileType = p.FileType, IsCheckable = true, IsChecked=false, CheckBox=new CheckBox() }).ToList();
             return result;
         }
 
         public CustomMenuItem Load()
         {
-            var menuItemTypes = GetMenuItemsForFileTypes();
-            menuItemTypes.ForEach(p => root.Items.Add(p.Title));
+            MenuItemsForFileTypes = GetMenuItemsForFileTypes();
+
+            MenuItemsForFileTypes.ForEach(p => root.Items.Add(p.Title));
             CustomMenuItem result= new CustomMenuItem(root);
            return result;
             /*
@@ -40,31 +41,24 @@ namespace DefaultPlugins.ViewModel.MainActions
             }
             */
         }
+
         private void FileTypeClick(object sender, System.Windows.RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-
-
-
-
-
-
-
-
         public void SetSelectedPath(string path)
         {
-            /*
-            FileTypeItem? currentFileItem;
-            if (path.HasContent())
+            var withTypes = MenuItemsForFileTypes.Where(p => p.FileType != null);
+            var currentFileItem = FileTypeLoader.AllFileTypes.FirstOrDefault(p => path.EndsWith(p.FileExtension, StringComparison.OrdinalIgnoreCase));
+            if (currentFileItem!=null)
             {
-                currentFileItem = FileTypeLoader.AllFileTypes.FirstOrDefault(p => path.EndsWith(p.FileExtension, StringComparison.OrdinalIgnoreCase));
 
-                 viewAs.SelectedItem = currentFileItem;
+               var match=withTypes.First(p => p.FileType == currentFileItem.FileType);
+                match.IsChecked = true;
             }
-                
-            (*/
+               
+            
 
 
         }
