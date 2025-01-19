@@ -36,9 +36,10 @@ namespace ViewModel
 
         public MainEditViewModel(TabControl tab, ProgressBar bar, MenuItem viewAs,TextBlock statusText)
         {
-            this.viewAsModel = new ViewAs(viewAs);
-
             this.progressBar = bar;
+
+            this.viewAsModel = new ViewAs(this.progressBar);
+
             tabFiles = tab;
             tabFiles.SelectionChanged += TabFiles_SelectionChanged;
             this.statusText = statusText;
@@ -69,7 +70,7 @@ namespace ViewModel
             var header=item!=null && item.Header!=null ? item.Header.ToString() : String.Empty;
             
             var myMenuItem = MenuBuilder.MainMenu.SelectMany(p => p.MenuItems)
-                .Single(p => p != null && p.Title!=null && p.Title ==header);
+                 .Single(p => p != null && p.Title!=null && p.Title ==header);
            
             var actions = new SetupMenuActions(this, tabFiles, progressBar, viewAsModel);
             actions.SetMenuAction(myMenuItem);

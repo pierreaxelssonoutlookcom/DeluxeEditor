@@ -35,6 +35,9 @@ namespace DefaultPlugins
                 case PluginType.Hex:
                     myType = typeof(HexPlugin);
                     break;
+                case PluginType.ViewAs:
+                    myType = typeof(ViewAsPlugin);
+                    break;
 
             }
             if (myType == null) throw new NullReferenceException();
@@ -135,6 +138,10 @@ namespace DefaultPlugins
                 case PluginType.Hex:
                     myType = typeof(HexPlugin);
                     break;
+                case PluginType.ViewAs:
+                    myType = typeof(ViewAsPlugin);
+                    break;
+
 
             }
             if (myType == null) throw new NullReferenceException();

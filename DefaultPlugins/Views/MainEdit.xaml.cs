@@ -3,7 +3,6 @@ using Model;
 using System.Windows;
 using System.Windows.Controls;
 using ViewModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Views
 {
@@ -17,16 +16,16 @@ namespace Views
         public MainEdit()
         {
             InitializeComponent();
-            editViewModel = new MainEditViewModel(TabFiles, Progress, viewAs , StatusText);
-                
+            editViewModel = new MainEditViewModel(TabFiles, Progress, viewAs, StatusText);
+        }       
 
-        }
+                                                                
 
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             
-            var builder = new MenuBuilder(new ViewAs(viewAs ));
+            var builder = new MenuBuilder(new ViewAs(Progress ));
             
             builder.ShowMenu(this.MainMenu, MenuBuilder.MainMenu);
 

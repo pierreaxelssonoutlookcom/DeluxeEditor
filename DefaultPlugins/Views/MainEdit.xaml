@@ -7,6 +7,8 @@
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded"
               mc:Ignorable="d" >
     <DockPanel>
+        
+
         <ProgressBar x:Name="Progress"  Height="10"  DockPanel.Dock="Bottom"  />
 
         <StatusBar VerticalAlignment="Bottom"  DockPanel.Dock="Bottom">
@@ -30,13 +32,18 @@
 
         <ListBox VerticalAlignment="Top" HorizontalAlignment="Left">
             <Menu Name="MainMenu">
-
+             
+                <MenuItem Header="File">
+                    
+               </MenuItem>
                 <MenuItem Header="Plugins">
                     <MenuItem Name="ShowPlugins" Header="Show Plugins" Click="ShowPlugins_Click"    />
 
                 </MenuItem>
+                
                 <MenuItem Header="View">
-                    <MenuItem Name="viewAs" Header="View As"  />
+                    <MenuItem Name="viewAs" Header="View As">
+                    </MenuItem>
 
                 </MenuItem>
                   

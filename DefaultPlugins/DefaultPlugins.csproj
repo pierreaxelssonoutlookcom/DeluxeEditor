@@ -31,12 +31,12 @@
 	  <Compile Include="DefaultPlugins\FileSaveAsPlugin.cs" />
 	  <Compile Include="DefaultPlugins\FileSavePlugin.cs" />
 	  <Compile Include="AllPlugins.cs" />
+	  <Compile Include="DefaultPlugins\ViewAsPlugin.cs" />
 	  <Compile Include="MainWindow.xaml.cs" />
 	  <Compile Include="DefaultPlugins\FileOpenPlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlDecodePlugin.cs" />
 	  <Compile Include="DefaultPlugins\UrlEncodePlugin.cs" />
-	  <Compile Include="ViewModel\EventData.cs" />
-	  <Compile Include="ViewModel\FileTypeLoader.cs" />
+	  <Compile Include="DefaultPlugins\PluginHelpers\FileTypeLoader.cs" />
 	  <Compile Include="ViewModel\MainActions\DoWhenTextChange.cs" />
 	  <Compile Include="ViewModel\MainActions\HexView.cs" />
 	  <Compile Include="ViewModel\MainActions\LoadFile.cs" />

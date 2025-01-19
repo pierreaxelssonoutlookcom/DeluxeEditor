@@ -4,7 +4,7 @@ using Extensions;
 using System.Threading.Tasks;
 using Extensions.Util;
 using ICSharpCode.AvalonEdit;
- using System.Formats.Tar;
+using System.Formats.Tar;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +13,7 @@ using ICSharpCode.AvalonEdit.Editing;
 using static System.Net.Mime.MediaTypeNames;
 using System.Linq;
 using DefaultPlugins.ViewModel.MainActions;
+using DefaultPlugins.DefaultPlugins.PluginHelpers;
 
 namespace ViewModel
 {

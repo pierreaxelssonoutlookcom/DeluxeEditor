@@ -36,9 +36,10 @@ namespace ViewModel
                 foreach (var item in menu)
                 {
                     item.MenuItems.AddRange(GetMenuItemsForHeader(item.Header, plugins));
-
+                    if (item.Header == "View") item.MenuItems.AddRange(LoadViewAs());
                 }
-                viewAsModel.Load();
+
+                
                 MainMenu = menu;
 
             }
@@ -54,12 +55,11 @@ namespace ViewModel
    
             return result;
         }
-        public MenuItem LoadViewAs(ViewAs view)
+        public List<CustomMenuItem> LoadViewAs()
         {
-            return view.Load();
-        }               
-            
-         
+            return viewAsModel.GetSubMenuItemsForFileTypes(); ;
+        }
+
 
 
 
